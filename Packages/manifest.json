@@ -1,0 +1,69 @@
+{
+  "dependencies": {
+    "com.arkhaminteractive.bezier-curve-editor": "https://github.com/UnityOpenSource/BezierCurveEditor.git#0.1.0",
+    "com.autocore.sim-autoware-io": "https://github.com/autocore-ai/sim-autoware-io.git#0.1.0",
+    "com.autocore.sim-scene": "https://github.com/autocore-ai/sim-scene.git#0.1.0",
+    "com.autocore.sim-sensor": "https://github.com/autocore-ai/sim-sensor.git#0.1.0",
+    "com.autocore.sim-vehicle-control": "https://github.com/autocore-ai/sim-vehicle-control.git#0.1.0",
+    "com.autocore.sim-vehicle-model": "https://github.com/autocore-ai/sim-vehicle-model.git#0.1.0",
+    "com.unity.editorcoroutines": "1.0.0",
+    "com.unity.ugui": "1.0.0",
+    "com.unity.modules.ai": "1.0.0",
+    "com.unity.modules.androidjni": "1.0.0",
+    "com.unity.modules.animation": "1.0.0",
+    "com.unity.modules.assetbundle": "1.0.0",
+    "com.unity.modules.audio": "1.0.0",
+    "com.unity.modules.cloth": "1.0.0",
+    "com.unity.modules.director": "1.0.0",
+    "com.unity.modules.imageconversion": "1.0.0",
+    "com.unity.modules.imgui": "1.0.0",
+    "com.unity.modules.jsonserialize": "1.0.0",
+    "com.unity.modules.particlesystem": "1.0.0",
+    "com.unity.modules.physics": "1.0.0",
+    "com.unity.modules.physics2d": "1.0.0",
+    "com.unity.modules.screencapture": "1.0.0",
+    "com.unity.modules.terrain": "1.0.0",
+    "com.unity.modules.terrainphysics": "1.0.0",
+    "com.unity.modules.tilemap": "1.0.0",
+    "com.unity.modules.ui": "1.0.0",
+    "com.unity.modules.uielements": "1.0.0",
+    "com.unity.modules.umbra": "1.0.0",
+    "com.unity.modules.unityanalytics": "1.0.0",
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.modules.unitywebrequestassetbundle": "1.0.0",
+    "com.unity.modules.unitywebrequestaudio": "1.0.0",
+    "com.unity.modules.unitywebrequesttexture": "1.0.0",
+    "com.unity.modules.unitywebrequestwww": "1.0.0",
+    "com.unity.modules.vehicles": "1.0.0",
+    "com.unity.modules.video": "1.0.0",
+    "com.unity.modules.vr": "1.0.0",
+    "com.unity.modules.wind": "1.0.0",
+    "com.unity.modules.xr": "1.0.0"
+  },
+  "lock": {
+    "com.arkhaminteractive.bezier-curve-editor": {
+      "revision": "0.1.0",
+      "hash": "e0590e36095c36ef64bcad9a3e086932ba6cbf77"
+    },
+    "com.autocore.sim-autoware-io": {
+      "revision": "0.1.0",
+      "hash": "9db279fac1898b0a566d596bb2399fb7c07016f7"
+    },
+    "com.autocore.sim-scene": {
+      "revision": "0.1.0",
+      "hash": "d7e80acb04d22c754fa36cef8ad97dda5aaacb64"
+    },
+    "com.autocore.sim-sensor": {
+      "revision": "0.1.0",
+      "hash": "da9cff85c592a60252d5ffd178e92ee2e0a5afc6"
+    },
+    "com.autocore.sim-vehicle-control": {
+      "revision": "0.1.0",
+      "hash": "365efcbc2af8ab83606d3894ebe9352f1ff89207"
+    },
+    "com.autocore.sim-vehicle-model": {
+      "revision": "0.1.0",
+      "hash": "e5225ab1c3bb92bd81e47654dd8464a2ba55aa90"
+    }
+  }
+}

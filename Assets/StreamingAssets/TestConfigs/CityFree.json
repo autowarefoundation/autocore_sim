@@ -1,0 +1,140 @@
+{
+    "TestModeName": "CityFree",
+    "LastTime": "2020-04-01T16:10:48.4907883+08:00",
+    "MapName": "City",
+    "isRepeat": false,
+    "TestCarStart": {
+        "V3Pos": {
+            "X": -20.0,
+            "Y": -0.008460879,
+            "Z": -4.5
+        },
+        "V3Rot": {
+            "X": 1.69446338E-07,
+            "Y": 90.0,
+            "Z": -8.637046E-07
+        },
+        "V3Sca": {
+            "X": 1.0,
+            "Y": 1.0,
+            "Z": 1.0
+        }
+    },
+    "ObstacleSettings": null,
+    "CarAISettings": null,
+    "HumanSettings": null,
+    "TrafficLightSettings": [
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        },
+        {
+            "Name": "Traffic Light0",
+            "SwitchTime": 30.0,
+            "WaitTime": 3.0,
+            "IsAuto": true,
+            "lightMode": 1
+        }
+    ]
+}
