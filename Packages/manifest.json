@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.arkhaminteractive.bezier-curve-editor": "https://github.com/UnityOpenSource/BezierCurveEditor.git#0.1.0",
+    "com.arkhaminteractive.bezier-curve-editor": "https://github.com/UnityPackages/BezierCurveEditor.git#0.1.0",
     "com.autocore.sim-autoware-io": "https://github.com/autocore-ai/sim-autoware-io.git#0.1.0",
     "com.autocore.sim-scene": "https://github.com/autocore-ai/sim-scene.git#0.1.0",
     "com.autocore.sim-sensor": "https://github.com/autocore-ai/sim-sensor.git#0.1.0",
