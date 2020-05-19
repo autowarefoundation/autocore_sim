@@ -470,7 +470,7 @@ MonoBehaviour:
   logicObject: {fileID: 764107876471850851, guid: 3964d8f59ae8dfc47ae112b4c15cce9c,
     type: 3}
   CanDelete: 1
-  CanDrag: 0
+  CanDrag: 1
   IsDraging: 0
   CanScale: 0
   offsetLogic: {x: 0, y: 1.7, z: 0}

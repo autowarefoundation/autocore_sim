@@ -24,14 +24,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549865538636637395}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.77, y: 0.43, z: -1.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4781131729695160659}
   m_Father: {fileID: 8029528154315358195}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &3685305534688031649
 WheelCollider:
   m_ObjectHideFlags: 0
@@ -42,11 +42,11 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3392724
   m_SuspensionSpring:
-    spring: 27036.494
-    damper: 4325.8394
+    spring: 27484.252
+    damper: 4397.48
     targetPosition: 0.5
   m_SuspensionDistance: 0.1962
-  m_ForceAppPointDistance: 0.668525
+  m_ForceAppPointDistance: 0.669525
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
@@ -210,11 +210,11 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3392724
   m_SuspensionSpring:
-    spring: 27036.494
-    damper: 4325.8394
+    spring: 27484.252
+    damper: 4397.48
     targetPosition: 0.5
   m_SuspensionDistance: 0.1962
-  m_ForceAppPointDistance: 0.668525
+  m_ForceAppPointDistance: 0.669525
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
@@ -402,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6804008151697438706}
   - component: {fileID: 1976047267467303463}
-  m_Layer: 2
+  m_Layer: 9
   m_Name: colider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,7 +417,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7665800448321175305}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.429, z: 0.224}
+  m_LocalPosition: {x: -0, y: 0.43, z: 0.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1519361537353836019}
@@ -757,11 +757,11 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.3392724
   m_SuspensionSpring:
-    spring: 22963.506
-    damper: 3674.161
+    spring: 22515.742
+    damper: 3602.5188
     targetPosition: 0.5
-  m_SuspensionDistance: 0.1962
-  m_ForceAppPointDistance: 0.668525
+  m_SuspensionDistance: 0.19620001
+  m_ForceAppPointDistance: 0.669525
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
@@ -867,14 +867,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9034415716948051677}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.77, y: 0.43, z: 1.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5771674436190128633}
   m_Father: {fileID: 8029528154315358195}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!146 &6440457682353670157
 WheelCollider:
   m_ObjectHideFlags: 0
@@ -885,11 +885,11 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 22963.506
-    damper: 3674.161
+    spring: 22515.744
+    damper: 3602.5193
     targetPosition: 0.5
   m_SuspensionDistance: 0.19620001
-  m_ForceAppPointDistance: 0.65925264
+  m_ForceAppPointDistance: 0.6602527
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
@@ -1135,7 +1135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97f87d11d3a694e49a88aa3aaea4e0b6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97f87d11d3a694e49a88aa3aaea4e0b6, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1143,7 +1143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97f87d11d3a694e49a88aa3aaea4e0b6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97f87d11d3a694e49a88aa3aaea4e0b6, type: 3}
       propertyPath: m_RootOrder
@@ -1155,7 +1155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97f87d11d3a694e49a88aa3aaea4e0b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 97f87d11d3a694e49a88aa3aaea4e0b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

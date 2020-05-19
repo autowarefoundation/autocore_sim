@@ -51,7 +51,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 0
+    m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 12
@@ -588,14 +588,19 @@ PrefabInstance:
     - target: {fileID: 1306742356384244882, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 22963.508
+      value: 22515.746
       objectReference: {fileID: 0}
     - target: {fileID: 1306742356384244882, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 3674.1614
+      value: 3602.5195
       objectReference: {fileID: 0}
-    - target: {fileID: 1306742356384244882, guid: ab716d29522b55f47b29a00cbb33ba1d,
+    - target: {fileID: 3685305534688031649, guid: ab716d29522b55f47b29a00cbb33ba1d,
+        type: 3}
+      propertyPath: m_SuspensionSpring.damper
+      value: 4397.4805
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685305534688031649, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionDistance
       value: 0.19620001
@@ -603,12 +608,12 @@ PrefabInstance:
     - target: {fileID: 6440457682353670157, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 22963.508
+      value: 22515.746
       objectReference: {fileID: 0}
     - target: {fileID: 6440457682353670157, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 3674.1614
+      value: 3602.5195
       objectReference: {fileID: 0}
     - target: {fileID: 7805391985826850414, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
@@ -672,8 +677,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9040446246754665148, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
+      propertyPath: m_SuspensionSpring.damper
+      value: 4397.4805
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040446246754665148, guid: ab716d29522b55f47b29a00cbb33ba1d,
+        type: 3}
       propertyPath: m_SuspensionDistance
-      value: 0.19620003
+      value: 0.19620001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab716d29522b55f47b29a00cbb33ba1d, type: 3}
@@ -768,6 +778,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 311240238358725670, guid: 7a08c641da15f5b44a98b4210ab13009,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 311240238397839575, guid: 7a08c641da15f5b44a98b4210ab13009,
         type: 3}
       propertyPath: m_AnchorMin.x
@@ -782,6 +797,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 311240238483111098, guid: 7a08c641da15f5b44a98b4210ab13009,
+        type: 3}
+      propertyPath: m_UseGraphicAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 311240238483111098, guid: 7a08c641da15f5b44a98b4210ab13009,
+        type: 3}
+      propertyPath: m_EffectDistance.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 311240238483111098, guid: 7a08c641da15f5b44a98b4210ab13009,
+        type: 3}
+      propertyPath: m_EffectDistance.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 311240238643753179, guid: 7a08c641da15f5b44a98b4210ab13009,
         type: 3}
