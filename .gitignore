@@ -1,0 +1,15 @@
+/*
+!.gitignore
+
+!Assets/
+!Packages/
+!ProjectSettings/
+
+Plugins
+Plugins.meta
+
+**/StreamingAssets/*
+!**/StreamingAssets/lidar.json
+!**/StreamingAssets/lidar.json.meta
+!**/StreamingAssets/TestConfigs/
+!**/StreamingAssets/TestConfigs.meta
