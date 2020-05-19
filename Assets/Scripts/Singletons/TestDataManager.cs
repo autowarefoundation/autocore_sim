@@ -32,12 +32,12 @@ namespace Assets.Scripts
             Debug.Log("init TestDataManager");
         }
         public string testModeName;
-
+        const string timeFormat = "yyyy-MM-dd-HH-mm-ss";
         public void TDMInit()
         {
             testModeName = TestConfig.TestMode.TestModeName;
-            dataFilePath = Application.streamingAssetsPath + @"\TestData\" + DateTime.Now.ToString("yyyyYMMMddDHH_ mm_ss") + ".txt";
-            WriteTestData(DateTime.Now.ToString("yyyyYMMMddDHH_ mm_ss") +"TestStart");
+            dataFilePath = Application.streamingAssetsPath + @"\TestData\" + DateTime.Now.ToString(timeFormat) + ".txt";
+            WriteTestData(DateTime.Now.ToString(timeFormat) +"TestStart");
         }
         public void AddTestMode(string modename,string mapname)
         {
