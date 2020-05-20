@@ -211,7 +211,7 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
                         if (MouseInputBase.Button0Down)
                         {
                             SimuUI.Instance.SetTipText("Click to add target position for pedestrian, right click to cancel");
-                            SelectedElement = AddHuman(mousePos + Vector3.up * 0.1f);
+                            SelectedElement = AddPedestrian(mousePos + Vector3.up * 0.1f);
                             ObjHuman.PosList.Add(mousePos);
                             TestDataManager.Instance.WriteTestData( "Set Human,Position:" + mousePos.ToString());
                             indexMode = 2;
@@ -365,13 +365,13 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
         objTemp.name = name;
         return objTemp.GetComponent<ObjAICar>();
     }
-    public ObjHuman AddHuman(Vector3 pos)
+    public ObjHuman AddPedestrian(Vector3 pos)
     {
         objTemp = Instantiate(Human, pos, Quaternion.identity, humans);
         objTemp.name = "Pedestrian" + HumanList.Count;
         return objTemp.GetComponent<ObjHuman>();
     }
-    public ObjHuman AddHuman(Vector3 pos,string name)
+    public ObjHuman AddPedestrian(Vector3 pos,string name)
     {
         objTemp = Instantiate(Human, pos, Quaternion.identity, humans);
         objTemp.name = name;

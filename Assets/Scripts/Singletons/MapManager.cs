@@ -75,7 +75,7 @@ namespace Assets.Scripts
             {
                 foreach (HumanSetting setting in TestConfig.TestMode.HumanSettings)
                 {
-                    ElementsManager.Instance.AddHuman(TestDataManager.ParseV3(setting.PosArray[0]), setting.Name).SetHumansetting(setting);
+                    ElementsManager.Instance.AddPedestrian(TestDataManager.ParseV3(setting.PosArray[0]), setting.Name).SetHumansetting(setting);
                 }
             }
             if (TestConfig.TestMode.TrafficLightSettings != null)
