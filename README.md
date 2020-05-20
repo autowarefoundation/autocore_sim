@@ -82,14 +82,25 @@ There are some buttons on the top of the main interfaces:
 - "X": Brake
 
 ## ROS Info
+* autocore_sim
+   * Publications:  
+      * /camera/camera_info [sensor_msgs/CameraInfo]
+      * /camera/image_raw [sensor_msgs/Image]
+      * /gnss_pose [geometry_msgs/PoseStamped]
+      * /points_raw [sensor_msgs/PointCloud2]
+      * /tf [tf2_msgs/TFMessage]  
+      * /vehicle_status [autoware_msgs/VehicleStatus]  
 
-Publications:  
-* /camera/camera_info [sensor_msgs/CameraInfo]
-* /camera/image_raw [sensor_msgs/Image]
-* /gnss_pose [geometry_msgs/PoseStamped]
-* /points_raw [sensor_msgs/PointCloud2]
-* /tf [tf2_msgs/TFMessage]  
-* /vehicle_status [autoware_msgs/VehicleStatus]  
+   * Subscriptions:
+      * /vehicle_cmd [autoware_msgs/VehicleCmd]
+* vector_map_loader
+   * Publications:
+      * /vector_map [visualization_msgs/MarkerArray]
+      * /vector_map_info/* [vector_map_msgs/*]
+* points_map_loader
+   * Publications:
+      * /points_map [sensor_msgs/PointCloud2]
 
-Subscriptions:
-* /vehicle_cmd [autoware_msgs/VehicleCmd]
+## Roadmap
+
+* ROS2 topics for Autoware.Auto
