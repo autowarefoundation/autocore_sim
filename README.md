@@ -106,3 +106,7 @@ There are some buttons on the top of the main interfaces:
 ## Roadmap
 
 * ROS2 topics for Autoware.Auto
+
+## Video tutorial
+
+[![AutoCore Open Source Simulator](https://img.youtube.com/vi/CUFMKZAbgCk/0.jpg)](https://www.youtube.com/watch?v=CUFMKZAbgCk "AutoCore Open Source Simulator")
