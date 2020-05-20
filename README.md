@@ -2,6 +2,8 @@
 
 > AutoCore simulation tool provides test environment for Autoware and still during early development, contents below may changed during updates.
 
+[![GitHub license](https://img.shields.io/github/license/autocore-ai/autocore_sim.svg)](https://github.com/autocore-ai/autocore_sim)
+
 ## Overview
 
 AutoCore simulation tool is developed based on Unity engine, which focuses help developer test Autoware functions. It could simulate multi type of input topics, so that the autonomous driving system could be tested.
