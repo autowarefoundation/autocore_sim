@@ -356,7 +356,7 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
     public ObjAICar AddCarAI(Vector3 pos)
     {
         objTemp = Instantiate(AICar, pos, Quaternion.identity, AIcars);
-        objTemp.name = "AI Vehicle" + CarList.Count;
+        objTemp.name = "AI Vehicle" + CarList.Count;                             
         return objTemp.GetComponent<ObjAICar>();
     }
     public ObjAICar AddCarAI(Vector3 pos ,string name)
