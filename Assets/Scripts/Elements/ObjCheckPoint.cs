@@ -64,6 +64,7 @@ namespace Assets.Scripts
         }
         protected override void Start()
         {
+            nameLogic = "CheckPointLogic";
             base.Start();
             v3Scale = new Vector3(3, 1, 5);
             CanScale = true;

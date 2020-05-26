@@ -30,10 +30,6 @@ namespace Assets.Scripts
 
         WheelDrive wd;
         public bool isMouseOnUI;
-        public GameObject PanelDisShow;
-        public GameObject Human;
-        public Transform humans;
-        public Transform obstacles;
         public Text text_Tips;
 
         public Button btn_carReset;

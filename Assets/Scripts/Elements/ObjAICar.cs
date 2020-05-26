@@ -40,6 +40,7 @@ namespace Assets.Scripts
     {
         protected override void Start()
         {
+            nameLogic = "GreenCarLogic";
             base.Start();
             carAISetting = new CarAISetting
             {

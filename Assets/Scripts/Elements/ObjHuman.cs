@@ -101,6 +101,7 @@ public class ObjHuman : ElementObject
     private Traffic_Light TC;
     protected override void Start()
     {
+        nameLogic = "HumanLogic";
         speedObjTarget = 1;
         base.Start();
         CanScale = false;

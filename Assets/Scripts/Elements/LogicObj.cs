@@ -25,6 +25,14 @@ namespace Assets.Scripts
     {
         public ElementObject elementObject;
         public LogicButton logicButton;
-        void Start() => logicButton.SetButtonObj(elementObject);
+        void Start()
+        {
+            if (logicButton == null) logicButton = GetComponentInChildren<LogicButton>();
+            if (logicButton == null) Debug.LogError("No LogicButton");
+            else
+            {
+                logicButton.SetButtonObj(elementObject);
+            }
+        }
     }
 }

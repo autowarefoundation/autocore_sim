@@ -79,6 +79,7 @@ public class ObjTestCar : ElementObject
     }
     protected override void Start()
     {
+        nameLogic = "BlueCarLogic";
         base.Start();
         CanScale = false;
         CanDrag = false;

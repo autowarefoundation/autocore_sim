@@ -60,11 +60,12 @@ public class ElementObject : MonoBehaviour
     public ElementAttbutes objAttbutes;
     public GameObject elementButton;
     public GameObject logicObject;
+    public string nameLogic;
     public bool CanDelete = true;
-    public bool CanDrag=false;
+    public bool CanDrag = false;
     public bool IsDraging = false;
     public bool CanScale = false;
-    public Vector3 offsetLogic=Vector3.zero;
+    public Vector3 offsetLogic = Vector3.zero;
     private Vector3 PosDragStart;
     private Vector3 MousePosDragStart;
     public Vector3 v3Scale;
@@ -133,20 +134,27 @@ public class ElementObject : MonoBehaviour
         if (!ElementsManager.Instance.ElementList.Contains(this))
         {
             ElementsManager.Instance.ElementList.Add(this);
-            if (logicObject != null) AddLogic();
-            else Debug.LogError("no logic Obj");
+            AddLogic();
         }
     }
     public virtual void Update()
     {
-        
+
     }
 
     private void AddLogic()
     {
-        Transform logicTransform = Instantiate(logicObject, transform).transform;
-        logicTransform.GetComponent<LogicObj>().elementObject = this;
-        logicTransform.position = transform.position + offsetLogic;
+        GameObject logicTemp = (GameObject)Resources.Load("LogicObjs/" + nameLogic);
+        if (logicTemp != null)
+        {
+            logicObject=Instantiate(logicTemp,transform);
+            logicObject.GetComponent<LogicObj>().elementObject = this;
+            logicObject.transform.position = transform.position + offsetLogic;
+        }
+        else
+        {
+            Debug.LogError("LogicObj missing");
+        }
     }
     public void SetName(string name)
     {
@@ -157,7 +165,7 @@ public class ElementObject : MonoBehaviour
     {
         if (CanDrag)
         {
-            transform.position = PosDragStart + OverLookCamera.Instance.MouseWorldPos-MousePosDragStart;
+            transform.position = PosDragStart + OverLookCamera.Instance.MouseWorldPos - MousePosDragStart;
         }
     }
     public void FollowMouse()
@@ -168,8 +176,7 @@ public class ElementObject : MonoBehaviour
     {
         if (!CanScale) return;
         v3Scale = new Vector3(v3Scale.x * value, v3Scale.y * value, v3Scale.z * value);
-        transform.localScale =v3Scale ;
-        //transform.position = OverLookCamera.Instance.MouseWorldPos + offsetPos;
+        transform.localScale = v3Scale;
     }
     public virtual void ElementReset()
     {

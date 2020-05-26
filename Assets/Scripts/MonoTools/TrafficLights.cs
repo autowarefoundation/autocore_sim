@@ -19,11 +19,11 @@
 
 using UnityEngine;
 
-public class TrafficLights : MonoBehaviour
-{
-    public Transform RedLight;
-    public Transform YellowLight;
-    public Transform GreenLight;
-    public Transform StopLine;
-    public Transform LineDetection;
-}
+//public class TrafficLights : MonoBehaviour
+//{
+//    public Transform RedLight;
+//    public Transform YellowLight;
+//    public Transform GreenLight;
+//    public Transform StopLine;
+//    public Transform LineDetection;
+//}

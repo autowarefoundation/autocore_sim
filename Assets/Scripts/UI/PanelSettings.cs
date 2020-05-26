@@ -47,7 +47,6 @@ namespace Assets.Scripts
         {
             InitDropDownItem();
             SetSimuDriveMode(TestConfig.isEditMode?1:0);
-
             btn_close?.onClick.AddListener(()=> { SetPanelActive(false); });
             toggle_simu_ndt.onValueChanged.AddListener(ToggleSimuNDT);
             SetCameraFollowCarPos(toggle_FollowCarPos.isOn);

@@ -113,6 +113,7 @@ namespace Assets.Scripts
         ElementsManager em;
         protected override void Start()
         {
+            nameLogic = "TrafficcLightLogic";
             base.Start();
             em = ElementsManager.Instance;
             ElementsManager.Instance.TrafficLightList.Add(this);

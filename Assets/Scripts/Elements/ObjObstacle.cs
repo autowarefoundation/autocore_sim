@@ -63,6 +63,7 @@ namespace Assets.Scripts
         }
         protected override void Start()
         {
+            nameLogic = "ObstacleLogic";
             base.Start();
             v3Scale = new Vector3(1, 1, 1);
             CanScale = true;
