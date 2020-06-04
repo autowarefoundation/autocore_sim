@@ -47,14 +47,14 @@ namespace Assets.Scripts
         }
         public void SetMapElements()
         {
-            if(TestConfig.TestMode.TestCarStart!=null) ResetCar();
+            if (TestConfig.TestMode.TestCarStart != null) ResetCar();
             isRepeat = TestConfig.TestMode.isRepeat;
-            if (TestConfig.TestMode.CheckPointSettings!=null&& TestConfig.TestMode.CheckPointSettings.Count>0)
+            if (TestConfig.TestMode.CheckPointSettings != null && TestConfig.TestMode.CheckPointSettings.Count > 0)
             {
                 foreach (CheckPointSetting setting in TestConfig.TestMode.CheckPointSettings)
                 {
-                    ElementsManager.Instance.AddCheckPoint(TestConfig.ParseV3(setting.transformData.V3Pos), TestConfig.ParseV3(setting.transformData.V3Rot), TestConfig.ParseV3(setting.transformData.V3Sca), setting.Name).chechPointSetting=setting;
-                   
+                    ElementsManager.Instance.AddCheckPoint(TestConfig.ParseV3(setting.transformData.V3Pos), TestConfig.ParseV3(setting.transformData.V3Rot), TestConfig.ParseV3(setting.transformData.V3Sca), setting.Name).chechPointSetting = setting;
+
                 }
             }
             if (TestConfig.TestMode.ObstacleSettings != null)
@@ -75,7 +75,7 @@ namespace Assets.Scripts
             {
                 foreach (HumanSetting setting in TestConfig.TestMode.HumanSettings)
                 {
-                    ElementsManager.Instance.AddPedestrian(TestDataManager.ParseV3(setting.PosArray[0]), setting.Name).SetHumansetting(setting);
+                    ElementsManager.Instance.AddHuman(TestDataManager.ParseV3(setting.PosArray[0]), setting.Name).SetHumansetting(setting);
                 }
             }
             if (TestConfig.TestMode.TrafficLightSettings != null)
@@ -86,7 +86,7 @@ namespace Assets.Scripts
                     {
                         if (item.name == setting.Name)
                         {
-                            item.SetTrafficLightSetting(setting);
+                            item.TrafficLightSetting = setting;
                         }
                     }
                 }

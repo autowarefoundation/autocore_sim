@@ -25,6 +25,7 @@ using UnityEngine;
 
 public class ElementsManager : SingletonWithMono<ElementsManager>
 {
+
     public enum EditMode
     {
         Null = 0,
@@ -32,15 +33,15 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
         SetStatic = 2,
         SetHuman = 3,
         SetCarAI = 4,
-        SetCheckPoint=5
+        SetCheckPoint = 5
     }
     public EditMode editMode;
     private int indexMode = 0;
-    public List<ElementObject> ObstacleList = new List<ElementObject>();
-    public List<ElementObject> HumanList = new List<ElementObject>();
+    public List<ObjObstacle> ObstacleList = new List<ObjObstacle>();
+    public List<ObjHuman> HumanList = new List<ObjHuman>();
     public List<ElementObject> CarList = new List<ElementObject>();
-    public List<ElementObject> TrafficLightList = new List<ElementObject>();
-    public List<ElementObject> CheckPointList = new List<ElementObject>();
+    public List<ObjTrafficLight> TrafficLightList = new List<ObjTrafficLight>();
+    public List<ObjCheckPoint> CheckPointList = new List<ObjCheckPoint>();
     public List<ElementObject> ElementList = new List<ElementObject>();
     public Transform statics;
     public Transform humans;
@@ -154,7 +155,7 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
                         {
                             SimuUI.Instance.SetTipText("Click to set vehicle orientation");
                             ObjTestCar.TestCar.transform.position = mousePos + Vector3.up * 0.5f;
-                            TestDataManager.Instance.WriteTestData( "Set ego vehicle position:" + mousePos);
+                            TestDataManager.Instance.WriteTestData("Set ego vehicle position:" + mousePos);
                             indexMode = 2;
                         }
                         break;
@@ -183,9 +184,9 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
                         if (MouseInputBase.Button0Down)
                         {
                             objTemp.tag = "Obstacle";
-                            objTemp.name = "Obstacle"+ObstacleList.Count.ToString();
+                            objTemp.name = "Obstacle" + ObstacleList.Count.ToString();
                             objTemp.transform.SetParent(statics);
-                            TestDataManager.Instance.WriteTestData( "Set Static Obstacle,Position:" + mousePos + "Scale:"+ objTemp.transform.localScale.x);
+                            TestDataManager.Instance.WriteTestData("Set Static Obstacle,Position:" + mousePos + "Scale:" + objTemp.transform.localScale.x);
                             editMode = EditMode.Null;
                         }
                         else if (MouseInputBase.Button1Down)
@@ -211,9 +212,9 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
                         if (MouseInputBase.Button0Down)
                         {
                             SimuUI.Instance.SetTipText("Click to add target position for pedestrian, right click to cancel");
-                            SelectedElement = AddPedestrian(mousePos + Vector3.up * 0.1f);
+                            SelectedElement = AddHuman(mousePos + Vector3.up * 0.1f);
                             ObjHuman.PosList.Add(mousePos);
-                            TestDataManager.Instance.WriteTestData( "Set Human,Position:" + mousePos.ToString());
+                            TestDataManager.Instance.WriteTestData("Set Human,Position:" + mousePos.ToString());
                             indexMode = 2;
                         }
                         else if (MouseInputBase.Button1Down)
@@ -260,7 +261,7 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
                     case 1:
                         if (Input.GetMouseButtonDown(0))
                         {
-                            SelectedElement=AddCarAI(mousePos);
+                            SelectedElement = AddCarAI(mousePos);
                             ObjAiCar.posInit = mousePos;
                             SimuUI.Instance.SetTipText("Click to set AI vehicle starting position");
                             indexMode = 2;
@@ -272,7 +273,7 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
                         break;
                     case 2:
                         isShowLine = true;
-                        LinePoses = new Vector3[2] { ObjAiCar.transform.position,mousePos};
+                        LinePoses = new Vector3[2] { ObjAiCar.transform.position, mousePos };
                         Lane laneTemp = MapManager.Instance.SearchNearestPos2Lane(out int index, mousePos);
                         Vector3 posStart = laneTemp.list_Pos[index];
                         ObjAiCar.transform.LookAt(posStart);
@@ -280,7 +281,7 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
                         {
                             isShowLine = false;
                             ObjAiCar.posStart = posStart;
-                            TestDataManager.Instance.WriteTestData( "Set AI vehicle Init Position:" + ObjAiCar.posInit+"Start Position:" + posStart);
+                            TestDataManager.Instance.WriteTestData("Set AI vehicle Init Position:" + ObjAiCar.posInit + "Start Position:" + posStart);
                             ObjAiCar.CarInit();
                             editMode = EditMode.Null;
                         }
@@ -346,9 +347,9 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
         {
             SetLineRenderer(LinePoses);
         }
-        else if(lineRenderer.enabled) lineRenderer.enabled = false;
+        else if (lineRenderer.enabled) lineRenderer.enabled = false;
     }
-    public void SetEditMode(EditMode mode,int index=0)
+    public void SetEditMode(EditMode mode, int index = 0)
     {
         editMode = mode;
         indexMode = index;
@@ -356,28 +357,28 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
     public ObjAICar AddCarAI(Vector3 pos)
     {
         objTemp = Instantiate(AICar, pos, Quaternion.identity, AIcars);
-        objTemp.name = "AI Vehicle" + CarList.Count;                             
+        objTemp.name = "AI Vehicle" + CarList.Count;
         return objTemp.GetComponent<ObjAICar>();
     }
-    public ObjAICar AddCarAI(Vector3 pos ,string name)
+    public ObjAICar AddCarAI(Vector3 pos, string name)
     {
         objTemp = Instantiate(AICar, pos, Quaternion.identity, AIcars);
         objTemp.name = name;
         return objTemp.GetComponent<ObjAICar>();
     }
-    public ObjHuman AddPedestrian(Vector3 pos)
+    public ObjHuman AddHuman(Vector3 pos)
     {
         objTemp = Instantiate(Human, pos, Quaternion.identity, humans);
         objTemp.name = "Pedestrian" + HumanList.Count;
         return objTemp.GetComponent<ObjHuman>();
     }
-    public ObjHuman AddPedestrian(Vector3 pos,string name)
+    public ObjHuman AddHuman(Vector3 pos, string name)
     {
         objTemp = Instantiate(Human, pos, Quaternion.identity, humans);
         objTemp.name = name;
         return objTemp.GetComponent<ObjHuman>();
     }
-    public ObjObstacle AddObstacle(Vector3 pos ,Vector3 rot ,Vector3 scale,string name)
+    public ObjObstacle AddObstacle(Vector3 pos, Vector3 rot, Vector3 scale, string name)
     {
         objTemp = Instantiate(Static, pos, Quaternion.Euler(rot), statics);
         objTemp.name = name;
@@ -390,9 +391,9 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
         objTemp.name = name;
         return objTemp.GetComponent<ObjCheckPoint>();
     }
-    public Transform AddLogic (GameObject obj,ElementObject elementObject)
+    public Transform AddLogic(GameObject obj, ElementObject elementObject)
     {
-        Transform logicTransform= Instantiate(obj, Logics).transform;
+        Transform logicTransform = Instantiate(obj, Logics).transform;
         logicTransform.GetComponent<LogicObj>().elementObject = elementObject;
         return logicTransform;
     }
@@ -410,15 +411,11 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
     private void RemoceElementFromList(ElementObject elementObject)
     {
         if (!elementObject.CanDelete) return;
-        if (ObstacleList.Contains(elementObject))
-        {
-            ObstacleList.Remove(elementObject);
-            Debug.Log(elementObject.name);
-        }
-        else if (CheckPointList.Contains(elementObject)) CheckPointList.Remove(elementObject);
-        else if (HumanList.Contains(elementObject)) HumanList.Remove(elementObject);
-        else if (CarList.Contains(elementObject)) CarList.Remove(elementObject);
-        else if (TrafficLightList.Contains(elementObject)) TrafficLightList.Remove(elementObject);
+        if (elementObject.GetComponent<ObjObstacle>() != null) ObstacleList.Remove((ObjObstacle)elementObject);
+        else if (elementObject.GetComponent<ObjCheckPoint>() != null) CheckPointList.Remove((ObjCheckPoint)elementObject);
+        else if (elementObject.GetComponent<ObjHuman>() != null) HumanList.Remove((ObjHuman)elementObject);
+        else if (elementObject.GetComponent<ObjAICar>() != null) CarList.Remove(elementObject);
+        else if (elementObject.GetComponent<ObjTrafficLight>() != null) TrafficLightList.Remove((ObjTrafficLight)elementObject);
         if (ElementList.Contains(elementObject)) ElementList.Remove(elementObject);
         Destroy(elementObject);
         SelectedElement = null;
@@ -426,16 +423,16 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
 
     public void RemoveAllElements()
     {
-        for (int i = ElementList.Count-1; i >=0; i--)
+        for (int i = ElementList.Count - 1; i >= 0; i--)
         {
             ElementObject Element = ElementList[i];
             if (!Element.CanDelete) continue;
-            if (ObstacleList.Contains(Element))
+            if (ObstacleList.Contains((ObjObstacle)Element))
             {
                 Destroy(Element.gameObject);
                 ElementList.Remove(Element);
             }
-            else if (HumanList.Contains(Element))
+            else if (HumanList.Contains((ObjHuman)Element))
             {
                 Destroy(Element.gameObject);
                 ElementList.Remove(Element);
@@ -448,7 +445,7 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
                     Destroy(Element.gameObject);
                 }
             }
-            else if (CheckPointList.Contains(Element))
+            else if (CheckPointList.Contains((ObjCheckPoint)Element))
             {
                 ElementList.Remove(Element);
                 Destroy(Element.gameObject);
@@ -467,19 +464,19 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
     }
     public void AddTrafficLightElement(ElementObject obj)
     {
-        TrafficLightList.Add(obj);
+        TrafficLightList.Add((ObjTrafficLight)obj);
     }
     public void AddHumanElement(ElementObject obj)
     {
-        HumanList.Add(obj);
+        HumanList.Add((ObjHuman)obj);
     }
     public void AddObstacleElement(ElementObject obj)
     {
-        ObstacleList.Add(obj);
+        ObstacleList.Add((ObjObstacle)obj);
     }
     public void AddCheckPointElement(ElementObject obj)
     {
-        CheckPointList.Add(obj);
+        CheckPointList.Add((ObjCheckPoint)obj);
     }
 
     private LineRenderer lineRenderer;
@@ -517,7 +514,7 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
         }
         if (indexCheckPoint < CheckPointList.Count)
         {
-            if(!TestConfig.isEditMode) CheckPointList[indexCheckPoint].GetComponent<Publisher_goal>().enabled = true;
+            if (!TestConfig.isEditMode) CheckPointList[indexCheckPoint].GetComponent<Publisher_goal>().enabled = true;
             CheckPointList[indexCheckPoint].GetComponent<BoxCollider>().enabled = true;
             indexCheckPoint++;
         }
@@ -527,3 +524,4 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
         }
     }
 }
+

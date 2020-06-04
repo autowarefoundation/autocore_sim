@@ -15,8 +15,6 @@
 * limitations under the License.
 */
 #endregion
-
-
 using Assets.Scripts;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,7 +41,7 @@ public struct TrafficLigghtAtt
 {
     public float timeSwitch;
     public float timeWait;
-    public ObjTrafficLight.LightMode mode;
+    public int index;
 
 }
 public class ElementObject : MonoBehaviour
@@ -59,7 +57,7 @@ public class ElementObject : MonoBehaviour
     }
     public ElementAttbutes objAttbutes;
     public GameObject elementButton;
-    public GameObject logicObject;
+    public LogicObj logicObject;
     public string nameLogic;
     public bool CanDelete = true;
     public bool CanDrag = false;
@@ -137,18 +135,18 @@ public class ElementObject : MonoBehaviour
             AddLogic();
         }
     }
-    public virtual void Update()
+    protected virtual void Update()
     {
 
     }
 
     private void AddLogic()
     {
-        GameObject logicTemp = (GameObject)Resources.Load("LogicObjs/" + nameLogic);
-        if (logicTemp != null)
+        GameObject logictemp = (GameObject)Resources.Load("LogicObjs/" + nameLogic);
+        if (logictemp != null)
         {
-            logicObject=Instantiate(logicTemp,transform);
-            logicObject.GetComponent<LogicObj>().elementObject = this;
+            logicObject = Instantiate(logictemp, transform).GetComponent<LogicObj>();
+            logicObject.elementObject = this;
             logicObject.transform.position = transform.position + offsetLogic;
         }
         else

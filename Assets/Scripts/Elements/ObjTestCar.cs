@@ -59,7 +59,7 @@ public class ObjTestCar : ElementObject
 
     public float CurrentSpeed => SPC.WD.speed;
 
-    public ObjTrafficLight CurrentTL { get; set; }
+    public TrafficLight CurrentTL { get; set; }
 
     public override ElementAttbutes GetObjAttbutes()
     {
@@ -85,7 +85,7 @@ public class ObjTestCar : ElementObject
         CanDrag = false;
         CanDelete = false;
     }
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
     }

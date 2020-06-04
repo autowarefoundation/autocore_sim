@@ -17,7 +17,7 @@
 #endregion
 
 
- using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,9 +41,9 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
     public Toggle Toggle_isHumanRepeat;
     public InputField inputField_humanSpeed;
     public Button button_AddPos;
-    private List<AimPos> ListAimPos=new List<AimPos>();
+    private List<AimPos> ListAimPos = new List<AimPos>();
 
-    public Dropdown dropdown_mode;
+    public Button button_SwitchLight;
     public InputField inputField_switchtime;
     public InputField inputField_waittime;
 
@@ -72,7 +72,7 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
         foreach (ElementObject.ElementAttribute item in attbutes.attributes)
         {
             int index = (int)item;
-            attGameObjects[index+1].SetActive(true);
+            attGameObjects[index + 1].SetActive(true);
             SetNameAtt();
             switch (item)
             {
@@ -123,7 +123,7 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
     {
         for (int i = 0; i < ListAimPos.Count; i++)
         {
-            if(ListAimPos[i]!=null) Destroy(ListAimPos[i].gameObject);
+            if (ListAimPos[i] != null) Destroy(ListAimPos[i].gameObject);
         }
         ListAimPos = new List<AimPos>();
         HumanAimPoses.Clear();
@@ -140,14 +140,13 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
             }
         }
         HumanOther.SetAsLastSibling();
-        
+
         Toggle_isHumanRepeat.isOn = attbutes.humanAtt.isRepeat;
         inputField_humanSpeed.text = attbutes.humanAtt.speed.ToString();
-        
+
     }
     private void SetTrafficAtt()
     {
-        dropdown_mode.value =(int)attbutes.trafficLigghtAtt.mode;
         inputField_switchtime.text = attbutes.trafficLigghtAtt.timeSwitch.ToString();
         inputField_waittime.text = attbutes.trafficLigghtAtt.timeWait.ToString();
     }
@@ -161,9 +160,9 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
         cs.enabled = true;
         cs.verticalFit = ContentSizeFitter.FitMode.MinSize;
         inputField_name?.onEndEdit.AddListener((string value) => { currentElementObj.SetName(value); });
-        inputField_posX?.onEndEdit.AddListener((string value) => 
+        inputField_posX?.onEndEdit.AddListener((string value) =>
         {
-            if(float.TryParse(value,out float num)) 
+            if (float.TryParse(value, out float num))
             {
                 ObjPos.x = num;
                 currentElementObj.transform.position = ObjPos;
@@ -189,35 +188,35 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
         {
             if (float.TryParse(value, out float num))
             {
-                currentElementObj.transform.rotation = Quaternion.Euler(0,num,0);
+                currentElementObj.transform.rotation = Quaternion.Euler(0, num, 0);
             }
         });
         inputField_scale?.onEndEdit.AddListener((string value) =>
         {
             if (float.TryParse(value, out float num))
             {
-                currentElementObj.transform.localScale = new Vector3(1,1,1)*num;
+                currentElementObj.transform.localScale = new Vector3(1, 1, 1) * num;
             }
         });
-        Toggle_isHumanRepeat.onValueChanged.AddListener((bool value)=> 
+        Toggle_isHumanRepeat.onValueChanged.AddListener((bool value) =>
         {
             currentElementObj.GetComponent<ObjHuman>().isHumanRepeat = value;
         });
-        inputField_humanSpeed.onEndEdit.AddListener((string value) => 
+        inputField_humanSpeed.onEndEdit.AddListener((string value) =>
         {
-            if(float.TryParse(value,out float speed))
+            if (float.TryParse(value, out float speed))
             {
                 currentElementObj.GetComponent<ObjHuman>().speedObjTarget = speed;
             }
         });
-        button_AddPos.onClick.AddListener(() => 
-        { 
-            ElementsManager.Instance.SetEditMode(ElementsManager.EditMode.SetHuman, 2); 
+        button_AddPos.onClick.AddListener(() =>
+        {
+            ElementsManager.Instance.SetEditMode(ElementsManager.EditMode.SetHuman, 2);
         });
 
-        dropdown_mode?.onValueChanged.AddListener((int value) =>
+        button_SwitchLight?.onClick.AddListener(() =>
         {
-            currentElementObj.GetComponent<ObjTrafficLight>().SetLight((ObjTrafficLight.LightMode)value);
+            currentElementObj.GetComponent<ObjTrafficLight>().SwitchLight();
         });
         inputField_switchtime?.onEndEdit.AddListener((string value) =>
         {
@@ -237,7 +236,7 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
         {
             if (float.TryParse(value, out float num))
             {
-                currentElementObj.GetComponent<ObjAICar>().speedObjTarget=num;
+                currentElementObj.GetComponent<ObjAICar>().speedObjTarget = num;
             }
         });
         button_changeLeft?.onClick.AddListener(() =>
@@ -251,7 +250,7 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
         button_changeRight?.onClick.AddListener(() =>
         {
             var objAiCar = currentElementObj.GetComponent<ObjAICar>();
-            if(objAiCar != null&& objAiCar.CanChangeLaneRight())
+            if (objAiCar != null && objAiCar.CanChangeLaneRight())
             {
                 objAiCar.ChangeLane();
             }
@@ -260,7 +259,7 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
         {
             ElementsManager.Instance.SetEditMode(ElementsManager.EditMode.SetCarAI, 3);
         });
-        btn_DeleteObj?.onClick.AddListener(() => 
+        btn_DeleteObj?.onClick.AddListener(() =>
         {
             ElementsManager.Instance.RemoveElement(currentElementObj.gameObject);
         });
@@ -271,7 +270,7 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
     private Vector3 ObjPos;
     private float ObjRot;
     private float ObjScale;
-    private ObjTrafficLight.LightMode mode;
+    private int mode;
     private float ObjSpdCarAI;
     void Update()
     {
@@ -286,29 +285,29 @@ public class InspectorPanel : SimuPanel<InspectorPanel>
                 switch (item)
                 {
                     case ElementObject.ElementAttribute.Position:
-                        if(ObjPos!=attbutes.pos) SetPosAtt();
+                        if (ObjPos != attbutes.pos) SetPosAtt();
                         break;
                     case ElementObject.ElementAttribute.Rotation:
-                        if(ObjRot!=attbutes.rot) SetRotAtt();
+                        if (ObjRot != attbutes.rot) SetRotAtt();
                         break;
                     case ElementObject.ElementAttribute.Scale:
                         if (ObjScale != attbutes.sca) SetScaleAtt();
                         break;
                     case ElementObject.ElementAttribute.Human:
-                        if (!attbutes.humanAtt.aimList.TrueForAll(HumanAimPoses.Contains))SetHumanAtt();
+                        if (!attbutes.humanAtt.aimList.TrueForAll(HumanAimPoses.Contains)) SetHumanAtt();
                         break;
                     case ElementObject.ElementAttribute.TrafficLight:
-                        if (mode != attbutes.trafficLigghtAtt.mode) 
+                        if (mode != attbutes.trafficLigghtAtt.index)
                         {
-                            mode = attbutes.trafficLigghtAtt.mode;
-                            SetTrafficAtt(); 
+                            mode = attbutes.trafficLigghtAtt.index;
+                            SetTrafficAtt();
                         }
                         break;
                     case ElementObject.ElementAttribute.CarAI:
-                        if (ObjSpdCarAI != attbutes.spdCarAI) 
+                        if (ObjSpdCarAI != attbutes.spdCarAI)
                         {
                             ObjSpdCarAI = attbutes.spdCarAI;
-                            SetCarAIAtt(); 
+                            SetCarAIAtt();
                         }
                         break;
                     default:
