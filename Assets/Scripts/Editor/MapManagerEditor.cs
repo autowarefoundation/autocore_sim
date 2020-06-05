@@ -32,5 +32,9 @@ public class MapManagerEditor : Editor
         {
             mapnamager.Mapinit();
         }
+        if (GUILayout.Button("MapSave"))
+        {
+            TestDataManager.Instance.WriteTestJson();
+        }
     }
 }

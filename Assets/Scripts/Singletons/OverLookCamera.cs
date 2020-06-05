@@ -55,6 +55,7 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
     public Vector3 offset_temp;
 
     private float _cameraSize = 20;
+    public float maxCameraSize = 50;
     public float CameraSize
     {
         get
@@ -63,7 +64,7 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
         }
         set
         {
-            _cameraSize = Mathf.Clamp(value, 10f, 1000);
+            _cameraSize = Mathf.Clamp(value, 10f, maxCameraSize);
         }
     }
     public float moveSpeed = 3.3f;

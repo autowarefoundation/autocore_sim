@@ -101,6 +101,7 @@ public class ObjHuman : ElementObject
     private Traffic_Light TC;
     protected override void Start()
     {
+        nameLogic = "HumanLogic";
         speedObjTarget = 1;
         base.Start();
         CanScale = false;
@@ -113,7 +114,7 @@ public class ObjHuman : ElementObject
     private float distance_Target;//与当前目标点的距离
     Ray ray;
     private bool isObstacleAhead = false;
-    public override void Update()
+    protected override void Update()
     {
         base.Update();
         ray = new Ray(transform.position+Vector3.up, transform.forward);

@@ -24,11 +24,11 @@ using UnityEngine;
 
 public class TStraightDetection : MonoBehaviour
 {
-    public ObjTrafficLight tlc;
+    public TrafficLight tlc;
     private void Start()
     {
         if (tlc == null)
-            tlc = GetComponentInParent<ObjTrafficLight>();
+            tlc = GetComponentInParent<TrafficLight>();
     }
     private void OnTriggerEnter(Collider other)
     {

@@ -574,6 +574,7 @@ MonoBehaviour:
   oLCamera: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
   offset_temp: {x: 0, y: 0, z: 0}
+  maxCameraSize: 50
   moveSpeed: 3.3
   isFollowTargetPos: 0
   isFollowTargetRot: 0

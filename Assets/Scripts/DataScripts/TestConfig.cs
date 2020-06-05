@@ -61,9 +61,10 @@ namespace Assets.Scripts
         }
         public static void DeleteData(SimuTestMode mode)
         {
-            if (File.Exists(configPath+"\\"+mode.TestModeName+".json"))
+            string path = Path.Combine(configPath, mode.TestModeName + ".json");
+            if (File.Exists(path))
             {
-                File.Delete(configPath + "\\" + mode.TestModeName + ".json");
+                File.Delete(path);
                 TestModes.Remove(mode);
             }
             else

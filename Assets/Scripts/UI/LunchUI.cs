@@ -18,6 +18,7 @@
 
 using AutoCore.Sim.Autoware.IO;
 using System;
+using System.IO;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
@@ -218,7 +219,7 @@ namespace Assets.Scripts
             if (uriRos != null) ROS_Node.Config.ros_master_uri = uriRos.ToString();
             if (iPAddressLocal != null) ROS_Node.Config.ros_ip = iPAddressLocal.ToString();
             string content = JsonUtility.ToJson(ROS_Node.Config);
-            TestDataManager.Instance.WriteByLineCover(Application.streamingAssetsPath + "\\ROS_Config.json", content);
+            TestDataManager.Instance.WriteByLineCover(Path.Combine( Application.streamingAssetsPath , "ROS_Config.json"), content);
         }
     }
 }

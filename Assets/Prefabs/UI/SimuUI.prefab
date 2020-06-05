@@ -3642,7 +3642,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 500, y: 600}
+  m_SizeDelta: {x: 500, y: 280.52}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &601079791544662667
 MonoBehaviour:
@@ -13256,7 +13256,7 @@ MonoBehaviour:
   Toggle_isHumanRepeat: {fileID: 2315456965531011339}
   inputField_humanSpeed: {fileID: 6494076350049800598}
   button_AddPos: {fileID: 5582217112715887549}
-  dropdown_mode: {fileID: 8518275360201545388}
+  button_SwitchLight: {fileID: 5418046530674060593}
   inputField_switchtime: {fileID: 4381396244144242520}
   inputField_waittime: {fileID: 4381396243921030729}
   inputField_carAIspeed: {fileID: 1418915227118782577}
@@ -16716,10 +16716,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMouseOnUI: 0
-  PanelDisShow: {fileID: 311240238332631265}
-  Human: {fileID: 6374393174586976673, guid: e697ad1e5aadb0b44acad2c151a3bcd4, type: 3}
-  humans: {fileID: 0}
-  obstacles: {fileID: 0}
   text_Tips: {fileID: 311240238483111096}
   btn_carReset: {fileID: 311240238643753176}
   btn_carPose: {fileID: 311240238784958857}
@@ -18647,16 +18643,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d199490a83bb2b844b9695cbf13b01ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8518275360201545388 stripped
+--- !u!114 &5418046530674060593 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8243629213340057649, guid: c567e937501ca4b4ca17b7977d784981,
+  m_CorrespondingSourceObject: {fileID: 5719989084348300204, guid: c567e937501ca4b4ca17b7977d784981,
     type: 3}
   m_PrefabInstance: {fileID: 311240238891292317}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d0b652f32a2cc243917e4028fa0f046, type: 3}
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &4381396244279013794 stripped

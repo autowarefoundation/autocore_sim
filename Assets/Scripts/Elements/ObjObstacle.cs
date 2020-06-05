@@ -63,13 +63,14 @@ namespace Assets.Scripts
         }
         protected override void Start()
         {
+            nameLogic = "ObstacleLogic";
             base.Start();
             v3Scale = new Vector3(1, 1, 1);
             CanScale = true;
             CanDrag = true;
             CanDelete = true;
         }
-        public override void Update()
+        protected override void Update()
         {
             offsetPos = new Vector3(0, 0.5f * v3Scale.y, 0);
             base.Update();

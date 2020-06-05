@@ -15,22 +15,18 @@
 * limitations under the License.
 */
 #endregion
-
-
-using System.Collections;
-using System.Collections.Generic;
+using Boo.Lang;
 using UnityEngine;
 
 namespace Assets.Scripts
 {
-
     public class TrafficLightSetting
     {
         public string Name { get; set; }
         public float SwitchTime { get; set; }
         public float WaitTime { get; set; }
         public bool IsAuto { get; set; }
-        public ObjTrafficLight.LightMode lightMode { get; set; }
+        public int IndexLightsGroup { get; set; }
     }
     public class ObjTrafficLight : ElementObject
     {
@@ -44,145 +40,94 @@ namespace Assets.Scripts
                 {
                     timeSwitch = switchTime,
                     timeWait = waitTime,
-                    mode = lightMode
+                    index = indexPassGroup
                 }
             };
         }
-        private TrafficLightSetting trafficLightSetting;
-        public TrafficLightSetting GetTrafficLightSetting()
-        {
-            trafficLightSetting = new TrafficLightSetting
-            {
-                Name = name,
-                SwitchTime = switchTime,
-                WaitTime = waitTime,
-                IsAuto = isAuto,
-                lightMode = lightMode
-            };
-            return trafficLightSetting;
-        }
-        public void SetTrafficLightSetting(TrafficLightSetting setting)
-        {
-            trafficLightSetting = setting;
-            switchTime = trafficLightSetting.SwitchTime;
-            waitTime = trafficLightSetting.WaitTime;
-            isAuto = trafficLightSetting.IsAuto;
-            lightMode = trafficLightSetting.lightMode;
-            SetLight();
-        }
-        public enum LightMode
-        {
-            None = 0,
-            Green = 1,
-            Yellow = 2,
-            Red = 3
-        }
-        public float switchTime = 10;//红灯时间
-        public float waitTime = 3;//黄灯时间，绿灯时间=红灯-黄灯
-        public bool isAuto = true;
-        public LightMode lightMode = LightMode.Green;
-        public GameObject RedLight;
-        public GameObject YellowLight;
-        public GameObject GreenLight;
-        public Transform StopLine
+        public TrafficLightSetting TrafficLightSetting
         {
             get
             {
-                return GetComponentInChildren<StopLine>().transform;
+                return new TrafficLightSetting
+                {
+                    Name = name,
+                    SwitchTime = switchTime,
+                    WaitTime = waitTime,
+                    IndexLightsGroup = indexPassGroup
+                };
             }
-        }
-        public Transform TStraightDetection
-        {
-            get
+            set
             {
-                return GetComponentInChildren<TStraightDetection>().transform;
+                switchTime = value.SwitchTime;
+                waitTime = value.WaitTime;
+                indexPassGroup = value.IndexLightsGroup;
+                SetLights();
             }
         }
-        public Transform TturnRightDetection
-        {
-            get
-            {
-                return GetComponentInChildren<TTrunRightDetection>().transform;
-            }
-        }
-        public GameObject[] Lights;
-        private void Awake()
-        {
-            Lights = new GameObject[3] { GreenLight, YellowLight, RedLight };
-        }
-        ElementsManager em;
+        public int indexPassGroup=0;
+        private bool isYellow = false;
+        public List<TrafficLight[]> trafficLightsList=new List<TrafficLight[]>();
+        public float switchTime = 10;
+        public float waitTime = 3;//黄灯时间
+        public float tempTime;
+        private bool isApass;
+        private LogicTrafficLight ltl;
         protected override void Start()
         {
+            nameLogic = "TrafficLightLogic";
             base.Start();
-            em = ElementsManager.Instance;
             ElementsManager.Instance.TrafficLightList.Add(this);
-            SetLight(lightMode);
-
             CanScale = false;
             CanDrag = false;
             CanDelete = false;
-        }
-        private void SetLight()
-        {
-            switch (lightMode)
-            {
-                case LightMode.None:
-                    break;
-                case LightMode.Green://当前绿灯，变黄
-                    lightMode = LightMode.Yellow;
-                    break;
-                case LightMode.Yellow://当前黄灯，变红
-                    lightMode = LightMode.Red;
-                    break;
-                case LightMode.Red://当前红灯，变绿
-                    lightMode = LightMode.Green;
-                    break;
-                default:
-                    break;
-            }
-            foreach (GameObject light in Lights)
-            {
-                light.SetActive(false);
-            }
-            if (lightMode != LightMode.None) Lights[(int)lightMode - 1].SetActive(true);
-        }
-        public void SetLight(LightMode mode)
-        {
             tempTime = 0;
-            lightMode = mode;
-            foreach (GameObject light in Lights)
+            ltl = logicObject.GetComponent<LogicTrafficLight>();
+            for (int i = 0; i < transform.childCount; i++)
             {
-                light.SetActive(false);
+                TrafficLight[] trafficLightsTemp = transform.GetChild(i).GetComponentsInChildren<TrafficLight>();
+                if(trafficLightsTemp.Length>0)trafficLightsList.Add(trafficLightsTemp);
             }
-            if (lightMode != LightMode.None) Lights[(int)lightMode - 1].SetActive(true);
+            //SetLights();
         }
-        public float tempTime = 0;
-        private bool isRed;
-        private bool isYellow;
-        public override void Update()
+
+        protected override void Update()
         {
-            base.Update();
-            if (!isAuto) return;
-            //#region 红绿灯时间计算
-            //tempTime += Time.deltaTime;
-            //if (tempTime < switchTime)
-            //{
-            //    if (!isYellow && lightMode == LightMode.Green && tempTime + waitTime > switchTime)
-            //    {
-            //        SetLight();
-            //    }
-            //}
-            //else
-            //{
-            //    SetLight();
-            //    tempTime = 0;
-            //}
-            //#endregion
+            #region 红绿灯时间计算
+            tempTime += Time.deltaTime;
+            ltl.SetLogicText((int)(switchTime - tempTime)+1);
+            if (switchTime - tempTime <= waitTime&&!isYellow)
+            {
+                isYellow = true;
+                foreach (TrafficLight light in trafficLightsList[indexPassGroup])
+                {
+                    light.SetLight(TrafficLight.LightMode.Yellow);
+                }
+            }
+            if (tempTime >= switchTime)
+            {
+                SwitchLight();
+            }
+            #endregion
         }
-        public override void ElementReset()
+        public void SwitchLight()
         {
-            base.ElementReset();
+            indexPassGroup++;
+            if (indexPassGroup >= trafficLightsList.Count) indexPassGroup = 0;
+            SetLights();
+            isYellow = false;
+            tempTime = 0;
+        }
+        bool isPass;
+        public void SetLights()
+        {
+            for (int i = 0; i < trafficLightsList.Count; i++)
+            {
+                isPass = i == indexPassGroup;
+                for (int j = 0; j < trafficLightsList[i].Length; j++)
+                {
+                    trafficLightsList[i][j].SetLight(isPass ? TrafficLight.LightMode.Green : TrafficLight.LightMode.Red);
+                }
+            }
         }
     }
-
-}
+} 
