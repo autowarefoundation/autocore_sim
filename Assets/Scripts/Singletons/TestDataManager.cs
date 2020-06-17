@@ -80,7 +80,7 @@ namespace Assets.Scripts
                     var objObstacle = item.GetComponent<ObjObstacle>();
                     if (objObstacle == null) continue;
                     if (td.ObstacleSettings == null) td.ObstacleSettings = new List<ObstacleSetting>();
-                    td.ObstacleSettings.Add(objObstacle.GetObstacleSetting());
+                    td.ObstacleSettings.Add(objObstacle.ObstacleSetting);
                 }
                 foreach (ElementObject item in ElementsManager.Instance.CarList)
                 {

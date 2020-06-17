@@ -120,23 +120,23 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
     private void Update()
     {
         mousePos = OverLookCamera.Instance.MouseWorldPos;
-        if (editMode != EditMode.Null)
-        {
-            if (!isCursorSeted)
-            {
-                Cursor.SetCursor(textureTarget, new Vector2(61.5f, 61.5f), cm);
-                isCursorSeted = true;
-            }
-        }
-        else
-        {
-            if (isCursorSeted)
-            {
-                Cursor.SetCursor(null, Vector2.zero, cm);
-                isCursorSeted = false;
-            }
+        //if (editMode != EditMode.Null)
+        //{
+        //    if (!isCursorSeted)
+        //    {
+        //        Cursor.SetCursor(textureTarget, new Vector2(61.5f, 61.5f), cm);
+        //        isCursorSeted = true;
+        //    }
+        //}
+        //else
+        //{
+        //    if (isCursorSeted)
+        //    {
+        //        Cursor.SetCursor(null, Vector2.zero, cm);
+        //        isCursorSeted = false;
+        //    }
 
-        }
+        //}
         switch (editMode)
         {
             case EditMode.Null:
@@ -427,33 +427,12 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
         {
             ElementObject Element = ElementList[i];
             if (!Element.CanDelete) continue;
-            if (ObstacleList.Contains((ObjObstacle)Element))
-            {
-                Destroy(Element.gameObject);
-                ElementList.Remove(Element);
-            }
-            else if (HumanList.Contains((ObjHuman)Element))
-            {
-                Destroy(Element.gameObject);
-                ElementList.Remove(Element);
-            }
-            else if (CarList.Contains(Element))
-            {
-                if (Element != ObjTestCar.TestCar)
-                {
-                    ElementList.Remove(Element);
-                    Destroy(Element.gameObject);
-                }
-            }
-            else if (CheckPointList.Contains((ObjCheckPoint)Element))
-            {
-                ElementList.Remove(Element);
-                Destroy(Element.gameObject);
-            }
+            Destroy(Element.gameObject);
         }
         ObstacleList.Clear();
         HumanList.Clear();
         CarList.Clear();
+        CheckPointList.Clear();
         CarList.Add(ObjTestCar.TestCar);
         SelectedElement = null;
     }
