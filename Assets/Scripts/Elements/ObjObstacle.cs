@@ -27,7 +27,7 @@ namespace Assets.Scripts
         public string Name { get; set; }
         public string Pos { get; set; }
         public string Scale { get; set; }
-        public string Rot { get; set; }
+        public string Rot { get; set; } 
     }
     public class ObjObstacle : ElementObject
     {
@@ -42,24 +42,25 @@ namespace Assets.Scripts
                 sca = transform.localScale.y
             };
         }
-        public ObstacleSetting obstacleSetting;
-        public ObstacleSetting GetObstacleSetting()
+        private ObstacleSetting obstacleSetting;
+        public ObstacleSetting ObstacleSetting
         {
-            obstacleSetting = new ObstacleSetting
+            get
             {
-                Name = name,
-                Pos = transform.position.ToString(),
-                Scale = transform.localScale.ToString(),
-                Rot = transform.rotation.eulerAngles.ToString()
-            };
-            return obstacleSetting;
-        }
-        public void SetObstacleSetting()
-        {
-            name = obstacleSetting.Name;
-            transform.position = TestConfig.ParseV3(obstacleSetting.Pos);
-            transform.localScale = TestConfig.ParseV3(obstacleSetting.Scale);
-            transform.rotation = Quaternion.Euler(TestConfig.ParseV3(obstacleSetting.Rot));
+                if (obstacleSetting == null)
+                    obstacleSetting = new ObstacleSetting
+                    {
+                        Name = name,
+                        Pos = transform.position.ToString(),
+                        Scale = transform.localScale.ToString(),
+                        Rot = transform.rotation.eulerAngles.ToString()
+                    };
+                return obstacleSetting;
+            }
+            set
+            {
+                obstacleSetting = value;
+            }
         }
         protected override void Start()
         {
@@ -78,9 +79,10 @@ namespace Assets.Scripts
         public override void ElementReset()
         {
             base.ElementReset();
-            transform.position = TestDataManager.ParseV3(obstacleSetting.Pos);
-            transform.rotation = Quaternion.Euler( TestDataManager.ParseV3(obstacleSetting.Rot));
-            transform.localScale = TestDataManager.ParseV3(obstacleSetting.Scale);
+            name = ObstacleSetting.Name;
+            transform.position = TestDataManager.ParseV3(ObstacleSetting.Pos);
+            transform.rotation = Quaternion.Euler( TestDataManager.ParseV3(ObstacleSetting.Rot));
+            transform.localScale = TestDataManager.ParseV3(ObstacleSetting.Scale);
         }
     }
 }
