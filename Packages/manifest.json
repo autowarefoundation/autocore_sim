@@ -45,10 +45,6 @@
       "revision": "0.1.0",
       "hash": "e0590e36095c36ef64bcad9a3e086932ba6cbf77"
     },
-    "com.autocore.sim-autoware-io": {
-      "revision": "0.1.0",
-      "hash": "9db279fac1898b0a566d596bb2399fb7c07016f7"
-    },
     "com.autocore.sim-scene": {
       "revision": "0.1.0",
       "hash": "d7e80acb04d22c754fa36cef8ad97dda5aaacb64"

@@ -46,7 +46,7 @@ namespace Assets.Scripts
         }
         public static TestMap testMap;
         public static bool isEditMode = false;
-        private static readonly string configPath = Path.Combine(Application.streamingAssetsPath ,"TestConfigs");
+        private static readonly string configPath = Path.Combine(Application.streamingAssetsPath, "TestConfigs");
         public static void LoadAllData()
         {
             TestModes = new List<SimuTestMode>();
