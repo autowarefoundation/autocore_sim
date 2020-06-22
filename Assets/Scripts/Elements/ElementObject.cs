@@ -84,7 +84,10 @@ public class ElementObject : MonoBehaviour
     private void OnDestroy()
     {
         if (elementButton != null) Destroy(elementButton);
-        Destroy(gameObject);
+        if (ElementsManager.Instance.ElementList.Contains(this))
+        {
+            ElementsManager.Instance.RemoveElement(gameObject);
+        }
     }
     protected virtual void Start()
     {

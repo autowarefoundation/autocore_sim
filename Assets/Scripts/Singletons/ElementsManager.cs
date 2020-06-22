@@ -401,14 +401,14 @@ public class ElementsManager : SingletonWithMono<ElementsManager>
     public void RemoveElement()
     {
         var obj = SelectedElement;
-        RemoceElementFromList(obj);
+        RemoveElementFromList(obj);
     }
     public void RemoveElement(GameObject obj)
     {
         var eleObj = obj.GetComponent<ElementObject>();
-        RemoceElementFromList(eleObj);
+        RemoveElementFromList(eleObj);
     }
-    private void RemoceElementFromList(ElementObject elementObject)
+    private void RemoveElementFromList(ElementObject elementObject)
     {
         if (!elementObject.CanDelete) return;
         if (elementObject.GetComponent<ObjObstacle>() != null) ObstacleList.Remove((ObjObstacle)elementObject);
