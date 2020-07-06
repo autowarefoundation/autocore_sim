@@ -589,37 +589,37 @@ PrefabInstance:
     - target: {fileID: 1306742356384244882, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 22515.746
+      value: 22515.742
       objectReference: {fileID: 0}
     - target: {fileID: 1306742356384244882, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 3602.5193
+      value: 3602.5188
       objectReference: {fileID: 0}
     - target: {fileID: 1306742356384244882, guid: ab716d29522b55f47b29a00cbb33ba1d,
-        type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1962
-      objectReference: {fileID: 0}
-    - target: {fileID: 3685305534688031649, guid: ab716d29522b55f47b29a00cbb33ba1d,
-        type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 4397.4805
-      objectReference: {fileID: 0}
-    - target: {fileID: 3685305534688031649, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionDistance
       value: 0.19620001
       objectReference: {fileID: 0}
+    - target: {fileID: 3685305534688031649, guid: ab716d29522b55f47b29a00cbb33ba1d,
+        type: 3}
+      propertyPath: m_SuspensionSpring.damper
+      value: 4397.48
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685305534688031649, guid: ab716d29522b55f47b29a00cbb33ba1d,
+        type: 3}
+      propertyPath: m_SuspensionDistance
+      value: 0.1962
+      objectReference: {fileID: 0}
     - target: {fileID: 6440457682353670157, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionSpring.spring
-      value: 22515.742
+      value: 22515.744
       objectReference: {fileID: 0}
     - target: {fileID: 6440457682353670157, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
       propertyPath: m_SuspensionSpring.damper
-      value: 3602.5188
+      value: 3602.5193
       objectReference: {fileID: 0}
     - target: {fileID: 7805391985826850414, guid: ab716d29522b55f47b29a00cbb33ba1d,
         type: 3}
@@ -693,6 +693,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab716d29522b55f47b29a00cbb33ba1d, type: 3}
+--- !u!1 &900918491 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4936882531713206704, guid: ab716d29522b55f47b29a00cbb33ba1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 900918490}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &900918492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900918491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ecdac08a9e1344fbee43fe3071aa58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 2ee85b127b4590c4f94ce9aad2a5ef3b, type: 2}
 --- !u!1 &1139444271
 GameObject:
   m_ObjectHideFlags: 0
