@@ -20,7 +20,7 @@
 
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Element
 {
     public class CheckPointSetting
     {

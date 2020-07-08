@@ -6,34 +6,53 @@ using UnityEngine.UI;
 
 public class LogicTrafficLight : LogicObj
 {
-    public List<Image[]> listImages;
     public Image[] imagesA;
     public Image[] ImagesB;
     public Text textSecond;
-    public ObjTrafficLight trafficLight;
     public override void Start()
     {
         base.Start();
-        listImages = new List<Image[]> {imagesA,ImagesB };
+        if(textSecond==null)
         textSecond = transform.GetComponentInChildren<Text>();
-        trafficLight = elementObject.GetComponent<ObjTrafficLight>();
-        for (int i = 0; i < listImages.Count; i++)
+    }
+    public void SetLogicTrafficLight(int mode)
+    {
+        switch (mode)
         {
-            for (int j = 0; j < listImages[i].Length; j++)
-            {
-                if (j >= trafficLight.trafficLightsList[i].Length)
-                    listImages[i][j].gameObject.SetActive(false);
-                else
+            case 0:
+                foreach (var item in imagesA)
                 {
-                    trafficLight.trafficLightsList[i][j].SetLightImage(listImages[i][j]);
+                    item.color = Color.yellow;
                 }
-            }
+                foreach (var item in ImagesB)
+                {
+                    item.color = Color.yellow;
+                }
+                break;
+            case 1:
+                foreach (var item in imagesA)
+                {
+                    item.color = Color.green;
+                }
+                foreach (var item in ImagesB)
+                {
+                    item.color = Color.red;
+                }
+                break;
+            case 2:
+                foreach (var item in imagesA)
+                {
+                    item.color = Color.red;
+                }
+                foreach (var item in ImagesB)
+                {
+                    item.color = Color.green;
+                }
+                break;
+            default:
+                break;
         }
     }
-    //public void SetLogicTrafficLight(int index1,int index2, Color color)
-    //{
-    //    listImages[index1][index1].color = color;
-    //}
     public void SetLogicText(int second)
     {
         textSecond.text = second.ToString();

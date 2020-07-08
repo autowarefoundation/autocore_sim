@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.SimuUI;
 
 [Serializable]
 public enum DriveType
@@ -31,7 +32,19 @@ public class WheelDrive : MonoBehaviour
     [Tooltip("The vehicle's drive type: rear-wheels drive, front-wheels drive or all-wheels drive.")]
     public DriveType driveType;
 
-    public bool IsHandDrive;
+    private bool isHandDrive;
+    public bool IsHandDrive
+    {
+        get
+        {
+            return isHandDrive;
+        }
+        set
+        {
+            isHandDrive = value;
+            PanelSimuMessage.Instance.SetControlModeText(value);
+        }
+    }
     public float speed;
     public float maxSpeed = 100;
 
@@ -106,11 +119,11 @@ public class WheelDrive : MonoBehaviour
         StartCoroutine(ResetData(pos,qua));
         CarCameraController.Instance.ResetCamera();
     }
-
+     
     void HandDrive()
     {
         steer = Input.GetAxis("Horizontal");
-        throttle = speed < maxSpeed ? Input.GetAxis("Vertical") : 0;
+        throttle = Mathf.Abs(speed) < maxSpeed ? Input.GetAxis("Vertical") : 0;
         brake = Input.GetKey(KeyCode.X) ? 1 : 0;
     }
 

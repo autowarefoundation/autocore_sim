@@ -17,12 +17,10 @@
 #endregion
 
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Element
 {
     public class TrafficLight : MonoBehaviour
     {
@@ -70,11 +68,9 @@ namespace Assets.Scripts
             if (GreenLight == null) GreenLight = transform.GetChild(2).gameObject;
             Lights = new GameObject[3] { GreenLight, YellowLight, RedLight };
         }
-        ElementsManager em;
         void Start()
         {
-            em = ElementsManager.Instance;
-            //SetLight(lightMode);
+            SetLight(lightMode);
         }
         private void SetLight()
         {
@@ -108,33 +104,33 @@ namespace Assets.Scripts
                 light.SetActive(false);
             }
             if (lightMode != LightMode.None) Lights[(int)lightMode - 1].SetActive(true);
-            if (image == null)
-            {
-                Debug.Log(transform.name);
-                return;
-            }
-            switch (lightMode)
-            {
-                case LightMode.None:
-                    image.color = Color.white;
-                    break;
-                case LightMode.Green:
-                    image.color = Color.green;
-                    break;
-                case LightMode.Yellow:
-                    image.color = Color.yellow;
-                    break;
-                case LightMode.Red:
-                    image.color = Color.red;
-                    break;
-                default:
-                    break;
-            }
+            //if (image == null)
+            //{
+            //    Debug.Log(transform.name);
+            //    return;
+            //}
+            //switch (lightMode)
+            //{
+            //    case LightMode.None:
+            //        image.color = Color.white;
+            //        break;
+            //    case LightMode.Green:
+            //        image.color = Color.green;
+            //        break;
+            //    case LightMode.Yellow:
+            //        image.color = Color.yellow;
+            //        break;
+            //    case LightMode.Red:
+            //        image.color = Color.red;
+            //        break;
+            //    default:
+            //        break;
+            //}
         }
-        public void SetLightImage(Image image)
-        {
-            this.image = image;
-        }
+        //public void SetLightImage(Image image)
+        //{
+        //    this.image = image;
+        //}
     }
 
 }

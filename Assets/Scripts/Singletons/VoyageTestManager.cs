@@ -17,11 +17,12 @@
 #endregion
 
 
+using Assets.Scripts.Element;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.SimuUI
 {
     [Serializable]
     public class VoyageMode
@@ -188,13 +189,13 @@ namespace Assets.Scripts
         }
         public void TestReset()
         {
-            SimuUI.Instance.SetTipText("Test Restart");
+            MainUI.Instance.SetTipText("Test Restart");
             MapManager.Instance.ResetMapElements();
             TestInit();
         }
         public void NextStep()
         {
-            SimuUI.Instance.SetTipText("Next Step");
+            MainUI.Instance.SetTipText("Next Step");
             IndexTest += 1;
             if (IndexTest >= VoyageConfigs.Count)
             {

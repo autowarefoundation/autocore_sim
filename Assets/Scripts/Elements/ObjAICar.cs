@@ -18,10 +18,11 @@
 
 
 using Assets.Scripts.Edit;
+using Assets.Scripts.SimuUI;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Element
 {
 
     public class CarAISetting
@@ -263,7 +264,7 @@ namespace Assets.Scripts
             if (isHaveTarget && Mathf.Abs(indexLane - indexTarget) < 3 &&laneCurrent.SameLanes.Contains(laneTarget))
             {
                 isHaveTarget = false;
-                SimuUI.Instance.SetTipText("AI vehicle arrive at target position");
+                MainUI.Instance.SetTipText("AI vehicle arrive at target position");
             }
             if (indexLane >= laneCurrent.list_Pos.Count)
             {
