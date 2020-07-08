@@ -21,6 +21,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System;
 using Assets.Scripts;
+using Assets.Scripts.Element;
 
 public class CameraMode
 {

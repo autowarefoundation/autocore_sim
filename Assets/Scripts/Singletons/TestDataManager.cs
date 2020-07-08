@@ -17,6 +17,8 @@
 #endregion
 
 
+using Assets.Scripts.Element;
+using Assets.Scripts.SimuUI;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -52,7 +54,8 @@ namespace Assets.Scripts
             td.TestModeName = testModeName;
             td.MapName = TestConfig.testMap.ToString();
             td.LastTime = DateTime.Now;
-            td.VoyageTestConfig = VoyageTestManager.Instance.GetVoyageTestConfig();
+            td.VoyageTestConfig = 
+                VoyageTestManager.Instance.GetVoyageTestConfig();
             if (isNew)
             {
                 td.TestCarStart = new TransformData(new Vec3(-200.0f, 0.0f, -4.5f), new Vec3(0.0f, 90.0f, 0.0f), new Vec3(1f, 1f, 1f));
@@ -106,9 +109,9 @@ namespace Assets.Scripts
             }
             string content = JsonConvert.SerializeObject(td);
             WriteByLineCover(Path.Combine(Application.streamingAssetsPath ,"TestConfigs," , td.TestModeName + ".json"), content);
-            if (SimuUI.Instance != null)
+            if (MainUI.Instance != null)
             {
-                SimuUI.Instance.SetTipText("Mode Save OK");
+                MainUI.Instance.SetTipText("Mode Save OK");
             }
             TestConfig.TestMode = td;
         }

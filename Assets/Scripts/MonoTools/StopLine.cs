@@ -17,16 +17,19 @@
 #endregion
 
 
-using Assets.Scripts;
 using UnityEngine;
 
-public class StopLine : MonoBehaviour
+namespace Assets.Scripts.Element
 {
-    private void OnTriggerExit(Collider other)
+
+    public class StopLine : MonoBehaviour
     {
-        var testCar = other.GetComponentInParent<ObjTestCar>();
-        if (testCar != null) testCar.CurrentTL = null;
-        var objAICar = other.GetComponentInParent<ObjAICar>();
-        if (objAICar != null) objAICar.currentTL = null;
+        private void OnTriggerExit(Collider other)
+        {
+            var testCar = other.GetComponentInParent<ObjTestCar>();
+            if (testCar != null) testCar.CurrentTL = null;
+            var objAICar = other.GetComponentInParent<ObjAICar>();
+            if (objAICar != null) objAICar.currentTL = null;
+        }
     }
 }

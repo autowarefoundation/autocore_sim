@@ -20,6 +20,8 @@
 using Assets.Scripts;
 using System.Collections;
 using UnityEngine;
+using Assets.Scripts.SimuUI;
+using Assets.Scripts.Element;
 
 public class OverLookCamera : SingletonWithMono<OverLookCamera>
 {
@@ -53,9 +55,24 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
         }
     }
     public Vector3 offset_temp;
-
+    private float maxCameraSize = 50;
+    public float MaxCameraSize
+    {
+        get
+        {
+            return maxCameraSize;
+        }
+        set
+        {
+            maxCameraSize = value;
+            if (CameraSize > maxCameraSize)
+            {
+                CameraSize = maxCameraSize;
+                oLCamera.orthographicSize = CameraSize;
+            }
+        }
+    }
     private float _cameraSize = 20;
-    public float maxCameraSize = 50;
     public float CameraSize
     {
         get
@@ -67,7 +84,6 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
             _cameraSize = Mathf.Clamp(value, 10f, maxCameraSize);
         }
     }
-    public float moveSpeed = 3.3f;
     public bool isFollowTargetPos = false;
     public bool isFollowTargetRot = false;
     private Vector3 mouseWorldPos;
@@ -143,6 +159,17 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
             if (ElementsManager.Instance.SelectedElement != null && ElementsManager.Instance.SelectedElement.transform != ObjTestCar.TestCar.transform)
             {
                 ElementsManager.Instance.RemoveElement();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MainUI.Instance.CloseLastPanel();
+        }
+        if (KeyInputBase.LeftCtrl)
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                ObjTestCar.TestCar.WD.IsHandDrive = !ObjTestCar.TestCar.WD.IsHandDrive;
             }
         }
         if (isFollowTargetPos) FollowTargetPos();

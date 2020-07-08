@@ -1,24 +1,7 @@
-﻿#region License
-/*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-#endregion
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts
+
+namespace Assets.Scripts.Element
 {
     public class TrafficLightSetting
     {
@@ -26,7 +9,7 @@ namespace Assets.Scripts
         public float SwitchTime { get; set; }
         public float WaitTime { get; set; }
         public bool IsAuto { get; set; }
-        public int IndexLightsGroup { get; set; }
+        public ObjTrafficLight.TrafficMode lightMode { get; set; }
     }
     public class ObjTrafficLight : ElementObject
     {
@@ -40,7 +23,7 @@ namespace Assets.Scripts
                 {
                     timeSwitch = switchTime,
                     timeWait = waitTime,
-                    index = indexPassGroup
+                    mode = trafficMode
                 }
             };
         }
@@ -53,23 +36,30 @@ namespace Assets.Scripts
                     Name = name,
                     SwitchTime = switchTime,
                     WaitTime = waitTime,
-                    IndexLightsGroup = indexPassGroup
+                    lightMode = trafficMode
                 };
             }
             set
             {
                 switchTime = value.SwitchTime;
                 waitTime = value.WaitTime;
-                indexPassGroup = value.IndexLightsGroup;
+                trafficMode = value.lightMode;
                 SetLights();
             }
         }
-        public int indexPassGroup=0;
-        private bool isYellow = false;
-        public List<TrafficLight[]> trafficLightsList=new List<TrafficLight[]>();
+        public enum TrafficMode
+        {
+            Wait = 0,
+            Apass = 1,
+            Bpass = 2
+        }
+        public TrafficMode trafficMode = TrafficMode.Apass;
+        public TrafficLight[] trafficLightGroupA;
+        public TrafficLight[] trafficLightGroupB;
         public float switchTime = 10;
         public float waitTime = 3;//黄灯时间
-        public float tempTime;
+        private float tempSwtichTime;
+        public float tempTime = 0;
         private bool isApass;
         private LogicTrafficLight ltl;
         protected override void Start()
@@ -80,30 +70,18 @@ namespace Assets.Scripts
             CanScale = false;
             CanDrag = false;
             CanDelete = false;
-            tempTime = 0;
             ltl = logicObject.GetComponent<LogicTrafficLight>();
-            for (int i = 0; i < transform.childCount; i++)
-            {
-                TrafficLight[] trafficLightsTemp = transform.GetChild(i).GetComponentsInChildren<TrafficLight>();
-                if(trafficLightsTemp.Length>0)trafficLightsList.Add(trafficLightsTemp);
-            }
-            //SetLights();
+            trafficLightGroupA = transform.GetChild(0).GetComponentsInChildren<TrafficLight>();
+            trafficLightGroupB = transform.GetChild(1).GetComponentsInChildren<TrafficLight>();
+            SetLights();
         }
 
         protected override void Update()
         {
             #region 红绿灯时间计算
             tempTime += Time.deltaTime;
-            ltl.SetLogicText((int)(switchTime - tempTime)+1);
-            if (switchTime - tempTime <= waitTime&&!isYellow)
-            {
-                isYellow = true;
-                foreach (TrafficLight light in trafficLightsList[indexPassGroup])
-                {
-                    light.SetLight(TrafficLight.LightMode.Yellow);
-                }
-            }
-            if (tempTime >= switchTime)
+            ltl?.SetLogicText((int)(tempSwtichTime - tempTime) + 1);
+            if (tempTime > tempSwtichTime)
             {
                 SwitchLight();
             }
@@ -111,23 +89,66 @@ namespace Assets.Scripts
         }
         public void SwitchLight()
         {
-            indexPassGroup++;
-            if (indexPassGroup >= trafficLightsList.Count) indexPassGroup = 0;
+            switch (trafficMode)
+            {
+                case TrafficMode.Wait:
+                    tempSwtichTime = switchTime;
+                    if (isApass) trafficMode = TrafficMode.Bpass;
+                    else trafficMode = TrafficMode.Apass;
+                    isApass = !isApass;
+                    break;
+                case TrafficMode.Apass:
+                    tempSwtichTime = waitTime;
+                    trafficMode = TrafficMode.Wait;
+                    break;
+                case TrafficMode.Bpass:
+                    tempSwtichTime = waitTime;
+                    trafficMode = TrafficMode.Wait;
+                    break;
+                default:
+                    break;
+            }
             SetLights();
-            isYellow = false;
             tempTime = 0;
         }
-        bool isPass;
         public void SetLights()
         {
-            for (int i = 0; i < trafficLightsList.Count; i++)
+            switch (trafficMode)
             {
-                isPass = i == indexPassGroup;
-                for (int j = 0; j < trafficLightsList[i].Length; j++)
-                {
-                    trafficLightsList[i][j].SetLight(isPass ? TrafficLight.LightMode.Green : TrafficLight.LightMode.Red);
-                }
+                case TrafficMode.Wait:
+                    foreach (TrafficLight light in trafficLightGroupA)
+                    {
+                        light.SetLight(TrafficLight.LightMode.Yellow);
+                    }
+                    foreach (TrafficLight light in trafficLightGroupB)
+                    {
+                        light.SetLight(TrafficLight.LightMode.Yellow);
+                    }
+                    break;
+                case TrafficMode.Apass:
+                    foreach (TrafficLight light in trafficLightGroupA)
+                    {
+                        light.SetLight(TrafficLight.LightMode.Green);
+                    }
+                    foreach (TrafficLight light in trafficLightGroupB)
+                    {
+                        light.SetLight(TrafficLight.LightMode.Red);
+                    }
+                    break;
+                case TrafficMode.Bpass:
+                    foreach (TrafficLight light in trafficLightGroupA)
+                    {
+                        light.SetLight(TrafficLight.LightMode.Red);
+                    }
+                    foreach (TrafficLight light in trafficLightGroupB)
+                    {
+                        light.SetLight(TrafficLight.LightMode.Green);
+                    }
+                    break;
+                default:
+                    break;
             }
+            ltl.SetLogicTrafficLight((int)trafficMode);
         }
     }
-} 
+}

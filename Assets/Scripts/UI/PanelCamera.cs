@@ -1,44 +1,32 @@
-﻿#region License
-/*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-#endregion
-
-
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+
+namespace Assets.Scripts.SimuUI
 {
-    public class PanelCamera :SimuPanel<PanelCamera>
+    public class PanelCamera : PanelBase<PanelCamera>, ISimuPanel
     {
         public Button btn_SwitchCamera;
         public Button btn_CameraPanelHide;
         bool isCameraPanelShow = true;
         private Animation anim_PanelCamera;
+        private Animation Anim_PanelMessage
+        {
+            get
+            {
+                if (anim_PanelCamera == null)
+                    anim_PanelCamera = GetComponent<Animation>();
+                return anim_PanelCamera;
+            }
+        }
         // Start is called before the first frame update
         void Start()
         {
-            anim_PanelCamera = GetComponent<Animation>();
             btn_SwitchCamera?.onClick.AddListener(() => { SwitchCamera(); });
             btn_CameraPanelHide?.onClick.AddListener(() =>
             {
-                isCameraPanelShow = !isCameraPanelShow;
-                SetPanelActive(isCameraPanelShow);
+                isActive = !isActive;
+                SetPanelActive(isActive);
             });
 
         }
@@ -47,7 +35,7 @@ namespace Assets.Scripts
         public RenderTexture texture_RightDown;
         void SwitchCamera()
         {
-            SimuUI.Instance.isCarCamera = isCarCamera;
+            MainUI.Instance.isCarCamera = isCarCamera;
             isCarCamera = !isCarCamera;
             if (isCarCamera)
             {
@@ -64,15 +52,15 @@ namespace Assets.Scripts
         {
             if (value)
             {
-                anim_PanelCamera["PanelCameraHide"].normalizedTime = 0;
-                anim_PanelCamera["PanelCameraHide"].speed = 1;
-                anim_PanelCamera.Play("PanelCameraHide");
+                Anim_PanelMessage["PanelCameraHide"].normalizedTime = 0;
+                Anim_PanelMessage["PanelCameraHide"].speed = 1;
+                Anim_PanelMessage.Play("PanelCameraHide");
             }
             else
             {
-                anim_PanelCamera["PanelCameraHide"].normalizedTime = 1.0f;
-                anim_PanelCamera["PanelCameraHide"].speed = -1;
-                anim_PanelCamera.Play("PanelCameraHide");
+                Anim_PanelMessage["PanelCameraHide"].normalizedTime = 1.0f;
+                Anim_PanelMessage["PanelCameraHide"].speed = -1;
+                Anim_PanelMessage.Play("PanelCameraHide");
             }
         }
     }

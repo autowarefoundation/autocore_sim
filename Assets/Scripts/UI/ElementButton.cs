@@ -1,38 +1,29 @@
 ﻿#region License
 /*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2018 AutoCore
+ */
 #endregion
-
-
+using Assets.Scripts.Element;
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
-public class ElementButton : Button
+
+namespace Assets.Scripts.SimuUI
 {
-    public GameObject elementObj;
-    protected override void Start()
+
+    public class ElementButton : Button
     {
-        GetComponent<Button>()?.onClick.AddListener(delegate ()
+        public GameObject elementObj;
+        protected override void Start()
         {
-            if (ElementsManager.Instance.editMode == ElementsManager.EditMode.Null) ElementsManager.Instance.SelectedElement = elementObj.GetComponent<ElementObject>();
-        });
-    }
-    protected override void OnDestroy()
-    {
-        if(elementObj!=null) Destroy(elementObj);
+            GetComponent<Button>()?.onClick.AddListener(delegate ()
+            {
+                if (ElementsManager.Instance.editMode == ElementsManager.EditMode.Null) ElementsManager.Instance.SelectedElement = elementObj.GetComponent<ElementObject>();
+            });
+        }
+        protected override void OnDestroy()
+        {
+            if (elementObj != null) Destroy(elementObj);
+        }
     }
 }

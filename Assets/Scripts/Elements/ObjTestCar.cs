@@ -20,77 +20,81 @@
 
 using Assets.Scripts;
 
-public class ObjTestCar : ElementObject
+namespace Assets.Scripts.Element
 {
-    private static ObjTestCar _testCar;
-    public static ObjTestCar TestCar
+
+    public class ObjTestCar : ElementObject
     {
-        get
+        private static ObjTestCar _testCar;
+        public static ObjTestCar TestCar
         {
-            if (_testCar == null) _testCar = FindObjectOfType(typeof(ObjTestCar)) as ObjTestCar;
-            return _testCar;
-        }
-    }
-    private WheelDrive wd;
-    public WheelDrive WD
-    {
-        get
-        {
-            if (wd == null) wd = GetComponent<WheelDrive>();
-            return wd;
-        }
-    }
-    private SpeedController spc;
-    public SpeedController SPC
-    {
-        get
-        {
-            if (spc == null)
+            get
             {
-                spc = GetComponent<SpeedController>();
+                if (_testCar == null) _testCar = FindObjectOfType(typeof(ObjTestCar)) as ObjTestCar;
+                return _testCar;
             }
-            return spc;
         }
-    }
-    public float TargetSteering { set => SPC.aimSteer = value; }
-    public float TargetSpeed { set => SPC.aimSpeed = value; }
-
-    public float CurrentSteering => SPC.aimSteer;
-
-    public float CurrentSpeed => SPC.WD.speed;
-
-    public TrafficLight CurrentTL { get; set; }
-
-    public override ElementAttbutes GetObjAttbutes()
-    {
-        return new ElementAttbutes
+        private WheelDrive wd;
+        public WheelDrive WD
         {
-            attributes = new ElementAttribute[] { ElementAttribute.Position, ElementAttribute.Rotation},
-            name = transform.name,
-            pos = transform.position,
-            rot = transform.rotation.eulerAngles.y
-        };
-    }
+            get
+            {
+                if (wd == null) wd = GetComponent<WheelDrive>();
+                return wd;
+            }
+        }
+        private SpeedController spc;
+        public SpeedController SPC
+        {
+            get
+            {
+                if (spc == null)
+                {
+                    spc = GetComponent<SpeedController>();
+                }
+                return spc;
+            }
+        }
+        public float TargetSteering { set => SPC.aimSteer = value; }
+        public float TargetSpeed { set => SPC.aimSpeed = value; }
+
+        public float CurrentSteering => SPC.aimSteer;
+
+        public float CurrentSpeed => SPC.WD.speed;
+
+        public TrafficLight CurrentTL { get; set; }
+
+        public override ElementAttbutes GetObjAttbutes()
+        {
+            return new ElementAttbutes
+            {
+                attributes = new ElementAttribute[] { ElementAttribute.Position, ElementAttribute.Rotation },
+                name = transform.name,
+                pos = transform.position,
+                rot = transform.rotation.eulerAngles.y
+            };
+        }
 
 
-    void Awake()
-    {
-        _testCar = this;
-    }
-    protected override void Start()
-    {
-        nameLogic = "BlueCarLogic";
-        base.Start();
-        CanScale = false;
-        CanDrag = false;
-        CanDelete = false;
-    }
-    protected override void Update()
-    {
-        base.Update();
-    }
-    public override void ElementReset()
-    {
-        base.ElementReset();
+        void Awake()
+        {
+            _testCar = this;
+        }
+        protected override void Start()
+        {
+            nameLogic = "BlueCarLogic";
+            base.Start();
+            CanScale = false;
+            CanDrag = false;
+            CanDelete = false;
+        }
+        protected override void Update()
+        {
+            base.Update();
+        }
+        public override void ElementReset()
+        {
+            base.ElementReset();
+        }
     }
 }
