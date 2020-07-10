@@ -30,6 +30,10 @@ Free disk：>1GB
 
 ## Quick Start
 
+### Guide with Autoware.ai
+
+[How to config autoware.ai 1.14 with simulator](https://github.com/autocore-ai/autocore_pcu_doc/blob/master/docs/Simulation_autoware.md)
+
 ### Start Simulator
 
 1. Config Autoware ROS environment, launch Autoware runtime manager and rviz.
