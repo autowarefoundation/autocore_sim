@@ -152,6 +152,7 @@ namespace Assets.Scripts.Element
                         case 0:
                             MainUI.Instance.SetTipText("Click to set vehicle position，right click to cancel");
                             PanelSettings.Instance.SetCameraFollowCarPos(false);
+                            PanelSettings.Instance.SetCameraFollowCarRot(false);
                             indexMode = 1;
                             break;
                         case 1:

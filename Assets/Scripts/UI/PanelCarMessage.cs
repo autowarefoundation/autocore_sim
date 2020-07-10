@@ -37,9 +37,8 @@ namespace Assets.Scripts.SimuUI
             });
             wd = ObjTestCar.TestCar.WD;
         }
-        void update()
+        void Update()
         {
-
             text_Odom.text = wd.str_Odom;
             text_brake.text = wd.brake.ToString("0.00");
             text_throttle.text = wd.throttle.ToString("0.00");

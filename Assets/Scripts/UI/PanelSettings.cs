@@ -39,7 +39,7 @@ namespace Assets.Scripts.SimuUI
             toggle_simu_ndt?.onValueChanged.AddListener(ToggleSimuNDT);
             toggle_SimuMessage?.onValueChanged.AddListener(ToogleSimuMessagePanel);
             toggle_FollowCarPos?.onValueChanged.AddListener(SetCameraFollowCarPos);
-            toggle_FollowCarRot?.onValueChanged.AddListener(ToggleFollowCarRot);
+            toggle_FollowCarRot?.onValueChanged.AddListener(SetCameraFollowCarRot);
             toggle_isSimuControl?.onValueChanged.AddListener(SetSimuDriveMode);
             slider_maxSteerAngle?.onValueChanged.AddListener(SetMaxSteerAngle);
             slider_friction?.onValueChanged.AddListener(SetFriction);
@@ -57,14 +57,14 @@ namespace Assets.Scripts.SimuUI
             ToggleSimuNDT(toggle_simu_ndt.isOn);
             ToogleSimuMessagePanel(toggle_SimuMessage.isOn);
             SetCameraFollowCarPos(toggle_FollowCarPos.isOn);
-            ToggleFollowCarRot(toggle_FollowCarRot.isOn);
+            SetCameraFollowCarRot(toggle_FollowCarRot.isOn);
             SetMaxSteerAngle(slider_maxSteerAngle.value);
             SetFriction(slider_friction.value);
             SetMaxTorque(slider_maxTorque.value);
             SetMaxCameraRange(slider_maxCameraRange.value);
             SetMaxSpeed(slider_maxSpeed.value);
             SetCameraFollowCarPos(toggle_FollowCarPos.isOn);
-            ToggleFollowCarRot(toggle_FollowCarRot.isOn);
+            SetCameraFollowCarRot(toggle_FollowCarRot.isOn);
             SetQuality(2);
         }
         private void InitResolutionItem()
@@ -91,10 +91,17 @@ namespace Assets.Scripts.SimuUI
         public GameObject GOMaxSpd;
         public void SetSimuDriveMode(bool value)
         {
-            ObjTestCar.TestCar.WD.IsHandDrive = !value;
-            slider_maxSpeed.interactable = value;
+            ObjTestCar.TestCar.WD.IsHandDrive = !value; 
+            SetInteractable(!value);
         }
-        private void ToggleFollowCarRot(bool value) => OverLookCamera.Instance.SwitchRotCam(value);
+        public void SetInteractable(bool value)
+        {
+            slider_maxSpeed.interactable = value;
+            slider_maxTorque.interactable = value;
+            slider_maxSteerAngle.interactable = value;
+            toggle_isSimuControl.isOn = !value;
+        }
+        public void SetCameraFollowCarRot(bool value) => OverLookCamera.Instance.SwitchRotCam(value);
 
         public void SetCameraFollowCarPos(bool value)
         {

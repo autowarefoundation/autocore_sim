@@ -43,6 +43,7 @@ public class WheelDrive : MonoBehaviour
         {
             isHandDrive = value;
             PanelSimuMessage.Instance.SetControlModeText(value);
+            PanelSettings.Instance.SetInteractable(value);
         }
     }
     public float speed;

@@ -540,7 +540,14 @@ public class CameraFree : CameraMode
 // Camera controller
 public class CarCameraController : SingletonWithMono<CarCameraController>
 {
-    public enum Mode { AttachTo, SmoothFollow, MouseOrbit, LookAt, Free };
+    public enum Mode 
+    { 
+        //AttachTo, 
+        SmoothFollow, 
+        MouseOrbit, 
+        LookAt, 
+        //Free 
+    };
     public Mode mode = Mode.SmoothFollow;
 
     public Transform target;
@@ -630,18 +637,18 @@ public class CarCameraController : SingletonWithMono<CarCameraController>
 
         // Detect camera hotkey
 
-        if (Input.GetKeyDown(changeCameraKey))
-        {
-            NextCameraMode();
-        }
-        else
-        {
-            for (int i = 0; i < m_cameraModes.Length; i++)
-            {
-                if (Input.GetKeyDown(m_cameraModes[i].hotKey))
-                    mode = (Mode)i;
-            }
-        }
+        //if (Input.GetKeyDown(changeCameraKey))
+        //{
+        //    NextCameraMode();
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < m_cameraModes.Length; i++)
+        //    {
+        //        if (Input.GetKeyDown(m_cameraModes[i].hotKey))
+        //            mode = (Mode)i;
+        //    }
+        //}
 
         // Camera mode changed?
 

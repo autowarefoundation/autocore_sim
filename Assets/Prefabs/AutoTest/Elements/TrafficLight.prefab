@@ -57,8 +57,8 @@ MonoBehaviour:
   RedLight: {fileID: 230966269148331016}
   YellowLight: {fileID: 8150197047631439466}
   GreenLight: {fileID: 904258154022207772}
+  image: {fileID: 0}
   Lights: []
-  tempTime: 0
 --- !u!1 &230966269148331016
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,7 +786,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: d42254594a432a944a85b8d25f4b123e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

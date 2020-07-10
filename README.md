@@ -10,9 +10,19 @@ AutoCore simulation tool is developed based on Unity engine, which focuses help 
 
 ### Simulator PC Requirement
 
-OS: Windows 10  
+#### Windows
+
+OS: Windows 10
 CPU：Intel i5 9100 or higher  
-GPU：GTX 750Ti or higher  
+GPU：GTX 750Ti or higher DX11 Support
+Memory：>8G  
+Free disk：>1GB  
+
+#### Ubuntu
+
+OS: Ubuntu 18.04
+CPU：Intel i5 9100 or higher  
+GPU：GTX 750Ti or higher Vulkan Support
 Memory：>8G  
 Free disk：>1GB  
 
@@ -74,12 +84,12 @@ There are some buttons on the top of the main interfaces:
 - Move the wheel to zoom
 - Press Ctrl and move the wheel to change the size of target
 - Space: Reset camera
-- "C": Switch camera in simulator
 - "W": Move forward
 - "S": Move backward
 - "A": Left turn
 - "D": Right turn
 - "X": Brake
+- "Ctrl + A": Switch Drive Mode
 
 ## ROS Info
 * autocore_sim
