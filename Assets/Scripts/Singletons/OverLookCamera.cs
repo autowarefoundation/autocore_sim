@@ -1,25 +1,30 @@
 ﻿#region License
 /*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2020 Autoware Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Authors: AutoCore Members
+ *
+ */
 #endregion
 
 
 using Assets.Scripts;
 using System.Collections;
 using UnityEngine;
+using Assets.Scripts.SimuUI;
+using Assets.Scripts.Element;
 
 public class OverLookCamera : SingletonWithMono<OverLookCamera>
 {
@@ -53,7 +58,23 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
         }
     }
     public Vector3 offset_temp;
-
+    private float maxCameraSize = 50;
+    public float MaxCameraSize
+    {
+        get
+        {
+            return maxCameraSize;
+        }
+        set
+        {
+            maxCameraSize = value;
+            if (CameraSize > maxCameraSize)
+            {
+                CameraSize = maxCameraSize;
+                oLCamera.orthographicSize = CameraSize;
+            }
+        }
+    }
     private float _cameraSize = 20;
     public float CameraSize
     {
@@ -63,10 +84,9 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
         }
         set
         {
-            _cameraSize = Mathf.Clamp(value, 10f, 1000);
+            _cameraSize = Mathf.Clamp(value, 10f, maxCameraSize);
         }
     }
-    public float moveSpeed = 3.3f;
     public bool isFollowTargetPos = false;
     public bool isFollowTargetRot = false;
     private Vector3 mouseWorldPos;
@@ -142,6 +162,17 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
             if (ElementsManager.Instance.SelectedElement != null && ElementsManager.Instance.SelectedElement.transform != ObjTestCar.TestCar.transform)
             {
                 ElementsManager.Instance.RemoveElement();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            MainUI.Instance.CloseLastPanel();
+        }
+        if (KeyInputBase.LeftCtrl)
+        {
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                ObjTestCar.TestCar.WD.IsHandDrive = !ObjTestCar.TestCar.WD.IsHandDrive;
             }
         }
         if (isFollowTargetPos) FollowTargetPos();

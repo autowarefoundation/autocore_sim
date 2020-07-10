@@ -1,19 +1,22 @@
 ﻿#region License
 /*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2020 Autoware Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Authors: AutoCore Members
+ *
+ */
 #endregion
 
 
@@ -46,7 +49,7 @@ namespace Assets.Scripts
         }
         public static TestMap testMap;
         public static bool isEditMode = false;
-        private static readonly string configPath = Application.streamingAssetsPath + @"\TestConfigs";
+        private static readonly string configPath = Path.Combine(Application.streamingAssetsPath, "TestConfigs");
         public static void LoadAllData()
         {
             TestModes = new List<SimuTestMode>();
@@ -61,9 +64,10 @@ namespace Assets.Scripts
         }
         public static void DeleteData(SimuTestMode mode)
         {
-            if (File.Exists(configPath+"\\"+mode.TestModeName+".json"))
+            string path = Path.Combine(configPath, mode.TestModeName + ".json");
+            if (File.Exists(path))
             {
-                File.Delete(configPath + "\\" + mode.TestModeName + ".json");
+                File.Delete(path);
                 TestModes.Remove(mode);
             }
             else

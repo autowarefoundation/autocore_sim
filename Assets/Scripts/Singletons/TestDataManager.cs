@@ -1,22 +1,27 @@
 ﻿#region License
 /*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2020 Autoware Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Authors: AutoCore Members
+ *
+ */
 #endregion
 
 
+using Assets.Scripts.Element;
+using Assets.Scripts.SimuUI;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -36,7 +41,7 @@ namespace Assets.Scripts
         public void TDMInit()
         {
             testModeName = TestConfig.TestMode.TestModeName;
-            dataFilePath = Application.streamingAssetsPath + @"\TestData\" + DateTime.Now.ToString(timeFormat) + ".txt";
+            dataFilePath = Path.Combine(Application.streamingAssetsPath, "TestData", DateTime.Now.ToString(timeFormat) + ".txt");
             WriteTestData(DateTime.Now.ToString(timeFormat) +"TestStart");
         }
         public void AddTestMode(string modename,string mapname)
@@ -46,16 +51,17 @@ namespace Assets.Scripts
             WriteTestJson(true);
         }
 
-        public void WriteTestJson(bool isNew=false)
+        public void WriteTestJson(bool isNew = false)
         {
             SimuTestMode td = new SimuTestMode();
             td.TestModeName = testModeName;
             td.MapName = TestConfig.testMap.ToString();
             td.LastTime = DateTime.Now;
-            td.VoyageTestConfig = VoyageTestManager.Instance.GetVoyageTestConfig();
+            td.VoyageTestConfig = 
+                VoyageTestManager.Instance.GetVoyageTestConfig();
             if (isNew)
             {
-                td.TestCarStart = new TransformData (new Vec3( -200.0f, 0.0f, -4.5f), new Vec3(0.0f, 90.0f, 0.0f) , new Vec3(1f,1f,1f));
+                td.TestCarStart = new TransformData(new Vec3(-200.0f, 0.0f, -4.5f), new Vec3(0.0f, 90.0f, 0.0f), new Vec3(1f, 1f, 1f));
                 td.CheckPointSettings = new List<CheckPointSetting>
                 {
                     new CheckPointSetting
@@ -70,7 +76,7 @@ namespace Assets.Scripts
                 td.TestCarStart = new TransformData(ObjTestCar.TestCar.transform);
                 foreach (ElementObject item in ElementsManager.Instance.CheckPointList)
                 {
-                    var objCheckPoint= item.GetComponent<ObjCheckPoint>();
+                    var objCheckPoint = item.GetComponent<ObjCheckPoint>();
                     if (objCheckPoint == null) continue;
                     if (td.CheckPointSettings == null) td.CheckPointSettings = new List<CheckPointSetting>();
                     td.CheckPointSettings.Add(objCheckPoint.GetCheckPointSetting());
@@ -80,7 +86,7 @@ namespace Assets.Scripts
                     var objObstacle = item.GetComponent<ObjObstacle>();
                     if (objObstacle == null) continue;
                     if (td.ObstacleSettings == null) td.ObstacleSettings = new List<ObstacleSetting>();
-                    td.ObstacleSettings.Add(objObstacle.GetObstacleSetting());
+                    td.ObstacleSettings.Add(objObstacle.ObstacleSetting);
                 }
                 foreach (ElementObject item in ElementsManager.Instance.CarList)
                 {
@@ -101,14 +107,14 @@ namespace Assets.Scripts
                     var objTL = item.GetComponent<ObjTrafficLight>();
                     if (objTL == null) continue;
                     if (td.TrafficLightSettings == null) td.TrafficLightSettings = new List<TrafficLightSetting>();
-                    td.TrafficLightSettings.Add(objTL.GetTrafficLightSetting());
+                    td.TrafficLightSettings.Add(objTL.TrafficLightSetting);
                 }
             }
             string content = JsonConvert.SerializeObject(td);
-            WriteByLineCover(Application.streamingAssetsPath + @"\TestConfigs\" + td.TestModeName + ".json", content);
-            if (SimuUI.Instance != null)
+            WriteByLineCover(Path.Combine(Application.streamingAssetsPath ,"TestConfigs," , td.TestModeName + ".json"), content);
+            if (MainUI.Instance != null)
             {
-                SimuUI.Instance.SetTipText("Mode Save OK");
+                MainUI.Instance.SetTipText("Mode Save OK");
             }
             TestConfig.TestMode = td;
         }

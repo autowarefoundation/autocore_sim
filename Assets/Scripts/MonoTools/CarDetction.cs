@@ -1,19 +1,22 @@
 ﻿#region License
 /*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2020 Autoware Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Authors: AutoCore Members
+ *
+ */
 #endregion
 
 
@@ -22,8 +25,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using Assets.Scripts.SimuUI;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Element
 {
     public class CarDetction : MonoBehaviour
     {
@@ -31,17 +35,17 @@ namespace Assets.Scripts
         {
             if (other.gameObject.CompareTag("RoadEdge"))
             {
-                SimuUI.Instance.SetTipText("Collision with road curb");
+                MainUI.Instance.SetTipText("Collision with road curb");
                 TestDataManager.Instance.WriteTestData("Collision with road curb，location:" + ObjTestCar.TestCar.transform.position);
             }
             else if (other.gameObject.layer == LayerMask.NameToLayer("Avatar") && other.gameObject.name == "colider")
             {
-                SimuUI.Instance.SetTipText("Collision with other vehicle");
+                MainUI.Instance.SetTipText("Collision with other vehicle");
                 TestDataManager.Instance.WriteTestData("Collision with other vehicle，location:" + ObjTestCar.TestCar.transform.position);
             }
             else if (other.gameObject.CompareTag("Human"))
             {
-                SimuUI.Instance.SetTipText("Collision with pedestrian");
+                MainUI.Instance.SetTipText("Collision with pedestrian");
                 TestDataManager.Instance.WriteTestData("Collision with pedestrian，position:" + ObjTestCar.TestCar.transform.position);
             }
             else if (other.gameObject.CompareTag ("CheckPoint"))
@@ -50,7 +54,7 @@ namespace Assets.Scripts
             }
             else if (other.gameObject.CompareTag("Obstacle"))
             {
-                SimuUI.Instance.SetTipText("Collision with Obstacle");
+                MainUI.Instance.SetTipText("Collision with Obstacle");
                 TestDataManager.Instance.WriteTestData("Collision with Obstacle，position:" + ObjTestCar.TestCar.transform.position);
             }
         }
@@ -63,7 +67,7 @@ namespace Assets.Scripts
             ElementsManager.Instance.SwitchCheckPoint();
             ArrTime.Add(Time.time);
             float angel = Vector3.Angle(ObjTestCar.TestCar.transform.forward, dicForward);
-            SimuUI.Instance.SetTipText("Reach check point");
+            MainUI.Instance.SetTipText("Reach check point");
             TestDataManager.Instance.WriteTestData("Pass check point，ego vehicle angle:" + angel.ToString("0.00") + ",current lap counts:" + checkTime);
         }
     }

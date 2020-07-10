@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.arkhaminteractive.bezier-curve-editor": "https://github.com/UnityPackages/BezierCurveEditor.git#0.1.0",
-    "com.autocore.sim-autoware-io": "https://github.com/autocore-ai/sim-autoware-io.git#0.1.0",
+    "com.autocore.sim-autoware-io": "https://github.com/autocore-ai/sim-autoware-io.git#0.1.1",
     "com.autocore.sim-scene": "https://github.com/autocore-ai/sim-scene.git#0.1.0",
     "com.autocore.sim-sensor": "https://github.com/autocore-ai/sim-sensor.git#0.1.0",
     "com.autocore.sim-vehicle-control": "https://github.com/autocore-ai/sim-vehicle-control.git#0.1.0",
@@ -44,10 +44,6 @@
     "com.arkhaminteractive.bezier-curve-editor": {
       "revision": "0.1.0",
       "hash": "e0590e36095c36ef64bcad9a3e086932ba6cbf77"
-    },
-    "com.autocore.sim-autoware-io": {
-      "revision": "0.1.0",
-      "hash": "9db279fac1898b0a566d596bb2399fb7c07016f7"
     },
     "com.autocore.sim-scene": {
       "revision": "0.1.0",

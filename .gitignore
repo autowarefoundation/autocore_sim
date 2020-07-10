@@ -2,7 +2,7 @@
 !.gitignore
 
 !Assets/
-!Packages/
+!Packages/manifest.json
 !ProjectSettings/
 
 Plugins
@@ -13,3 +13,5 @@ Plugins.meta
 !**/StreamingAssets/lidar.json.meta
 !**/StreamingAssets/TestConfigs/
 !**/StreamingAssets/TestConfigs.meta
+
+Assets/Scenes/City/*

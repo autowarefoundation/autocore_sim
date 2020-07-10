@@ -1,27 +1,31 @@
 ﻿#region License
 /*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2020 Autoware Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Authors: AutoCore Members
+ *
+ */
 #endregion
 
 
 using Assets.Scripts.Edit;
+using Assets.Scripts.SimuUI;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.Element
 {
 
     public class CarAISetting
@@ -40,6 +44,7 @@ namespace Assets.Scripts
     {
         protected override void Start()
         {
+            nameLogic = "GreenCarLogic";
             base.Start();
             carAISetting = new CarAISetting
             {
@@ -152,7 +157,7 @@ namespace Assets.Scripts
         }
         #endregion
         private float dis2TestCar;
-        public override void Update()
+        protected override void Update()
         {
             base.Update();
             if (isCarDrive)
@@ -262,7 +267,7 @@ namespace Assets.Scripts
             if (isHaveTarget && Mathf.Abs(indexLane - indexTarget) < 3 &&laneCurrent.SameLanes.Contains(laneTarget))
             {
                 isHaveTarget = false;
-                SimuUI.Instance.SetTipText("AI vehicle arrive at target position");
+                MainUI.Instance.SetTipText("AI vehicle arrive at target position");
             }
             if (indexLane >= laneCurrent.list_Pos.Count)
             {
@@ -317,14 +322,14 @@ namespace Assets.Scripts
             return false;
         }
 
-        public ObjTrafficLight currentTL;//当前目标交通灯
+        public TrafficLight currentTL;//当前目标交通灯
         private float disRemain;//距离停止线的距离
         int currentPath2T;//0是有问题，1是APass，2是Bpath
         private float angle2TL;
         void TrafficLightCheck()
         {
             //当前路段没有红绿灯
-            if (currentTL == null || currentTL.lightMode == ObjTrafficLight.LightMode.Green)
+            if (currentTL == null || currentTL.lightMode == TrafficLight.LightMode.Green)
             {
                 isWaitTLStop = false;
                 return;

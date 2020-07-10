@@ -1,39 +1,23 @@
 ﻿#region License
 /*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright (c) 2018 AutoCore
+ */
 #endregion
 
-
-
-using AutoCore.Sim.Autoware.IO;
+using Assets.Scripts.Element;
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Assets.Scripts
+namespace Assets.Scripts.SimuUI
 {
-    public class SimuUI : SimuPanel<SimuUI>
+    public class MainUI : PanelBase<MainUI>,ISimuPanel
     {
-
         WheelDrive wd;
         public bool isMouseOnUI;
-        public GameObject PanelDisShow;
-        public GameObject Human;
-        public Transform humans;
-        public Transform obstacles;
         public Text text_Tips;
 
         public Button btn_carReset;
@@ -50,26 +34,15 @@ namespace Assets.Scripts
         public Transform[] SimuTools;
         public Transform[] EditTools;
         public MonoBehaviour[] SimuScripts;
-
-        public Text text_throttle;
-        public Text text_brake;
         public Image image_wheel;
-        public Text text_steer;
-        public Text text_speed;
-        public Text text_exceptSpeed;
-        public Text text_Odom;
+
 
         public Text text_mousePos;
         public Text text_name;
-        public Text text_version;
-        public Text text_IP;
-        public Text text_FPS;
-        public Text text_mode;
         private void Start()
         {
             Application.targetFrameRate = 60;
             wd = ObjTestCar.TestCar.WD;
-            text_mode.text = TestConfig.TestMode.TestModeName;
             btn_carReset?.onClick.AddListener(() =>
             {
                 RResetCar();
@@ -86,7 +59,6 @@ namespace Assets.Scripts
             btn_VoyageSetting?.onClick.AddListener(() => { PanelVoyage.Instance.SetPanelActive(true); });
             btn_cleanObstacles?.onClick.AddListener(ElementsManager.Instance.RemoveAllElements);
 
-            text_version.text = Application.version;
             if (TestConfig.isEditMode)
             {
                 for (int i = 0; i < SimuTools.Length; i++)
@@ -96,7 +68,6 @@ namespace Assets.Scripts
             }
             else
             {
-                text_IP.text = ROS_Node.Config.ros_master_uri;
                 for (int i = 0; i < EditTools.Length; i++)
                 {
                     EditTools[i].gameObject.SetActive(false);
@@ -118,7 +89,6 @@ namespace Assets.Scripts
             if (timeTemp > 1)
             {
                 timeTemp = 0;
-                text_Odom.text = wd.str_Odom;
             }
             if (time_tipTemp < time_tip)
             {
@@ -128,31 +98,7 @@ namespace Assets.Scripts
             {
                 text_Tips.text = string.Empty;
             }
-            text_brake.text = wd.brake.ToString("0.00");
-            text_throttle.text = wd.throttle.ToString("0.00");
-            text_steer.text = wd.steer.ToString("0.00");
-            image_wheel.rectTransform.rotation = Quaternion.Euler(0, 0, -wd.steer * 720);
-            text_speed.text = (ObjTestCar.TestCar.SPC.Speed).ToString("0.00") + "km/h";
-            text_exceptSpeed.text = ObjTestCar.TestCar.SPC.LinearVelocity.ToString();
-            ShowFPS();
-        }
-        private float timeFPSDelta = 1;
-        private float timePass;
-        private int countFrame;
-        private float FPS;
-
-        private void ShowFPS()
-        {
-            if (text_FPS == null) return;
-            countFrame++;
-            timePass += Time.deltaTime;
-            if (timePass >= timeFPSDelta)
-            {
-                FPS = countFrame / timePass;
-                text_FPS.text = FPS.ToString("0.0");
-                timePass = 0;
-                countFrame = 0;
-            }
+            image_wheel.rectTransform.rotation = Quaternion.Euler(0, 0, -wd.steer * 540);
         }
 
         public void RResetCar()
@@ -170,6 +116,26 @@ namespace Assets.Scripts
             text_mousePos.rectTransform.position = new Vector3(Input.mousePosition.x + 20, Input.mousePosition.y, 0);
             text_mousePos.text = dis2Front.ToString("0.00") + "\n" + dis2Right.ToString("0.00");
         }
+
+        private List<ISimuPanel> panels=new List<ISimuPanel>();
+        public void CloseLastPanel()
+        {
+            if (panels.Count > 0)
+            {
+                ISimuPanel simuPanel = panels[panels.Count - 1];
+                simuPanel.SetPanelActive(false);
+                panels.Remove(simuPanel);
+            }
+        }
+        public void AddPanel(ISimuPanel simuPanel)
+        {
+            panels.Add(simuPanel);
+        }
+        public void RemovePanel(ISimuPanel simuPanel)
+        {
+            if(panels.Contains(simuPanel)) panels.Remove(simuPanel);
+        }
+
 
 
         public GameObject eButtonPre;

@@ -1,5 +1,51 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1919304243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1919304244}
+  - component: {fileID: 8993848086547155752}
+  m_Layer: 9
+  m_Name: tf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1919304244
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919304243}
+  m_LocalRotation: {x: 0.5, y: 0.5, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: 0, y: 1.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4936882531713206705}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
+--- !u!114 &8993848086547155752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919304243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15f12907bb9c3804e8b90440db9adc33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frame: base_link
+  hz: 24
+  child: camera
 --- !u!1 &1549865538636637395
 GameObject:
   m_ObjectHideFlags: 0
@@ -108,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: velodyne
-  hz: 0
+  hz: 10
   lidar: {fileID: 0}
 --- !u!114 &2215820834001626988
 MonoBehaviour:
@@ -136,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: base_link
-  hz: 0
+  hz: 10
   child: velodyne
 --- !u!1 &2215820834259053961
 GameObject:
@@ -211,9 +257,9 @@ WheelCollider:
   m_Radius: 0.3392724
   m_SuspensionSpring:
     spring: 27484.252
-    damper: 4397.48
+    damper: 4397.4805
     targetPosition: 0.5
-  m_SuspensionDistance: 0.1962
+  m_SuspensionDistance: 0.19620001
   m_ForceAppPointDistance: 0.669525
   m_Mass: 20
   m_WheelDampingRate: 0.25
@@ -242,6 +288,7 @@ GameObject:
   - component: {fileID: 4936882531713206716}
   - component: {fileID: 2215820835273881454}
   - component: {fileID: 2215820835273881455}
+  - component: {fileID: 900918492}
   m_Layer: 9
   m_Name: camera
   m_TagString: Untagged
@@ -259,7 +306,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1919304244}
   m_Father: {fileID: 8245181010773844141}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -319,7 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: 
-  hz: 0
+  hz: 24
 --- !u!114 &2215820835273881455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,8 +381,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: 
-  hz: 0
+  hz: 24
   renderTexture: {fileID: 0}
+--- !u!114 &900918492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4936882531713206704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49ecdac08a9e1344fbee43fe3071aa58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 2ee85b127b4590c4f94ce9aad2a5ef3b, type: 2}
 --- !u!1 &4936882533178153727
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,7 +566,6 @@ MonoBehaviour:
   stepsBelow: 5
   stepsAbove: 1
   driveType: 0
-  IsHandDrive: 0
   speed: 0
   maxSpeed: 100
   m_Wheels: []
@@ -605,8 +665,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   elementButton: {fileID: 0}
-  logicObject: {fileID: 764107876471850851, guid: 10a93a6d9d9a2334bbba29f0ac603ae9,
-    type: 3}
+  logicObject: {fileID: 0}
+  nameLogic: 
   CanDelete: 0
   CanDrag: 0
   IsDraging: 0
@@ -640,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: 
-  hz: 0
+  hz: 10
 --- !u!114 &2215820835888558056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -654,7 +714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: 
-  hz: 0
+  hz: 10
 --- !u!114 &2215820835888558057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,7 +728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: 
-  hz: 0
+  hz: 10
 --- !u!114 &2215820835888558062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -682,7 +742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: 
-  hz: 0
+  hz: 10
 --- !u!114 &3424139736074719338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,7 +756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frame: map
-  hz: 0
+  hz: 10
   child: base_link
 --- !u!114 &2147601756006266193
 MonoBehaviour:
@@ -885,10 +945,10 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.33
   m_SuspensionSpring:
-    spring: 22515.744
+    spring: 22515.746
     damper: 3602.5193
     targetPosition: 0.5
-  m_SuspensionDistance: 0.19620001
+  m_SuspensionDistance: 0.1962
   m_ForceAppPointDistance: 0.6602527
   m_Mass: 20
   m_WheelDampingRate: 0.25

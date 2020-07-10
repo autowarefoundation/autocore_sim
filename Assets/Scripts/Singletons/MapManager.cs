@@ -1,23 +1,28 @@
 ﻿#region License
 /*
-* Copyright 2018 AutoCore
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2020 Autoware Foundation.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ * Authors: AutoCore Members
+ *
+ */
 #endregion
 
 
 using Assets.Scripts.Edit;
+using Assets.Scripts.Element;
+using Assets.Scripts.SimuUI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,14 +52,14 @@ namespace Assets.Scripts
         }
         public void SetMapElements()
         {
-            if(TestConfig.TestMode.TestCarStart!=null) ResetCar();
+            if (TestConfig.TestMode.TestCarStart != null) ResetCar();
             isRepeat = TestConfig.TestMode.isRepeat;
-            if (TestConfig.TestMode.CheckPointSettings!=null&& TestConfig.TestMode.CheckPointSettings.Count>0)
+            if (TestConfig.TestMode.CheckPointSettings != null && TestConfig.TestMode.CheckPointSettings.Count > 0)
             {
                 foreach (CheckPointSetting setting in TestConfig.TestMode.CheckPointSettings)
                 {
-                    ElementsManager.Instance.AddCheckPoint(TestConfig.ParseV3(setting.transformData.V3Pos), TestConfig.ParseV3(setting.transformData.V3Rot), TestConfig.ParseV3(setting.transformData.V3Sca), setting.Name).chechPointSetting=setting;
-                   
+                    ElementsManager.Instance.AddCheckPoint(TestConfig.ParseV3(setting.transformData.V3Pos), TestConfig.ParseV3(setting.transformData.V3Rot), TestConfig.ParseV3(setting.transformData.V3Sca), setting.Name).chechPointSetting = setting;
+
                 }
             }
             if (TestConfig.TestMode.ObstacleSettings != null)
@@ -75,7 +80,7 @@ namespace Assets.Scripts
             {
                 foreach (HumanSetting setting in TestConfig.TestMode.HumanSettings)
                 {
-                    ElementsManager.Instance.AddPedestrian(TestDataManager.ParseV3(setting.PosArray[0]), setting.Name).SetHumansetting(setting);
+                    ElementsManager.Instance.AddHuman(TestDataManager.ParseV3(setting.PosArray[0]), setting.Name).SetHumansetting(setting);
                 }
             }
             if (TestConfig.TestMode.TrafficLightSettings != null)
@@ -86,7 +91,7 @@ namespace Assets.Scripts
                     {
                         if (item.name == setting.Name)
                         {
-                            item.SetTrafficLightSetting(setting);
+                            item.TrafficLightSetting = setting;
                         }
                     }
                 }
