@@ -97,6 +97,19 @@ There are some buttons on the top of the main interfaces:
 - "X": Brake
 - "Ctrl + A": Switch Drive Mode
 
+## Build from source
+
+* Clone source
+```
+git clone https://github.com/autocore-ai/autocore_sim.git
+```
+* Install [UnityHub](https://unity3d.com/get-unity/download) and Unity(2019.3 or above)
+* Add source folder to Unity project and Open the project.
+* Build to standard alone application by **Ctrl + Shift + B** and build.
+* Copy autoware and ros contents unzip to **Simulator_Data/Plugins** folder, they are autoware map loader nodes and ros melodic built on [windows](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/Plugins_windows.zip) and [ubuntu](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/Plugins_ubuntu.zip).
+* Copy and unzip autoware [maps](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/city_maps.zip) to **Simulator_Data/StreamingAssets** folder.
+* Double click Simulator.exe on windows, or set Simulator.x86_64 **Allow executing file as program** and run it on ubuntu.
+
 ## ROS Info
 * autocore_sim
    * Publications:  
