@@ -30,6 +30,11 @@ Free disk：>1GB
 
 ## Quick Start
 
+### Get Released Simulator
+
+* [Windows](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/Simulator_windows_0.3.3.zip)
+* [Ubuntu](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/Simulator_ubuntu_0.3.3.zip)
+
 ### Guide with Autoware.ai
 
 [How to config autoware.ai 1.14 with simulator](https://github.com/autocore-ai/autocore_pcu_doc/blob/master/docs/Simulation_autoware.md)
