@@ -18,6 +18,7 @@ namespace Assets.Scripts.SimuUI
         public Text text_exceptSpeed;
         public Text text_Odom;
         private WheelDrive wd;
+        public Image image_wheel;
         private Animation Anim_PanelMessage
         {
             get
@@ -40,6 +41,7 @@ namespace Assets.Scripts.SimuUI
         void update()
         {
 
+            image_wheel.rectTransform.rotation = Quaternion.Euler(0, 0, -wd.steer * 540);
             text_Odom.text = wd.str_Odom;
             text_brake.text = wd.brake.ToString("0.00");
             text_throttle.text = wd.throttle.ToString("0.00");

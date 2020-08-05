@@ -52,8 +52,7 @@ namespace Assets.Scripts.Element
                 Speed1 = speed1,
                 Speed2 = speed2,
                 TimeEvent = timeEvent,
-                DisEvent = disEvent,
-                ModeEvent = (int)eventMode
+                DisEvent = disEvent
             };
         }
         private CarAISetting carAISetting;
@@ -65,20 +64,16 @@ namespace Assets.Scripts.Element
         public float speed2 = 0;
         public float timeEvent = 0;
         public float disEvent = 0;
-        private enum EventMode
-        {
-            Null,
-            ChangeLane,
-            StartDrive
-        }
-        private EventMode eventMode;
         public override ElementAttbutes GetObjAttbutes()
         {
             return new ElementAttbutes
             {
-                attributes = new ElementAttribute[] { ElementAttribute.CarAI },
+                attributes = new bool[8] { true,false,false,false,false,false,true,true },
                 name = transform.name,
-                spdCarAI = speedObjTarget
+                carAIAtt=new CarAIAtt
+                {
+                    spdCarAI = speedObjTarget
+                }
             };
         }
         public void SetCarAISetting(CarAISetting setting)
@@ -92,7 +87,6 @@ namespace Assets.Scripts.Element
             speed2 = carAISetting.Speed2;
             timeEvent = carAISetting.TimeEvent;
             disEvent = carAISetting.DisEvent;
-            eventMode = (EventMode)carAISetting.ModeEvent;
             CarInit();
         }
         public CarAISetting GetCarAISetting()
@@ -106,8 +100,7 @@ namespace Assets.Scripts.Element
                 Speed1 = speed1,
                 Speed2 = speed2,
                 TimeEvent = timeEvent,
-                DisEvent = disEvent,
-                ModeEvent = (int)eventMode
+                DisEvent = disEvent
             };
             return carAISetting;
         }
@@ -149,7 +142,6 @@ namespace Assets.Scripts.Element
             posAim = laneCurrent.list_Pos[indexLaneFiset + 1];
             transform.position = posInit;
             indexLane = indexLaneFiset;
-            eventMode = (EventMode)carAISetting.ModeEvent;
             isCarDrive = true;
         }
         #endregion
@@ -166,10 +158,6 @@ namespace Assets.Scripts.Element
                 TrafficLightCheck();
                 SpeedController();
                 DistanceCheck();
-                if (eventMode == EventMode.StartDrive)
-                {
-
-                }
             }
         }
         bool isChangeLane = false;
@@ -264,7 +252,7 @@ namespace Assets.Scripts.Element
             if (isHaveTarget && Mathf.Abs(indexLane - indexTarget) < 3 &&laneCurrent.SameLanes.Contains(laneTarget))
             {
                 isHaveTarget = false;
-                MainUI.Instance.SetTipText("AI vehicle arrive at target position");
+               PanelOther.Instance.SetTipText("AI vehicle arrive at target position");
             }
             if (indexLane >= laneCurrent.list_Pos.Count)
             {

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+using Assets.Scripts.SimuUI;
 
 namespace Assets.Scripts.Element
 {
@@ -17,13 +18,13 @@ namespace Assets.Scripts.Element
         {
             return new ElementAttbutes
             {
-                attributes = new ElementAttribute[] { ElementAttribute.TrafficLight },
+                attributes = new bool[8] { true, false, false, false, false,true, false, false },
                 name = transform.name,
                 trafficLigghtAtt = new TrafficLigghtAtt
                 {
                     timeSwitch = switchTime,
                     timeWait = waitTime,
-                    mode = trafficMode
+                    mode = (int)trafficMode
                 }
             };
         }

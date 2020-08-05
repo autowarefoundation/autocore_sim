@@ -189,13 +189,13 @@ namespace Assets.Scripts.SimuUI
         }
         public void TestReset()
         {
-            MainUI.Instance.SetTipText("Test Restart");
+           PanelOther.Instance.SetTipText("Test Restart");
             MapManager.Instance.ResetMapElements();
             TestInit();
         }
         public void NextStep()
         {
-            MainUI.Instance.SetTipText("Next Step");
+           PanelOther.Instance.SetTipText("Next Step");
             IndexTest += 1;
             if (IndexTest >= VoyageConfigs.Count)
             {

@@ -1,7 +1,4 @@
-﻿using Assets.Scripts.Element;
-using Microsoft.CodeAnalysis;
-using System;
-using System.Collections;
+﻿
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,37 +31,37 @@ namespace Assets.Scripts.SimuUI
         void Start()
         {
             InitResolutionItem();
-            btn_close?.onClick.AddListener(() => { SetPanelActive(false); });
-            toggle_isFullScreen?.onValueChanged.AddListener((bool value) => { isFullScreen = value; SetScreenResolution(); });
-            toggle_simu_ndt?.onValueChanged.AddListener(ToggleSimuNDT);
-            toggle_SimuMessage?.onValueChanged.AddListener(ToogleSimuMessagePanel);
-            toggle_FollowCarPos?.onValueChanged.AddListener(SetCameraFollowCarPos);
-            toggle_FollowCarRot?.onValueChanged.AddListener(ToggleFollowCarRot);
-            toggle_isSimuControl?.onValueChanged.AddListener(SetSimuDriveMode);
-            slider_maxSteerAngle?.onValueChanged.AddListener(SetMaxSteerAngle);
-            slider_friction?.onValueChanged.AddListener(SetFriction);
-            slider_maxTorque?.onValueChanged.AddListener(SetMaxTorque);
-            slider_maxCameraRange?.onValueChanged.AddListener(SetMaxCameraRange);
-            slider_maxSpeed?.onValueChanged.AddListener(SetMaxSpeed);
-            dropdown_quality.onValueChanged.AddListener(SetQuality);
-            SetPanelActive(false); 
-            PanelInit();
+            //btn_close?.onClick.AddListener(() => { SetPanelActive(false); });
+            //toggle_isFullScreen?.onValueChanged.AddListener((bool value) => { isFullScreen = value; SetScreenResolution(); });
+            //toggle_simu_ndt?.onValueChanged.AddListener(ToggleSimuNDT);
+            //toggle_SimuMessage?.onValueChanged.AddListener(ToogleSimuMessagePanel);
+            //toggle_FollowCarPos?.onValueChanged.AddListener(SetCameraFollowCarPos);
+            //toggle_FollowCarRot?.onValueChanged.AddListener(ToggleFollowCarRot);
+            //toggle_isSimuControl?.onValueChanged.AddListener(SetSimuDriveMode);
+            //slider_maxSteerAngle?.onValueChanged.AddListener(SetMaxSteerAngle);
+            //slider_friction?.onValueChanged.AddListener(SetFriction);
+            //slider_maxTorque?.onValueChanged.AddListener(SetMaxTorque);
+            //slider_maxCameraRange?.onValueChanged.AddListener(SetMaxCameraRange);
+            //slider_maxSpeed?.onValueChanged.AddListener(SetMaxSpeed);
+            //dropdown_quality.onValueChanged.AddListener(SetQuality);
+            //SetPanelActive(false); 
+            //PanelInit();
         }
 
         private void PanelInit()
         {
-            SetSimuDriveMode(toggle_isSimuControl.isOn);
-            ToggleSimuNDT(toggle_simu_ndt.isOn);
-            ToogleSimuMessagePanel(toggle_SimuMessage.isOn);
-            SetCameraFollowCarPos(toggle_FollowCarPos.isOn);
-            ToggleFollowCarRot(toggle_FollowCarRot.isOn);
-            SetMaxSteerAngle(slider_maxSteerAngle.value);
-            SetFriction(slider_friction.value);
-            SetMaxTorque(slider_maxTorque.value);
-            SetMaxCameraRange(slider_maxCameraRange.value);
-            SetMaxSpeed(slider_maxSpeed.value);
-            SetCameraFollowCarPos(toggle_FollowCarPos.isOn);
-            ToggleFollowCarRot(toggle_FollowCarRot.isOn);
+            //SetSimuDriveMode(toggle_isSimuControl.isOn);
+            //ToggleSimuNDT(toggle_simu_ndt.isOn);
+            //ToogleSimuMessagePanel(toggle_SimuMessage.isOn);
+            //SetCameraFollowCarPos(toggle_FollowCarPos.isOn);
+            //ToggleFollowCarRot(toggle_FollowCarRot.isOn);
+            //SetMaxSteerAngle(slider_maxSteerAngle.value);
+            //SetFriction(slider_friction.value);
+            //SetMaxTorque(slider_maxTorque.value);
+            //SetMaxCameraRange(slider_maxCameraRange.value);
+            //SetMaxSpeed(slider_maxSpeed.value);
+            //SetCameraFollowCarPos(toggle_FollowCarPos.isOn);
+            //ToggleFollowCarRot(toggle_FollowCarRot.isOn);
             SetQuality(2);
         }
         private void InitResolutionItem()
@@ -89,79 +86,80 @@ namespace Assets.Scripts.SimuUI
             SetResolution(2);
         }
         public GameObject GOMaxSpd;
-        public void SetSimuDriveMode(bool value)
-        {
-            ObjTestCar.TestCar.WD.IsHandDrive = !value;
-            slider_maxSpeed.interactable = value;
-        }
-        private void ToggleFollowCarRot(bool value) => OverLookCamera.Instance.SwitchRotCam(value);
 
-        public void SetCameraFollowCarPos(bool value)
-        {
-            if (value) OverLookCamera.Instance.OLCameraReset();
-            OverLookCamera.Instance.isFollowTargetPos = value;
-            toggle_FollowCarPos.isOn = value;
-        }
-        private void SetMaxSteerAngle(float arg0)
-        {
-            if (text_maxSteerAngle != null)
-            {
-                text_maxSteerAngle.text = string.Format(arg0.ToString());
-            }
-            ObjTestCar.TestCar.WD.maxAngle = arg0;
-        }
-        private void ToogleSimuMessagePanel(bool arg0)
-        {
-            PanelSimuMessage.Instance.SetPanelActive(arg0);
-        }
-        private void ToggleSimuNDT(bool arg0)
-        {
-            if (TestConfig.isEditMode) return;
-            if (lidarOrSimNdt == null)
-                lidarOrSimNdt = ObjTestCar.TestCar.GetComponent<LidarOrSimNdt>();
-            lidarOrSimNdt.SetSimNdt(arg0);
-        }
-        WheelFrictionCurve forwardWFC;
-        WheelFrictionCurve sideWFC;
-        private void SetFriction(float arg0)
-        {
-            if (text_friction != null)
-            {
-                text_friction.text = string.Format(arg0.ToString());
-            }
-            foreach (var item in ObjTestCar.TestCar.WD.m_Wheels)
-            {
-                forwardWFC = item.forwardFriction;
-                forwardWFC.stiffness = 2 * arg0;
-                sideWFC = item.sidewaysFriction;
-                sideWFC.stiffness = arg0;
-            }
-        }
-        private void SetMaxTorque(float arg0)
-        {
-            if (text_maxTorque != null)
-            {
-                text_maxTorque.text = string.Format(arg0.ToString());
-            }
-            ObjTestCar.TestCar.WD.maxTorque = arg0;
-        }
-        private void SetMaxCameraRange(float arg0)
-        {
-            if (text_maxCameraRange != null)
-            {
-                text_maxCameraRange.text = string.Format(arg0.ToString());
-            }
-            OverLookCamera.Instance.MaxCameraSize = arg0;
-        }
+        //public void SetSimuDriveMode(bool value)
+        //{
+        //    ObjTestCar.TestCar.WD.IsHandDrive = !value;
+        //    slider_maxSpeed.interactable = value;
+        //}
+        //private void ToggleFollowCarRot(bool value) => OverLookCamera.Instance.SwitchRotCam(value);
 
-        private void SetMaxSpeed(float value)
-        {
-            if (text_maxSpeed != null)
-            {
-                text_maxSpeed.text = value.ToString();
-            }
-            ObjTestCar.TestCar.WD.maxSpeed = value / 3.6f;
-        }
+        //public void SetCameraFollowCarPos(bool value)
+        //{
+        //    if (value) OverLookCamera.Instance.OLCameraReset();
+        //    OverLookCamera.Instance.isFollowTargetPos = value;
+        //    toggle_FollowCarPos.isOn = value;
+        //}
+        //private void SetMaxSteerAngle(float arg0)
+        //{
+        //    if (text_maxSteerAngle != null)
+        //    {
+        //        text_maxSteerAngle.text = string.Format(arg0.ToString());
+        //    }
+        //    ObjTestCar.TestCar.WD.maxAngle = arg0;
+        //}
+        //private void ToogleSimuMessagePanel(bool arg0)
+        //{
+        //    PanelSimuMessage.Instance.SetPanelActive(arg0);
+        //}
+        //private void ToggleSimuNDT(bool arg0)
+        //{
+        //    if (TestConfig.isEditMode) return;
+        //    if (lidarOrSimNdt == null)
+        //        lidarOrSimNdt = ObjTestCar.TestCar.GetComponent<LidarOrSimNdt>();
+        //    lidarOrSimNdt.SetSimNdt(arg0);
+        //}
+        //WheelFrictionCurve forwardWFC;
+        //WheelFrictionCurve sideWFC;
+        //private void SetFriction(float arg0)
+        //{
+        //    if (text_friction != null)
+        //    {
+        //        text_friction.text = string.Format(arg0.ToString());
+        //    }
+        //    foreach (var item in ObjTestCar.TestCar.WD.m_Wheels)
+        //    {
+        //        forwardWFC = item.forwardFriction;
+        //        forwardWFC.stiffness = 2 * arg0;
+        //        sideWFC = item.sidewaysFriction;
+        //        sideWFC.stiffness = arg0;
+        //    }
+        //}
+        //private void SetMaxTorque(float arg0)
+        //{
+        //    if (text_maxTorque != null)
+        //    {
+        //        text_maxTorque.text = string.Format(arg0.ToString());
+        //    }
+        //    ObjTestCar.TestCar.WD.maxTorque = arg0;
+        //}
+        //private void SetMaxCameraRange(float arg0)
+        //{
+        //    if (text_maxCameraRange != null)
+        //    {
+        //        text_maxCameraRange.text = string.Format(arg0.ToString());
+        //    }
+        //    OverLookCamera.Instance.MaxCameraSize = arg0;
+        //}
+
+        //private void SetMaxSpeed(float value)
+        //{
+        //    if (text_maxSpeed != null)
+        //    {
+        //        text_maxSpeed.text = value.ToString();
+        //    }
+        //    ObjTestCar.TestCar.WD.maxSpeed = value / 3.6f;
+        //}
         private Dictionary<int, Resolution> DicResolution = new Dictionary<int, Resolution>
         {
             {0,new Resolution(2560,1440)},

@@ -49,6 +49,7 @@ namespace Assets.Scripts.SimuUI
                 Destroy(gameObject);
             });
         }
+
         private void OnDestroy()
         {
             Destroy(gameObject);

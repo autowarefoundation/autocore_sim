@@ -218,6 +218,22 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
         ElementsManager.Instance.SelectedElement = null;
     }
 
+    public bool isCarCameraMain = false;
+    public RenderTexture texture_RightDown;
+    public void SwitchCamera()
+    {
+        isCarCameraMain = !isCarCameraMain;
+        if (isCarCameraMain)
+        {
+            CarCameraController.Instance.GetComponent<Camera>().targetTexture = null;
+            Instance.oLCamera.targetTexture = texture_RightDown;
+        }
+        else
+        {
+            CarCameraController.Instance.GetComponent<Camera>().targetTexture = texture_RightDown;
+            Instance.oLCamera.targetTexture = null;
+        }
+    }
     public void OLCameraReset()
     {
         CameraSize = 20;

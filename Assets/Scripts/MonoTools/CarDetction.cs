@@ -32,17 +32,17 @@ namespace Assets.Scripts.Element
         {
             if (other.gameObject.CompareTag("RoadEdge"))
             {
-                MainUI.Instance.SetTipText("Collision with road curb");
+               PanelOther.Instance.SetTipText("Collision with road curb");
                 TestDataManager.Instance.WriteTestData("Collision with road curb，location:" + ObjTestCar.TestCar.transform.position);
             }
             else if (other.gameObject.layer == LayerMask.NameToLayer("Avatar") && other.gameObject.name == "colider")
             {
-                MainUI.Instance.SetTipText("Collision with other vehicle");
+               PanelOther.Instance.SetTipText("Collision with other vehicle");
                 TestDataManager.Instance.WriteTestData("Collision with other vehicle，location:" + ObjTestCar.TestCar.transform.position);
             }
             else if (other.gameObject.CompareTag("Human"))
             {
-                MainUI.Instance.SetTipText("Collision with pedestrian");
+               PanelOther.Instance.SetTipText("Collision with pedestrian");
                 TestDataManager.Instance.WriteTestData("Collision with pedestrian，position:" + ObjTestCar.TestCar.transform.position);
             }
             else if (other.gameObject.CompareTag ("CheckPoint"))
@@ -51,7 +51,7 @@ namespace Assets.Scripts.Element
             }
             else if (other.gameObject.CompareTag("Obstacle"))
             {
-                MainUI.Instance.SetTipText("Collision with Obstacle");
+               PanelOther.Instance.SetTipText("Collision with Obstacle");
                 TestDataManager.Instance.WriteTestData("Collision with Obstacle，position:" + ObjTestCar.TestCar.transform.position);
             }
         }
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Element
             ElementsManager.Instance.SwitchCheckPoint();
             ArrTime.Add(Time.time);
             float angel = Vector3.Angle(ObjTestCar.TestCar.transform.forward, dicForward);
-            MainUI.Instance.SetTipText("Reach check point");
+           PanelOther.Instance.SetTipText("Reach check point");
             TestDataManager.Instance.WriteTestData("Pass check point，ego vehicle angle:" + angel.ToString("0.00") + ",current lap counts:" + checkTime);
         }
     }

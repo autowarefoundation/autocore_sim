@@ -17,6 +17,7 @@
 #endregion
 
 using Assets.Scripts;
+using Assets.Scripts.SimuUI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -38,7 +39,7 @@ namespace Assets.Scripts.Element
         {
             return new ElementAttbutes
             {
-                attributes = new ElementAttribute[] { ElementAttribute.Human },
+                attributes = new bool[8] { true,true,false,false,true,false,false,true },
                 name = transform.name,
                 humanAtt = new HumanAtt
                 {
@@ -290,6 +291,14 @@ namespace Assets.Scripts.Element
             }
         }
 
+        public void SetPoslist(int index,Vector3 pos)
+        {
+            PosList[index] = pos;
+        }
+        public void SetRepeat(bool value)
+        {
+            isHumanRepeat = value;
+        }
         public override void ElementReset()
         {
             base.ElementReset();

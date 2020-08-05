@@ -6,7 +6,6 @@ namespace Assets.Scripts.SimuUI
 {
     public class PanelVoyage : PanelBase<PanelVoyage>, ISimuPanel
     {
-        public List<PanelVoyageConfig> panelVoyageConfigs;
         public GameObject PanelVoyageConfig;
         public Transform PanelConfigParent;
         public Transform AddTrans;
@@ -25,32 +24,18 @@ namespace Assets.Scripts.SimuUI
         }
         public void InitPanelVoyage()
         {
-            for (int i = 0; i < panelVoyageConfigs.Count; i++)
-            {
-                Destroy(panelVoyageConfigs[i].gameObject);
-            }
-            panelVoyageConfigs.Clear();
-            foreach (VoyageConfig config in VoyageTestManager.Instance.VoyageConfigs)
-            {
-                CreateVoyageConfig(config);
-            }
-        }
-
-        public void CreateVoyageConfig(VoyageConfig voyageConfig)
-        {
-            PanelVoyageConfig panelVoyageConfig = Instantiate(PanelVoyageConfig, PanelConfigParent).GetComponent<PanelVoyageConfig>();
-            panelVoyageConfig.InitPanel(voyageConfig);
-            panelVoyageConfigs.Add(panelVoyageConfig);
-            panelVoyageConfig.transform.SetAsLastSibling();
-            AddTrans.SetAsLastSibling();
+            //for (int i = 0; i < panelVoyageConfigs.Count; i++)
+            //{
+            //    Destroy(panelVoyageConfigs[i].gameObject);
+            //}
+            //panelVoyageConfigs.Clear();
+            //foreach (VoyageConfig config in VoyageTestManager.Instance.VoyageConfigs)
+            //{
+            //    CreateVoyageConfig(config);
+            //}
         }
         public void SetStepIndicator(int step)
         {
-            foreach (PanelVoyageConfig panel in panelVoyageConfigs)
-            {
-                panel.SetIndicatorActive(false);
-            }
-            panelVoyageConfigs[step].SetIndicatorActive(true);
         }
     }
 }

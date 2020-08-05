@@ -101,11 +101,11 @@ namespace Assets.Scripts.Element
                     _elementObject = value;
                     if (_elementObject == null)
                     {
-                        InspectorPanel.Instance.SetPanelActive(false);
+                        PanelInspector.Instance.SetPanelActive(false);
                     }
                     else
                     {
-                        InspectorPanel.Instance.InspectorInit();
+                        PanelInspector.Instance.InspectorInit(SelectedElement.GetObjAttbutes());
                     }
                 }
             }
@@ -124,23 +124,7 @@ namespace Assets.Scripts.Element
         private void Update()
         {
             mousePos = OverLookCamera.Instance.MouseWorldPos;
-            //if (editMode != EditMode.Null)
-            //{
-            //    if (!isCursorSeted)
-            //    {
-            //        Cursor.SetCursor(textureTarget, new Vector2(61.5f, 61.5f), cm);
-            //        isCursorSeted = true;
-            //    }
-            //}
-            //else
-            //{
-            //    if (isCursorSeted)
-            //    {
-            //        Cursor.SetCursor(null, Vector2.zero, cm);
-            //        isCursorSeted = false;
-            //    }
-
-            //}
+            if (SelectedElement != null) PanelInspector.Instance.InspectorUpdate(SelectedElement.GetObjAttbutes());
             switch (editMode)
             {
                 case EditMode.Null:
@@ -150,14 +134,13 @@ namespace Assets.Scripts.Element
                     switch (indexMode)
                     {
                         case 0:
-                            MainUI.Instance.SetTipText("Click to set vehicle position，right click to cancel");
-                            PanelSettings.Instance.SetCameraFollowCarPos(false);
+                           PanelOther.Instance.SetTipText("Click to set vehicle position，right click to cancel");
                             indexMode = 1;
                             break;
                         case 1:
                             if (Input.GetMouseButtonDown(0))
                             {
-                                MainUI.Instance.SetTipText("Click to set vehicle orientation");
+                               PanelOther.Instance.SetTipText("Click to set vehicle orientation");
                                 ObjTestCar.TestCar.transform.position = mousePos + Vector3.up * 0.5f;
                                 TestDataManager.Instance.WriteTestData("Set ego vehicle position:" + mousePos);
                                 indexMode = 2;
@@ -183,7 +166,7 @@ namespace Assets.Scripts.Element
                     switch (indexMode)
                     {
                         case 0:
-                            MainUI.Instance.SetTipText("Click to set obstacle position，left ctrl+ mouse wheel to set obstacle size，right click to cancel");
+                           PanelOther.Instance.SetTipText("Click to set obstacle position，left ctrl+ mouse wheel to set obstacle size，right click to cancel");
                             objTemp = Instantiate(Static, statics);
                             SelectedElement = objTemp.GetComponent<ElementObject>();
                             indexMode = 1;
@@ -213,13 +196,13 @@ namespace Assets.Scripts.Element
                     switch (indexMode)
                     {
                         case 0:
-                            MainUI.Instance.SetTipText("Click to set pedestrian starting position");
+                           PanelOther.Instance.SetTipText("Click to set pedestrian starting position");
                             indexMode = 1;
                             break;
                         case 1:
                             if (MouseInputBase.Button0Down)
                             {
-                                MainUI.Instance.SetTipText("Click to add target position for pedestrian, right click to cancel");
+                               PanelOther.Instance.SetTipText("Click to add target position for pedestrian, right click to cancel");
                                 SelectedElement = AddHuman(mousePos + Vector3.up * 0.1f);
                                 ObjHuman.PosList.Add(mousePos);
                                 TestDataManager.Instance.WriteTestData("Set Human,Position:" + mousePos.ToString());
@@ -240,19 +223,19 @@ namespace Assets.Scripts.Element
                             {
                                 if (ObjHuman.PosList.Count > 10)
                                 {
-                                    MainUI.Instance.SetTipText("Can't set target positon more than 10");
+                                   PanelOther.Instance.SetTipText("Can't set target positon more than 10");
                                 }
                                 else
                                 {
                                     ObjHuman.PosList.Add(mousePos);
-                                    MainUI.Instance.SetTipText("Click to add target position for pedestrian, right click to cancel");
+                                   PanelOther.Instance.SetTipText("Click to add target position for pedestrian, right click to cancel");
                                 }
                             }
                             else if (MouseInputBase.Button1Down)
                             {
                                 editMode = EditMode.Null;
                                 isShowLine = false;
-                                MainUI.Instance.SetTipText("cancelled");
+                               PanelOther.Instance.SetTipText("cancelled");
                             }
                             break;
                         default:
@@ -263,7 +246,7 @@ namespace Assets.Scripts.Element
                     switch (indexMode)
                     {
                         case 0:
-                            MainUI.Instance.SetTipText("Click to set AI vehicle init position");
+                           PanelOther.Instance.SetTipText("Click to set AI vehicle init position");
                             indexMode = 1;
                             break;
                         case 1:
@@ -271,7 +254,7 @@ namespace Assets.Scripts.Element
                             {
                                 SelectedElement = AddCarAI(mousePos);
                                 ObjAiCar.posInit = mousePos;
-                                MainUI.Instance.SetTipText("Click to set AI vehicle starting position");
+                               PanelOther.Instance.SetTipText("Click to set AI vehicle starting position");
                                 indexMode = 2;
                             }
                             else if (Input.GetMouseButtonDown(1))
@@ -301,13 +284,13 @@ namespace Assets.Scripts.Element
                             }
                             break;
                         case 3:
-                            MainUI.Instance.SetTipText("Click to set AI vehicle target position");
+                           PanelOther.Instance.SetTipText("Click to set AI vehicle target position");
                             indexMode = 4;
                             break;
                         case 4:
                             if (Input.GetMouseButtonDown(0))
                             {
-                                MainUI.Instance.SetTipText("AI vehicle settled");
+                               PanelOther.Instance.SetTipText("AI vehicle settled");
                                 SelectedElement.GetComponent<ObjAICar>().SetTarget(mousePos);
                                 editMode = EditMode.Null;
                             }
@@ -320,7 +303,7 @@ namespace Assets.Scripts.Element
                     switch (indexMode)
                     {
                         case 0:
-                            MainUI.Instance.SetTipText("Click to set checkpoint position，left ctrl+ mouse wheel to set checkpoint size，right click to cancel");
+                           PanelOther.Instance.SetTipText("Click to set checkpoint position，left ctrl+ mouse wheel to set checkpoint size，right click to cancel");
                             objTemp = Instantiate(CheckPoint, CheckPoints);
                             objTemp.transform.SetParent(CheckPoints);
                             SelectedElement = objTemp.GetComponent<ElementObject>();
@@ -361,6 +344,10 @@ namespace Assets.Scripts.Element
         {
             editMode = mode;
             indexMode = index;
+        }
+        public void SetCarSetMode()
+        {
+            SetEditMode(EditMode.SetCarPose);
         }
         public ObjAICar AddCarAI(Vector3 pos)
         {

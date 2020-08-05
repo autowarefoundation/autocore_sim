@@ -111,7 +111,7 @@ namespace Assets.Scripts
             WriteByLineCover(Path.Combine(Application.streamingAssetsPath ,"TestConfigs," , td.TestModeName + ".json"), content);
             if (MainUI.Instance != null)
             {
-                MainUI.Instance.SetTipText("Mode Save OK");
+               PanelOther.Instance.SetTipText("Mode Save OK");
             }
             TestConfig.TestMode = td;
         }

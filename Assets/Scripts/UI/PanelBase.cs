@@ -17,6 +17,10 @@ namespace Assets.Scripts.SimuUI
                 {
                     _instance = FindObjectOfType(typeof(T)) as T;
                 }
+                if (_instance == null)
+                {
+                    Debug.Log("null");
+                }
                 return _instance;
             }
         }

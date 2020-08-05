@@ -3,14 +3,10 @@
  * Copyright (c) 2018 AutoCore
  */
 #endregion
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+
+using AutoCore.Sim.Autoware.IO;
 using System;
 using UnityEngine.UI;
-using Assets.Scripts;
-using UnityEngine.SceneManagement;
-using AutoCore.Sim.Autoware.IO;
 
 namespace Assets.Scripts.SimuUI
 {

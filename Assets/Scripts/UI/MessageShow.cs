@@ -3,7 +3,6 @@
  * Copyright (c) 2018 AutoCore
  */
 #endregion
-using Assets.Scripts.Element;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -47,7 +46,6 @@ namespace Assets.Scripts.SimuUI
         public int heightPixels; //图片高度
         public RawImage rawImage;
         Texture2D texture;
-        WheelDrive wd;
         void Start()
         {
             widthPixels = (int)rawImage.rectTransform.rect.width;
@@ -61,20 +59,11 @@ namespace Assets.Scripts.SimuUI
             configs = new List<Config>();
             texture = new Texture2D(widthPixels, heightPixels);
             rawImage.texture = texture;
-            wd = ObjTestCar.TestCar.WD;
         }
 
         // Update is called once per frame
         void Update()
         {
-            configs.Add(new Config
-            {
-                throttle = wd.throttle / max_throttle,
-                brake = wd.brake / max_brake,
-                steer = wd.steer / max_steer,
-                speed = wd.GetComponent<WheelDrive>().speed / max_speed,
-                speed_expect = wd.GetComponent<SpeedController>().aimSpeed / max_speedEx
-            });
             Array.Copy(m_PixelsBg, m_Pixels, m_Pixels.Length);//全重置为背景色
             int samplesOnScreen = (int)(widthSeconds / Time.fixedDeltaTime);//在屏幕里显示的点数
             int stepsBack = (int)(timeTravel / Time.fixedDeltaTime); //回溯的点数

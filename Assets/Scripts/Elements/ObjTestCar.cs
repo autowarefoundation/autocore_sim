@@ -18,6 +18,7 @@
 
 
 
+using Assets.Scripts.SimuUI;
 using Assets.Scripts;
 
 namespace Assets.Scripts.Element
@@ -68,7 +69,7 @@ namespace Assets.Scripts.Element
         {
             return new ElementAttbutes
             {
-                attributes = new ElementAttribute[] { ElementAttribute.Position, ElementAttribute.Rotation },
+                attributes = new bool[8] { true, true ,false, false, false, false, false, false },
                 name = transform.name,
                 pos = transform.position,
                 rot = transform.rotation.eulerAngles.y

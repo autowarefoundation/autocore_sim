@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Element;
+﻿
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,16 +35,16 @@ namespace Assets.Scripts.SimuUI
             {
                 text_Tips.text = string.Empty;
             }
-            CarDisShow();
+            ShowMouseDis2Car();
         }
-        private void CarDisShow()
+        private void ShowMouseDis2Car()
         {
-            text_mousePos.gameObject.SetActive(!MainUI.Instance.isCarCameraMain && !MainUI.Instance.isMouseOnUI);
-            Vector3 offset = OverLookCamera.Instance.MouseWorldPos - ObjTestCar.TestCar.transform.position;
-            float dis2Front = Mathf.Abs(Vector3.Dot(offset, ObjTestCar.TestCar.transform.forward));
-            float dis2Right = Mathf.Abs(Vector3.Dot(offset, ObjTestCar.TestCar.transform.right));
-            text_mousePos.rectTransform.position = new Vector3(Input.mousePosition.x + 20, Input.mousePosition.y, 0);
-            text_mousePos.text = dis2Front.ToString("0.00") + "\n" + dis2Right.ToString("0.00");
+            //text_mousePos.gameObject.SetActive(!OverLookCamera.Instance.isCarCameraMain && !MainUI.Instance.isMouseOnUI);
+            //Vector3 offset = OverLookCamera.Instance.MouseWorldPos - ObjTestCar.TestCar.transform.position;
+            //float dis2Front = Mathf.Abs(Vector3.Dot(offset, ObjTestCar.TestCar.transform.forward));
+            //float dis2Right = Mathf.Abs(Vector3.Dot(offset, ObjTestCar.TestCar.transform.right));
+            //text_mousePos.rectTransform.position = new Vector3(Input.mousePosition.x + 20, Input.mousePosition.y, 0);
+            //text_mousePos.text = dis2Front.ToString("0.00") + "\n" + dis2Right.ToString("0.00");
         }
         private float time_tip = 5;
         public void SetTipText(string str)

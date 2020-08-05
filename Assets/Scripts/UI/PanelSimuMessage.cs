@@ -1,4 +1,4 @@
-﻿using Assets.Scripts.Element;
+﻿
 using AutoCore.Sim.Autoware.IO;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,10 +16,10 @@ namespace Assets.Scripts.SimuUI
         public Text text_Control;
         void Start()
         {
-            text_mode.text = TestConfig.TestMode.TestModeName;
+            //text_mode.text = TestConfig.TestMode.TestModeName;
             text_version.text = Application.version;
-            text_IP.text = ROS_Node.Config.ros_master_uri.Replace("http://", string.Empty);
-            SetControlModeText(ObjTestCar.TestCar.WD.IsHandDrive);
+            //text_IP.text = ROS_Node.Config.ros_master_uri.Replace("http://", string.Empty);
+            //SetControlModeText(ObjTestCar.TestCar.WD.IsHandDrive);
             button_exit?.onClick.AddListener(() =>
             {
                 SetPanelActive(false);

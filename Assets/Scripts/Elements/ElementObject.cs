@@ -24,30 +24,30 @@ using UnityEngine.UI;
 namespace Assets.Scripts.Element
 {
 
-    public struct ElementAttbutes
-    {
-        public ElementObject.ElementAttribute[] attributes;
-        public string name;
-        public Vector3 pos;
-        public float sca;
-        public float rot;
-        public float spdCarAI;
-        public HumanAtt humanAtt;
-        public TrafficLigghtAtt trafficLigghtAtt;
-    }
-    public struct HumanAtt
-    {
-        public float speed;
-        public bool isRepeat;
-        public List<Vector3> aimList;
-    }
-    public struct TrafficLigghtAtt
-    {
-        public float timeSwitch;
-        public float timeWait;
-        public ObjTrafficLight.TrafficMode mode;
+    //public struct ElementAttbutes
+    //{
+    //    public ElementObject.ElementAttribute[] attributes;
+    //    public string name;
+    //    public Vector3 pos;
+    //    public float sca;
+    //    public float rot;
+    //    public float spdCarAI;
+    //    public HumanAtt humanAtt;
+    //    public TrafficLigghtAtt trafficLigghtAtt;
+    //}
+    //public struct HumanAtt
+    //{
+    //    public float speed;
+    //    public bool isRepeat;
+    //    public List<Vector3> aimList;
+    //}
+    //public struct TrafficLigghtAtt
+    //{
+    //    public float timeSwitch;
+    //    public float timeWait;
+    //    public ObjTrafficLight.TrafficMode mode;
 
-    }
+    //}
     public class ElementObject : MonoBehaviour
     {
         public enum ElementAttribute
@@ -87,6 +87,7 @@ namespace Assets.Scripts.Element
         }
         private void OnDestroy()
         {
+            if (ElementsManager.Instance == null) return;
             if (ElementsManager.Instance.ElementList.Contains(this))
             {
                 ElementsManager.Instance.RemoveElement(gameObject);
@@ -102,37 +103,31 @@ namespace Assets.Scripts.Element
                 if (objTC != null)
                 {
                     gameObject.name = "EgoVehicle";
-                    MainUI.Instance.AddTestCarButton(gameObject);
                 }
                 var objO = GetComponent<ObjObstacle>();
                 if (objO != null)
                 {
                     gameObject.name = "Static Obstacle" + ElementsManager.Instance.ObstacleList.Count;
-                    MainUI.Instance.AddStaticButton(gameObject);
                 }
                 var objH = GetComponent<ObjHuman>();
                 if (objH != null)
                 {
                     gameObject.name = "Human" + ElementsManager.Instance.HumanList.Count;
-                    MainUI.Instance.AddHumanButton(gameObject);
                 }
                 var objTL = GetComponent<ObjTrafficLight>();
                 if (objTL != null)
                 {
                     gameObject.name = "Traffic Light" + ElementsManager.Instance.TrafficLightList.Count;
-                    MainUI.Instance.AddTrafficLightButton(gameObject);
                 }
                 var objAC = GetComponent<ObjAICar>();
                 if (objAC != null)
                 {
                     gameObject.name = "Ai Vehicle" + ElementsManager.Instance.CarList.Count;
-                    MainUI.Instance.AddCarAIButton(gameObject);
                 }
                 var objCP = GetComponent<ObjCheckPoint>();
                 if (objCP != null)
                 {
                     gameObject.name = "CheckPoint" + ElementsManager.Instance.CheckPointList.Count;
-                    MainUI.Instance.AddCheckPointButton(gameObject);
                 }
             }
 
