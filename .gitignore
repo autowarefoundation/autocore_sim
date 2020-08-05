@@ -13,3 +13,4 @@ Plugins.meta
 !**/StreamingAssets/lidar.json.meta
 !**/StreamingAssets/TestConfigs/
 !**/StreamingAssets/TestConfigs.meta
+/Assets/Scenes/City
