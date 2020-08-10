@@ -20,6 +20,9 @@
 
 using Assets.Scripts.SimuUI;
 using Assets.Scripts;
+using UnityEngine.UIElements;
+using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Scripts.Element
 {
@@ -72,8 +75,15 @@ namespace Assets.Scripts.Element
                 attributes = new bool[8] { true, true ,false, false, false, false, false, false },
                 name = transform.name,
                 pos = transform.position,
-                rot = transform.rotation.eulerAngles.y
+                rot = transform.rotation.eulerAngles.y,
+                canDelete = CanDelete
             };
+        }
+        public override void SetObjAttbutes(ElementAttbutes attbutes)
+        {
+            if (ElementsManager.Instance.SelectedElement != this) return;
+            base.SetObjAttbutes(attbutes);
+            transform.position = attbutes.pos;
         }
 
 
@@ -92,10 +102,34 @@ namespace Assets.Scripts.Element
         protected override void Update()
         {
             base.Update();
+            if (PanelCarMessage.Instance != null)
+            {
+                PanelCarMessage.Instance.UpdateCarmessage(wd.steer,wd.str_Odom,wd.brake,wd.throttle,wd.speed,SPC.LinearVelocity);
+            }
+        }
+        public void SetDriveMode(bool isAuto)
+        {
+            WD.IsHandDrive = !isAuto;
         }
         public override void ElementReset()
         {
             base.ElementReset();
+        }
+        [MenuItem("Asset/CreateTestCar")]
+        public static void SetObj()
+        {
+            GameObject go = AssetDatabase.LoadAssetAtPath<GameObject>("Packages/com.autocore.sim-ai/Prefabs/EgoVehicle.prefab");
+            if (go == null)
+            {
+                Debug.Log("null1");
+                go = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/sim-ai/Prefabs/EgoVehicle.prefab");
+            }
+            if (go == null)
+            {
+                Debug.Log("null");
+            }
+            else Debug.Log(go.name);
+            Instantiate(go);
         }
     }
 }

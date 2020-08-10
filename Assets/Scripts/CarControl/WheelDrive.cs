@@ -42,7 +42,7 @@ public class WheelDrive : MonoBehaviour
         set
         {
             isHandDrive = value;
-            PanelSimuMessage.Instance.SetControlModeText(value);
+            PanelSimuMessage.Instance.SetControlModeText(value?"KeyBoard": "RosControl");
         }
     }
     public float speed;
@@ -125,6 +125,24 @@ public class WheelDrive : MonoBehaviour
         steer = Input.GetAxis("Horizontal");
         throttle = Mathf.Abs(speed) < maxSpeed ? Input.GetAxis("Vertical") : 0;
         brake = Input.GetKey(KeyCode.X) ? 1 : 0;
+    }
+    public void SetFriction(float arg0)
+    {
+        foreach (var item in m_Wheels)
+        {
+            WheelFrictionCurve forwardWFC = item.forwardFriction;
+            forwardWFC.stiffness = 2 * arg0;
+            WheelFrictionCurve sideWFC = item.sidewaysFriction;
+            sideWFC.stiffness = arg0;
+        }
+    }
+    public void SetMaxTorque(float value)
+    {
+        maxTorque = value;
+    }
+    public void SetMaxSpeed(float value)
+    {
+        maxSpeed = value / 3.6f;
     }
 
     IEnumerator ResetData(Vector3 pos, Quaternion qua)

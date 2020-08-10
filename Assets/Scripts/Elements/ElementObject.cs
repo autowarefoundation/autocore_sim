@@ -19,35 +19,11 @@ using Assets.Scripts;
 using Assets.Scripts.SimuUI;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Element
 {
-
-    //public struct ElementAttbutes
-    //{
-    //    public ElementObject.ElementAttribute[] attributes;
-    //    public string name;
-    //    public Vector3 pos;
-    //    public float sca;
-    //    public float rot;
-    //    public float spdCarAI;
-    //    public HumanAtt humanAtt;
-    //    public TrafficLigghtAtt trafficLigghtAtt;
-    //}
-    //public struct HumanAtt
-    //{
-    //    public float speed;
-    //    public bool isRepeat;
-    //    public List<Vector3> aimList;
-    //}
-    //public struct TrafficLigghtAtt
-    //{
-    //    public float timeSwitch;
-    //    public float timeWait;
-    //    public ObjTrafficLight.TrafficMode mode;
-
-    //}
     public class ElementObject : MonoBehaviour
     {
         public enum ElementAttribute
@@ -85,6 +61,10 @@ namespace Assets.Scripts.Element
         {
             return new ElementAttbutes();
         }
+        public virtual void SetObjAttbutes(ElementAttbutes attbutes)
+        {
+            name = attbutes.name;
+        }
         private void OnDestroy()
         {
             if (ElementsManager.Instance == null) return;
@@ -96,7 +76,11 @@ namespace Assets.Scripts.Element
         }
         protected virtual void Start()
         {
-
+            PanelInspector.Instance.ElementUpdate += SetObjAttbutes;
+            InitElement();
+        }
+        private void InitElement()
+        {
             if (elementButton == null)
             {
                 var objTC = GetComponent<ObjTestCar>();

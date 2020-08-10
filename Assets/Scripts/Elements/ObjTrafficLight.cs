@@ -18,15 +18,23 @@ namespace Assets.Scripts.Element
         {
             return new ElementAttbutes
             {
-                attributes = new bool[8] { true, false, false, false, false,true, false, false },
+                attributes = new bool[8] { true, false, false, false, false, true, false, false },
                 name = transform.name,
                 trafficLigghtAtt = new TrafficLigghtAtt
                 {
                     timeSwitch = switchTime,
                     timeWait = waitTime,
                     mode = (int)trafficMode
-                }
+                },
+                canDelete = CanDelete
             };
+        }
+        public override void SetObjAttbutes(ElementAttbutes attbutes)
+        {
+            if (ElementsManager.Instance.SelectedElement != this) return;
+            base.SetObjAttbutes(attbutes);
+            switchTime = attbutes.trafficLigghtAtt.timeSwitch;
+            waitTime = attbutes.trafficLigghtAtt.timeWait;
         }
         public TrafficLightSetting TrafficLightSetting
         {

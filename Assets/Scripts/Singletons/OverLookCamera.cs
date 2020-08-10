@@ -55,33 +55,18 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
         }
     }
     public Vector3 offset_temp;
-    private float maxCameraSize = 50;
-    public float MaxCameraSize
+    private float maxCameraSize = 200;
+
+    private float _cameraRange = 20;
+    public float CameraRange
     {
         get
         {
-            return maxCameraSize;
+            return _cameraRange;
         }
         set
         {
-            maxCameraSize = value;
-            if (CameraSize > maxCameraSize)
-            {
-                CameraSize = maxCameraSize;
-                oLCamera.orthographicSize = CameraSize;
-            }
-        }
-    }
-    private float _cameraSize = 20;
-    public float CameraSize
-    {
-        get
-        {
-            return _cameraSize;
-        }
-        set
-        {
-            _cameraSize = Mathf.Clamp(value, 10f, maxCameraSize);
+            _cameraRange = Mathf.Clamp(value, 10f, maxCameraSize);
         }
     }
     public bool isFollowTargetPos = false;
@@ -124,7 +109,7 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
             }
             else
             {
-                CameraSize *= 1.1f;
+                CameraRange *= 1.1f;
             }
         }
         else if (MouseInputBase.MouseScroll.y > 0)
@@ -135,10 +120,10 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
             }
             else
             {
-                CameraSize *= 0.9f;
+                CameraRange *= 0.9f;
             }
         }
-        oLCamera.orthographicSize = CameraSize;
+        oLCamera.orthographicSize = CameraRange;
         if (MouseInputBase.Button2Down)
         {
             isDrageCamera = true;
@@ -172,15 +157,14 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
                 ObjTestCar.TestCar.WD.IsHandDrive = !ObjTestCar.TestCar.WD.IsHandDrive;
             }
         }
-        if (isFollowTargetPos) FollowTargetPos();
+        if (isFollowTargetPos)
+        {
+            PosTarget = ObjTestCar.TestCar.transform.position;
+        }
         if (isFollowTargetRot) FollowTargetRot();
         transform.position = new Vector3(PosTarget.x + Offset.x, 50, PosTarget.z + Offset.z);
     }
-    private void FollowTargetPos()
-    {
-        PosTarget = ObjTestCar.TestCar.transform.position;
-    }
-    public void SwitchRotCam(bool value)
+    public void SetCameraFollowTargetRotate(bool value)
     {
         if (value)
         {
@@ -191,6 +175,15 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
             isFollowTargetRot = false;
             transform.rotation = Quaternion.Euler(90, 0, 0);
         }
+    }
+    public void SetCameraFollowTargetPosition(bool value)
+    {
+        isFollowTargetPos = value;
+        if (value)
+        {
+            OLCameraReset();
+        }
+        PanelSettings.Instance.toggle_FollowCarPos.isOn = value;
     }
     private void FollowTargetRot()
     {
@@ -234,10 +227,15 @@ public class OverLookCamera : SingletonWithMono<OverLookCamera>
             Instance.oLCamera.targetTexture = null;
         }
     }
+
+    public void SetCameraRange(float value)
+    {
+        CameraRange = value;
+    }
     public void OLCameraReset()
     {
-        CameraSize = 20;
+        CameraRange = 20;
         offset = Vector3.zero;
-        FollowTargetPos();
+        PosTarget = ObjTestCar.TestCar.transform.position;
     }
 }

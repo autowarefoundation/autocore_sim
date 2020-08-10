@@ -4,6 +4,7 @@
     "com.autocore.sim-autoware-io": "https://github.com/autocore-ai/sim-autoware-io.git#0.1.0",
     "com.autocore.sim-scene": "https://github.com/autocore-ai/sim-scene.git#0.1.0",
     "com.autocore.sim-sensor": "https://github.com/autocore-ai/sim-sensor.git#0.1.0",
+    "com.autocore.sim-ui": "https://github.com/autocore-packages/sim-ui.git#1.0.12",
     "com.autocore.sim-vehicle-control": "https://github.com/autocore-ai/sim-vehicle-control.git#0.1.0",
     "com.autocore.sim-vehicle-model": "https://github.com/autocore-ai/sim-vehicle-model.git#0.1.0",
     "com.unity.editorcoroutines": "1.0.0",
@@ -56,6 +57,10 @@
     "com.autocore.sim-sensor": {
       "revision": "0.1.0",
       "hash": "da9cff85c592a60252d5ffd178e92ee2e0a5afc6"
+    },
+    "com.autocore.sim-ui": {
+      "revision": "1.0.12",
+      "hash": "bf834a1748c5a4b8035f1169ba85cb90ecddfa88"
     },
     "com.autocore.sim-vehicle-control": {
       "revision": "0.1.0",

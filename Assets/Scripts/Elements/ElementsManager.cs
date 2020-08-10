@@ -17,8 +17,6 @@
 #endregion
 
 
-using Assets.Scripts;
-using Assets.Scripts.Edit;
 using Assets.Scripts.SimuUI;
 using AutoCore.Sim.Autoware.IO;
 using System.Collections.Generic;
@@ -26,10 +24,8 @@ using UnityEngine;
 
 namespace Assets.Scripts.Element
 {
-
     public class ElementsManager : SingletonWithMono<ElementsManager>
     {
-
         public enum EditMode
         {
             Null = 0,
@@ -82,6 +78,20 @@ namespace Assets.Scripts.Element
                 return null;
             }
         }
+
+        public ObjTrafficLight ObjTL
+        {
+            get
+            {
+                if (SelectedElement != null)
+                {
+                    var objTL = SelectedElement.GetComponent<ObjTrafficLight>();
+                    if (objTL != null)
+                        return SelectedElement.GetComponent<ObjTrafficLight>();
+                }
+                return null;
+            }
+        }
         private GameObject objTemp;
 
         Vector3 mousePos;
@@ -105,7 +115,7 @@ namespace Assets.Scripts.Element
                     }
                     else
                     {
-                        PanelInspector.Instance.InspectorInit(SelectedElement.GetObjAttbutes());
+                        PanelInspector.Instance.InspectorInit(_elementObject.GetObjAttbutes());
                     }
                 }
             }
@@ -121,6 +131,29 @@ namespace Assets.Scripts.Element
         private Vector3[] LinePoses;
 
         bool isCursorSeted = false;
+        private void Start()
+        {
+            PanelInspector.Instance.button_AddPos.onClick.AddListener(()=> 
+            {
+                SetHumanPoses();
+            });
+            PanelInspector.Instance.button_changeLeft.onClick.AddListener(() =>
+            {
+                if (ObjAiCar.CanChangeLaneLeft()) ObjAiCar.ChangeLane();
+            });
+            PanelInspector.Instance.button_changeRight.onClick.AddListener(() =>
+            {
+                if (ObjAiCar.CanChangeLaneRight()) ObjAiCar.ChangeLane();
+            });
+            PanelInspector.Instance.button_SwitchLight.onClick.AddListener(()=> 
+            {
+                ObjTL.SwitchLight();
+            });
+            PanelInspector.Instance.button_SetAim.onClick.AddListener(()=> 
+            {
+                SetEditMode(EditMode.SetCarAI, 3);
+            });
+        }
         private void Update()
         {
             mousePos = OverLookCamera.Instance.MouseWorldPos;
@@ -265,8 +298,8 @@ namespace Assets.Scripts.Element
                         case 2:
                             isShowLine = true;
                             LinePoses = new Vector3[2] { ObjAiCar.transform.position, mousePos };
-                            Lane laneTemp = MapManager.Instance.SearchNearestPos2Lane(out int index, mousePos);
-                            Vector3 posStart = laneTemp.list_Pos[index];
+                            LaneData laneTemp = MapManager.Instance.SearchNearestPos2Lane(out int index, mousePos);
+                            Vector3 posStart = laneTemp.List_pos[index].GetVector3();
                             ObjAiCar.transform.LookAt(posStart);
                             if (Input.GetMouseButtonDown(0))
                             {
@@ -349,6 +382,27 @@ namespace Assets.Scripts.Element
         {
             SetEditMode(EditMode.SetCarPose);
         }
+        public void SetAddCarAI()
+        {
+            SetEditMode(EditMode.SetCarAI);
+        }
+        public void SetAddHuman()
+        {
+            SetEditMode(EditMode.SetHuman);
+        }
+        public void SetHumanPoses()
+        {
+            SetEditMode(EditMode.SetHuman,2);
+        }
+        public void SetAddObstacle()
+        {
+            SetEditMode(EditMode.SetStatic);
+        }
+        public void SetAddCheckPoint()
+        {
+            SetEditMode(EditMode.SetCheckPoint);
+        }
+
         public ObjAICar AddCarAI(Vector3 pos)
         {
             objTemp = Instantiate(AICar, pos, Quaternion.identity, AIcars);

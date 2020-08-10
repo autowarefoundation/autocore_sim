@@ -39,15 +39,28 @@ namespace Assets.Scripts.Element
         {
             return new ElementAttbutes
             {
-                attributes = new bool[8] { true,true,false,false,true,false,false,true },
+                attributes = new bool[8] { true, true, false, false, true, false, false, true },
                 name = transform.name,
+                pos = transform.position,
                 humanAtt = new HumanAtt
                 {
                     speed = speedObjTarget,
                     isRepeat = isHumanRepeat,
+                    isWait = stopTime != 0.1f,
                     aimList = PosList
-                }
+                },
+                canDelete = CanDelete
             };
+        }
+        public override void SetObjAttbutes(ElementAttbutes attbutes)
+        {
+            if (ElementsManager.Instance.SelectedElement != this) return;
+            base.SetObjAttbutes(attbutes);
+            transform.position = attbutes.pos;
+            speedObjTarget = attbutes.humanAtt.speed;
+            isHumanRepeat = attbutes.humanAtt.isRepeat;
+            PosList = attbutes.humanAtt.aimList;
+            stopTime=attbutes.humanAtt.isWait?1:0.1f;
         }
         private HumanSetting humanSetting;
         public HumanSetting GetHumansetting()
@@ -88,7 +101,7 @@ namespace Assets.Scripts.Element
             stop = 2
         }
         public HumanMode humanCurrentMode;
-        public List<Vector3> PosList;
+        public List<Vector3> PosList=new List<Vector3>();
         public float stopTime = 2;//人物停顿时间
         public bool isHumanRepeat = true;
         private bool isMove = false;
@@ -96,7 +109,7 @@ namespace Assets.Scripts.Element
         public bool isviolateTL;//是否会无视红绿灯
 
         public float currentSpeed;
-        public int currentIndex;
+        public int currentIndex=0;
         private Animator humanAnim;
         private bool isReachTarget = false;
         public bool isWaitTL;
@@ -121,6 +134,7 @@ namespace Assets.Scripts.Element
         protected override void Update()
         {
             base.Update();
+            if (PosList.Count < 1) return;
             ray = new Ray(transform.position + Vector3.up, transform.forward);
             distance_Target = Vector2.Distance(new Vector2(transform.position.x, transform.position.z), new Vector2(PosList[currentIndex].x, PosList[currentIndex].z));
 

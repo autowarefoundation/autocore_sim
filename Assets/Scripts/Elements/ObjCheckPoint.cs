@@ -37,7 +37,8 @@ namespace Assets.Scripts.Element
                 name = transform.name,
                 pos = transform.position,
                 rot=transform.rotation.eulerAngles.y,
-                sca = transform.localScale.y
+                sca = transform.localScale.y,
+                canDelete = CanDelete
             };
         }
         public CheckPointSetting chechPointSetting;
@@ -50,6 +51,14 @@ namespace Assets.Scripts.Element
                 transformData = data
             };
             return chechPointSetting;
+        }
+        public override void SetObjAttbutes(ElementAttbutes attbutes)
+        {
+            if (ElementsManager.Instance.SelectedElement != this) return;
+            base.SetObjAttbutes(attbutes);
+            transform.position = attbutes.pos;
+            transform.rotation = Quaternion.Euler(new Vector3(0, attbutes.rot, 0));
+            transform.localScale = attbutes.sca * new Vector3(1, 1, 1);
         }
         public void SetObstacleSetting()
         {

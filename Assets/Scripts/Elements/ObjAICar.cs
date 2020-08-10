@@ -68,13 +68,20 @@ namespace Assets.Scripts.Element
         {
             return new ElementAttbutes
             {
-                attributes = new bool[8] { true,false,false,false,false,false,true,true },
+                attributes = new bool[8] { true, false, false, false, false, false, true, true },
                 name = transform.name,
-                carAIAtt=new CarAIAtt
+                carAIAtt = new CarAIAtt
                 {
                     spdCarAI = speedObjTarget
-                }
+                },
+                canDelete = CanDelete
             };
+        }
+        public override void SetObjAttbutes(ElementAttbutes attbutes)
+        {
+            if (ElementsManager.Instance.SelectedElement != this) return;
+            base.SetObjAttbutes(attbutes);
+            speedObjTarget = attbutes.carAIAtt.spdCarAI;
         }
         public void SetCarAISetting(CarAISetting setting)
         {
@@ -120,13 +127,13 @@ namespace Assets.Scripts.Element
         //当前车长度宽度
         public float car_Width = 2.2f;
         public float car_extent = 4.3f;
-        public Lane laneFirst;
+        public LaneData laneFirst;
         private int indexLaneFiset;
-        public Lane laneCurrent;
+        public LaneData laneCurrent;
         private int indexLane;
         //当前目标坐标
         private Vector2 currentAimPos;
-        private readonly float maxSpeed;
+        private readonly float maxSpeed=40;
         public float speedCurrent;
         private float acceleration_Drive = 3;
         private float acceleration_Break = 5;
@@ -137,9 +144,9 @@ namespace Assets.Scripts.Element
             speedCurrent = 0;
             speedObjTarget = carAISetting.Speed1;
             transform.name = carAISetting.Name;
-            if(laneFirst==null) laneFirst = MapManager.Instance.SearchNearestPos2Lane(out indexLaneFiset, posStart);
+            if (laneFirst == null) laneFirst = MapManager.Instance.SearchNearestPos2Lane(out indexLaneFiset, posStart);
             laneCurrent = laneFirst;
-            posAim = laneCurrent.list_Pos[indexLaneFiset + 1];
+            posAim = laneCurrent.List_pos[indexLaneFiset + 1].GetVector3();
             transform.position = posInit;
             indexLane = indexLaneFiset;
             isCarDrive = true;
@@ -151,10 +158,10 @@ namespace Assets.Scripts.Element
             base.Update();
             if (isCarDrive)
             {
-                posAimTemp = laneCurrent.list_Pos[indexLane];
+                posAimTemp = laneCurrent.List_pos[indexLane].GetVector3();
                 PositionCheck();
                 ObstacleCheck();
-                CarMove(); 
+                CarMove();
                 TrafficLightCheck();
                 SpeedController();
                 DistanceCheck();
@@ -166,7 +173,7 @@ namespace Assets.Scripts.Element
         {
             isObstacleFront = false;
             if (VoyageTestManager.Instance.target == transform) return;
-            Vector3 DirCarGo = indexLane - 1 > 0 ? posAimTemp - laneCurrent.list_Pos[indexLane - 1] : transform.forward;
+            Vector3 DirCarGo = indexLane - 1 > 0 ? posAimTemp - laneCurrent.List_pos[indexLane - 1].GetVector3() : transform.forward;
             Vector3 PosCarOrigin = posAimTemp + new Vector3(0, 0.5f, 0) - (car_extent * DirCarGo.normalized);
 
             if (RayCheckCar(PosCarOrigin, DirCarGo, out ElementObject element))
@@ -198,7 +205,7 @@ namespace Assets.Scripts.Element
         {
             transform.LookAt(posAimTemp);
             transform.Translate(transform.forward * Time.deltaTime * speedCurrent, Space.World);
-            
+
         }
         private void SpeedController()
         {
@@ -242,19 +249,19 @@ namespace Assets.Scripts.Element
             distance2Target = offset_V3.magnitude;
             if (distance2Target > checkDistance && angle_Front2Aim > 150)
             {
-                indexLane+=2;
+                indexLane += 2;
             }
-            else if(distance2Target < checkDistance)
+            else if (distance2Target < checkDistance)
             {
                 indexLane++;
                 //if (isChangeLane) isChangeLane = false;
             }
-            if (isHaveTarget && Mathf.Abs(indexLane - indexTarget) < 3 &&laneCurrent.SameLanes.Contains(laneTarget))
+            if (isHaveTarget && Mathf.Abs(indexLane - indexTarget) < 3 && laneCurrent.List_sameLanesID.Contains(laneTarget.LaneID))
             {
                 isHaveTarget = false;
-               PanelOther.Instance.SetTipText("AI vehicle arrive at target position");
+                PanelOther.Instance.SetTipText("AI vehicle arrive at target position");
             }
-            if (indexLane >= laneCurrent.list_Pos.Count)
+            if (indexLane >= laneCurrent.List_pos.Count)
             {
                 laneCurrent = SearchNextLane();
                 indexLane = 0;
@@ -263,17 +270,17 @@ namespace Assets.Scripts.Element
 
         Ray rayElement;
         LayerMask maskElement = 1 << 9;
-        bool RayCheckCar(Vector3 posOrigin,Vector3 direction)
+        bool RayCheckCar(Vector3 posOrigin, Vector3 direction)
         {
             rayElement = new Ray(posOrigin, direction);
             if (Physics.Raycast(rayElement, out RaycastHit hitInfo, distanceBrake + 2, maskElement))
             {
                 var element = hitInfo.transform.GetComponentInParent<ElementObject>();
-                if (element != null&&element!=this) return true;
+                if (element != null && element != this) return true;
             }
             return false;
         }
-        bool RayCheckCar(Vector3 posOrigin, Vector3 direction,out ElementObject element)
+        bool RayCheckCar(Vector3 posOrigin, Vector3 direction, out ElementObject element)
         {
             rayElement = new Ray(posOrigin, direction);
             if (Physics.Raycast(rayElement, out RaycastHit hitInfo, distanceBrake + 2, maskElement))
@@ -331,23 +338,23 @@ namespace Assets.Scripts.Element
                 isWaitTLStop = true;
             }
         }
-        private Lane laneChangeTarget;
+        private LaneData laneChangeTarget;
         public bool CanChangeLaneLeft()
         {
-            int index = laneCurrent.SameLanes.IndexOf(laneCurrent) - 1;
+            int index = laneCurrent.List_sameLanesID.IndexOf(laneCurrent.LaneID) - 1;
             if (index >= 0)
             {
-                laneChangeTarget = laneCurrent.SameLanes[index];
+                laneChangeTarget = MapManager.Instance.mapData.LanesData[laneCurrent.List_sameLanesID[index]];
                 return true;
             }
             else return false;
         }
         public bool CanChangeLaneRight()
         {
-            int index = laneCurrent.SameLanes.IndexOf(laneCurrent) + 1;
-            if (index < laneCurrent.SameLanes.Count)
+            int index = laneCurrent.List_sameLanesID.IndexOf(laneCurrent.LaneID) + 1;
+            if (index < laneCurrent.List_sameLanesID.Count)
             {
-                laneChangeTarget = laneCurrent.SameLanes[index];
+                laneChangeTarget = MapManager.Instance.mapData.LanesData[laneCurrent.List_sameLanesID[index]];
                 return true;
             }
             else return false;
@@ -359,14 +366,14 @@ namespace Assets.Scripts.Element
         public void ChangeLane()
         {
             if (laneChangeTarget == null) Debug.Log("no target lane");
-            if (!laneCurrent.SameLanes.Contains(laneChangeTarget)) Debug.Log("not SameLane");
+            if (!laneCurrent.List_sameLanesID.Contains(laneChangeTarget.LaneID)) Debug.Log("not SameLane");
             Vector3 posCar = transform.position;
-            float disMin = Vector3.Distance(laneChangeTarget.list_Pos[0], posCar);
+            float disMin = Vector3.Distance(laneChangeTarget.List_pos[0].GetVector3(), posCar);
             int index = 0;
-            int countLane = laneChangeTarget.list_Pos.Count;
+            int countLane = laneChangeTarget.List_pos.Count;
             for (int i = 1; i < countLane; i++)
             {
-                float disTemp = Vector3.Distance(laneChangeTarget.list_Pos[i], posCar);
+                float disTemp = Vector3.Distance(laneChangeTarget.List_pos[i].GetVector3(), posCar);
                 if (disTemp < disMin)
                 {
                     disMin = disTemp;
@@ -375,24 +382,23 @@ namespace Assets.Scripts.Element
             }
             index += 3;
             if (index >= countLane) index = countLane - 1;
-            Vector3 direction = laneChangeTarget.list_Pos[index] - transform.position;
+            Vector3 direction = laneChangeTarget.List_pos[index].GetVector3() - transform.position;
             if (!ObstacleCheck(direction))
             {
                 laneCurrent = laneChangeTarget;
                 indexLane = index;
                 isChangeLane = true;
-                Debug.Log("change");
             }
         }
 
-        List<Lane> listNextLanes;
+        List<LaneData> listNextLanes;
         /// <summary>
         /// 当路径结束时查找下一条lane
         /// </summary>
         /// <returns></returns>
-        private Lane SearchNextLane()
+        private LaneData SearchNextLane()
         {
-            if (MapManager.Instance.Lanes == null) Debug.Log("lanes is null");
+            if (MapManager.Instance.mapData == null) Debug.Log("lanes is null");
             if (isHaveTarget)
             {
                 int index = ListLane2Target.Count - 1;
@@ -401,10 +407,10 @@ namespace Assets.Scripts.Element
             }
             else
             {
-                listNextLanes = new List<Lane>();
-                foreach (Lane lane in MapManager.Instance.Lanes)
+                listNextLanes = new List<LaneData>();
+                foreach (LaneData lane in MapManager.Instance.mapData.LanesData)
                 {
-                    float dis = Vector3.Distance(lane.PosStart, laneCurrent.PosEnd);
+                    float dis = Vector3.Distance(lane.PosStart.GetVector3(), laneCurrent.PosEnd.GetVector3());
                     if (dis == 0) listNextLanes.Add(lane);
                 }
                 if (listNextLanes.Count != 0)
@@ -420,10 +426,10 @@ namespace Assets.Scripts.Element
         }
 
         private bool isHaveTarget;
-        Lane laneTarget;
+        LaneData laneTarget;
         int indexTarget;
         float dis2TargetMin;
-        public List<Lane> ListLane2Target;
+        public List<LaneData> ListLane2Target;
 
 
         /// <summary>
@@ -434,7 +440,7 @@ namespace Assets.Scripts.Element
         {
             laneTarget = MapManager.Instance.SearchNearestPos2Lane(out int index, point);
             indexTarget = index;
-            ListLane2Target = new List<Lane> { laneTarget };
+            ListLane2Target = new List<LaneData> { laneTarget };
             if (laneTarget == laneCurrent)
             {
                 if (indexTarget > indexLane)
@@ -458,15 +464,15 @@ namespace Assets.Scripts.Element
         /// </summary>
         /// <param name="ListLanes"></param>
         /// <param name="lenth"></param>
-        private void SearchWay(List<Lane> ListLanes, float lenth)
+        private void SearchWay(List<LaneData> ListLanes, float lenth)
         {
-            if (ListLanes.Count >= 30||lenth>10000) return;
-            Lane laneLast = ListLanes[ListLanes.Count - 1];
-            foreach (Lane lane in MapManager.Instance.Lanes)
+            if (ListLanes.Count >= 30 || lenth > 10000) return;
+            LaneData laneLast = ListLanes[ListLanes.Count - 1];
+            foreach (LaneData lane in MapManager.Instance.mapData.LanesData)
             {
                 if (lane.PosEnd != laneLast.PosStart) continue;//不连接的线跳过
                 if (ListLanes.Contains(lane)) continue; //剔除掉重复的
-                if ((lane.SameLanes.Contains(laneCurrent)||lane==laneCurrent) && lenth < dis2TargetMin)
+                if ((lane.List_sameLanesID.Contains(laneCurrent.LaneID) || lane == laneCurrent) && lenth < dis2TargetMin)
                 {
                     ListLanes.Add(lane);
                     dis2TargetMin = lenth;
@@ -475,10 +481,10 @@ namespace Assets.Scripts.Element
                 }
                 else
                 {
-                    float lenth_temp = lenth + lane.lenth_Lane;
+                    float lenth_temp = lenth + lane.LaneLength;
                     if (lenth_temp < dis2TargetMin)
                     {
-                        SearchWay(new List<Lane>(ListLanes) { lane }, lenth_temp);
+                        SearchWay(new List<LaneData>(ListLanes) { lane }, lenth_temp);
                     }
                 }
             }
@@ -488,15 +494,15 @@ namespace Assets.Scripts.Element
         /// </summary>
         /// <param name="ListLanes"></param>
         /// <param name="lenth"></param>
-        private void SearchWay2(List<Lane> ListLanes, float lenth)
+        private void SearchWay2(List<LaneData> ListLanes, float lenth)
         {
             if (ListLanes.Count >= 30 || lenth > 5000) return;
-            Lane laneLast = ListLanes[ListLanes.Count - 1];
-            foreach (Lane lane in MapManager.Instance.Lanes)
+            LaneData laneLast = ListLanes[ListLanes.Count - 1];
+            foreach (LaneData lane in MapManager.Instance.mapData.LanesData)
             {
                 if (lane.PosEnd != laneLast.PosStart) continue;//不连接的线跳过
                 if (ListLanes.Contains(lane) && lane != ListLanes[0]) continue; //剔除掉重复的
-                if ((lane.SameLanes.Contains(laneCurrent) || lane == laneCurrent) && lenth < dis2TargetMin)
+                if ((lane.List_sameLanesID.Contains(laneCurrent.LaneID) || lane == laneCurrent) && lenth < dis2TargetMin)
                 {
                     ListLanes.Add(lane);
                     dis2TargetMin = lenth;
@@ -505,10 +511,10 @@ namespace Assets.Scripts.Element
                 }
                 else
                 {
-                    float lenth_temp = lenth + lane.lenth_Lane;
+                    float lenth_temp = lenth + lane.LaneLength;
                     if (lenth_temp < dis2TargetMin)
                     {
-                        SearchWay(new List<Lane>(ListLanes) { lane }, lenth_temp);
+                        SearchWay(new List<LaneData>(ListLanes) { lane }, lenth_temp);
                     }
                 }
             }
@@ -516,7 +522,7 @@ namespace Assets.Scripts.Element
 
         public override void ElementReset()
         {
-            base.ElementReset(); 
+            base.ElementReset();
             CarInit();
         }
     }
