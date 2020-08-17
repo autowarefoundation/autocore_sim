@@ -23,6 +23,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -33,7 +34,7 @@ namespace Assets.Scripts
         {
             Debug.Log("init TestDataManager");
         }
-        public string testModeName;
+        public static string testModeName;
         const string timeFormat = "yyyy-MM-dd-HH-mm-ss";
         public void TDMInit()
         {
@@ -48,14 +49,15 @@ namespace Assets.Scripts
             WriteTestJson(true);
         }
 
-        public void WriteTestJson(bool isNew = false)
+        public static void WriteTestJson(bool isNew = false)
         {
-            SimuTestMode td = new SimuTestMode();
-            td.TestModeName = testModeName;
-            td.MapName = TestConfig.testMap.ToString();
-            td.LastTime = DateTime.Now;
-            td.VoyageTestConfig = 
-                VoyageTestManager.Instance.GetVoyageTestConfig();
+            SimuTestMode td = new SimuTestMode
+            {
+                TestModeName = testModeName,
+                MapName = TestConfig.testMap.ToString(),
+                LastTime = DateTime.Now,
+                VoyageTestConfig = VoyageTestManager.Instance.GetVoyageTestConfig()
+            };
             if (isNew)
             {
                 td.TestCarStart = new TransformData(new Vec3(-200.0f, 0.0f, -4.5f), new Vec3(0.0f, 90.0f, 0.0f), new Vec3(1f, 1f, 1f));
@@ -67,7 +69,7 @@ namespace Assets.Scripts
                         transformData=new TransformData(new Vec3(50.0f, -0.5f, 0.0f), new Vec3(0.0f, 0.0f, 0.0f), new Vec3(1f, 1f, 1f))
                     }
                 };
-            }
+            } 
             else
             {
                 td.TestCarStart = new TransformData(ObjTestCar.TestCar.transform);
@@ -115,8 +117,8 @@ namespace Assets.Scripts
             }
             TestConfig.TestMode = td;
         }
-        FileStream fStream;
-        StreamWriter sw;
+        static FileStream fStream;
+        static StreamWriter sw;
 
         private string dataFilePath;
         public void WriteTestData( string content)
@@ -133,7 +135,7 @@ namespace Assets.Scripts
             WriteFileByLine(dataFilePath, DateTime.Now+" " + content);
         }
 
-        public void WriteFileByLine(string strPath, string value)
+        public static void WriteFileByLine(string strPath, string value)
         {
             try
             {
@@ -146,8 +148,8 @@ namespace Assets.Scripts
                 throw;
             }
         }
-        string testConfigPath;
-        public void WriteByLineCover(string strPath, string content)
+        static string testConfigPath;
+        public static void WriteByLineCover(string strPath, string content)
         {
             testConfigPath = strPath;
             fStream = File.Open(testConfigPath, FileMode.OpenOrCreate, FileAccess.Write);
@@ -166,6 +168,12 @@ namespace Assets.Scripts
         private void OnDestroy()
         {
             if (sw != null) sw.Dispose();
+        }
+
+        [MenuItem("Asset/WirteJson")]
+        static void WJ()
+        {
+            WriteTestJson(false);
         }
     }
 }

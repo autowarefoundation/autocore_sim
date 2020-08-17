@@ -21,9 +21,12 @@ using Assets.Scripts.Element;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.SimuUI;
 
-namespace Assets.Scripts.SimuUI
+
+namespace Assets.Scripts
 {
+
     [Serializable]
     public class VoyageMode
     {
@@ -61,7 +64,7 @@ namespace Assets.Scripts.SimuUI
         public override void Update()
         {
             base.Update();
-            if (VoyageTestManager.Instance.IndexTest <0)
+            if (VoyageTestManager.Instance.IndexTest < 0)
             {
                 return;
             }
@@ -83,7 +86,7 @@ namespace Assets.Scripts.SimuUI
 
     public class VoyageTestManager : SingletonWithMono<VoyageTestManager>
     {
-        public enum Mode { VoyageNull=0, CarFollowing=1 }
+        public enum Mode { VoyageNull = 0, CarFollowing = 1 }
         public Mode mode = Mode.VoyageNull;
         [Space(3)]
         public VoyageNull voyageNull = new VoyageNull();
@@ -148,13 +151,13 @@ namespace Assets.Scripts.SimuUI
         // Update is called once per frame
         void Update()
         {
-            if(target!=null&& VoyageConfigs.Count > 0) voyageModes[(int)mode].Update();
+            if (target != null && VoyageConfigs.Count > 0) voyageModes[(int)mode].Update();
         }
         public void SetVoyageTestConfig(VoyageTestConfig config)
         {
             mode = (Mode)config.voyageMode;
             VoyageConfigs = config.configs;
-            var obj = GameObject.Find( config.targetName);
+            var obj = GameObject.Find(config.targetName);
             if (obj != null) target = obj.transform;
             PanelVoyage.Instance.InitPanelVoyage();
             if (config.configs.Count != 0)
@@ -189,13 +192,13 @@ namespace Assets.Scripts.SimuUI
         }
         public void TestReset()
         {
-           PanelOther.Instance.SetTipText("Test Restart");
+            PanelOther.Instance.SetTipText("Test Restart");
             MapManager.Instance.ResetMapElements();
             TestInit();
         }
         public void NextStep()
         {
-           PanelOther.Instance.SetTipText("Next Step");
+            PanelOther.Instance.SetTipText("Next Step");
             IndexTest += 1;
             if (IndexTest >= VoyageConfigs.Count)
             {
@@ -209,8 +212,9 @@ namespace Assets.Scripts.SimuUI
         public void UpdateTargetSpeed()
         {
             var obj = target.GetComponent<ElementObject>();
-            if (obj!= null){
-                obj.speedObjTarget= VoyageConfigs[IndexTest].targetSpeed;
+            if (obj != null)
+            {
+                obj.speedObjTarget = VoyageConfigs[IndexTest].targetSpeed;
             }
         }
 

@@ -221,7 +221,7 @@ namespace Assets.Scripts.SimuUI
             if (uriRos != null) ROS_Node.Config.ros_master_uri = uriRos.ToString();
             if (iPAddressLocal != null) ROS_Node.Config.ros_ip = iPAddressLocal.ToString();
             string content = JsonConvert.SerializeObject(ROS_Node.Config);
-            TestDataManager.Instance.WriteByLineCover(Application.streamingAssetsPath + "\\ROS_Config.json", content);
+            TestDataManager.WriteByLineCover(Application.streamingAssetsPath + "\\ROS_Config.json", content);
         }
         private IPAddress GetRosMasterIP(string value)
         {
