@@ -2,7 +2,7 @@
 
 > AutoCore simulation tool provides test environment for Autoware and still during early development, contents below may changed during updates.
 
-[![GitHub license](https://img.shields.io/github/license/autocore-ai/autocore_sim.svg)](https://github.com/autocore-ai/autocore_sim)
+[![GitHub license](https://img.shields.io/github/license/autowarefoundation/autocore_sim.svg)](https://github.com/autowarefoundation/autocore_sim)
 
 ## Overview
 
@@ -32,8 +32,8 @@ Free disk：>1GB
 
 ### Get Released Simulator
 
-* [Windows](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/Simulator_windows_0.3.3.zip)
-* [Ubuntu](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/Simulator_ubuntu_0.3.3.zip)
+* [Windows](https://github.com/autowarefoundation/autocore_sim/releases/download/0.3.3/Simulator_windows_0.3.3.zip)
+* [Ubuntu](https://github.com/autowarefoundation/autocore_sim/releases/download/0.3.3/Simulator_ubuntu_0.3.3.zip)
 
 ### Guide with Autoware.ai
 
@@ -106,13 +106,13 @@ There are some buttons on the top of the main interfaces:
 
 * Clone source
 ```
-git clone https://github.com/autocore-ai/autocore_sim.git
+git clone https://github.com/autowarefoundation/autocore_sim.git
 ```
 * Install [UnityHub](https://unity3d.com/get-unity/download) and Unity(2019.3 or above)
 * Add source folder to Unity project and Open the project.
 * Build to standard alone application by **Ctrl + Shift + B** and build.
-* Copy autoware and ros contents unzip to **Simulator_Data/Plugins** folder, they are autoware map loader nodes and ros melodic built on [windows](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/Plugins_windows.zip) and [ubuntu](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/Plugins_ubuntu.zip).
-* Copy and unzip autoware [maps](https://github.com/autocore-ai/autocore_sim/releases/download/0.3.3/city_maps.zip) to **Simulator_Data/StreamingAssets** folder.
+* Copy autoware and ros contents unzip to **Simulator_Data/Plugins** folder, they are autoware map loader nodes and ros melodic built on [windows](https://github.com/autowarefoundation/autocore_sim/releases/download/0.3.3/Plugins_windows.zip) and [ubuntu](https://github.com/autowarefoundation/autocore_sim/releases/download/0.3.3/Plugins_ubuntu.zip).
+* Copy and unzip autoware [maps](https://github.com/autowarefoundation/autocore_sim/releases/download/0.3.3/city_maps.zip) to **Simulator_Data/StreamingAssets** folder.
 * Double click Simulator.exe on windows, or set Simulator.x86_64 **Allow executing file as program** and run it on ubuntu.
 
 ## ROS Info
