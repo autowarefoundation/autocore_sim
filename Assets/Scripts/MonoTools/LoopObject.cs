@@ -20,6 +20,7 @@
 #endregion
 
 
+using Assets.Scripts.simController;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -34,7 +35,7 @@ namespace Assets.Scripts
             if (other.transform.root.Equals(target))
             {
                 //target.GetComponent<TwistCmdSubscriber>().enabled = false;
-                target.GetComponent<SpeedController>().aimSpeed = target_speed_m_p_s;
+                target.GetComponent<EgoVehicle>().aimSpeed = target_speed_m_p_s;
             }
         }
         private void OnTriggerExit(Collider other)
@@ -42,7 +43,7 @@ namespace Assets.Scripts
             if (other.transform.root.Equals(target))
             {
                 //target.GetComponent<TwistCmdSubscriber>().enabled = true;
-                target.GetComponent<SpeedController>().aimSpeed = 0;
+                target.GetComponent<EgoVehicle>().aimSpeed = 0;
             }
         }
     }

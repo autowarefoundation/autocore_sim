@@ -21,13 +21,12 @@
 
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using UnityEngine;
+using Assets.Scripts.simController;
 using Assets.Scripts.SimuUI;
+using System.Collections.Generic;
+using UnityEngine;
 
-namespace Assets.Scripts.Element
+namespace Assets.Scripts
 {
     public class CarDetction : MonoBehaviour
     {
@@ -35,27 +34,27 @@ namespace Assets.Scripts.Element
         {
             if (other.gameObject.CompareTag("RoadEdge"))
             {
-                MainUI.Instance.SetTipText("Collision with road curb");
-                TestDataManager.Instance.WriteTestData("Collision with road curb，location:" + ObjTestCar.TestCar.transform.position);
+                PanelOther.Instance.SetTipText("Collision with road curb");
+                TestManager.Instance.DataManager.WriteTestData("Collision with road curb，location:" + EgoVehicle.Instance.transform.position);
             }
             else if (other.gameObject.layer == LayerMask.NameToLayer("Avatar") && other.gameObject.name == "colider")
             {
-                MainUI.Instance.SetTipText("Collision with other vehicle");
-                TestDataManager.Instance.WriteTestData("Collision with other vehicle，location:" + ObjTestCar.TestCar.transform.position);
+                PanelOther.Instance.SetTipText("Collision with other vehicle");
+                TestManager.Instance.DataManager.WriteTestData("Collision with other vehicle，location:" + EgoVehicle.Instance.transform.position);
             }
             else if (other.gameObject.CompareTag("Human"))
             {
-                MainUI.Instance.SetTipText("Collision with pedestrian");
-                TestDataManager.Instance.WriteTestData("Collision with pedestrian，position:" + ObjTestCar.TestCar.transform.position);
+                PanelOther.Instance.SetTipText("Collision with pedestrian");
+                TestManager.Instance.DataManager.WriteTestData("Collision with pedestrian，position:" + EgoVehicle.Instance.transform.position);
             }
-            else if (other.gameObject.CompareTag ("CheckPoint"))
+            else if (other.gameObject.CompareTag("CheckPoint"))
             {
                 ReachCheckPoint(other.transform.forward);
             }
             else if (other.gameObject.CompareTag("Obstacle"))
             {
-                MainUI.Instance.SetTipText("Collision with Obstacle");
-                TestDataManager.Instance.WriteTestData("Collision with Obstacle，position:" + ObjTestCar.TestCar.transform.position);
+                PanelOther.Instance.SetTipText("Collision with Obstacle");
+                TestManager.Instance.DataManager.WriteTestData("Collision with Obstacle，position:" + EgoVehicle.Instance.transform.position);
             }
         }
         private int checkTime;
@@ -64,11 +63,12 @@ namespace Assets.Scripts.Element
         public void ReachCheckPoint(Vector3 dicForward)
         {
             checkTime++;
-            ElementsManager.Instance.SwitchCheckPoint();
+            //CPController.Instance.SwitchCheckPoint();
             ArrTime.Add(Time.time);
-            float angel = Vector3.Angle(ObjTestCar.TestCar.transform.forward, dicForward);
-            MainUI.Instance.SetTipText("Reach check point");
-            TestDataManager.Instance.WriteTestData("Pass check point，ego vehicle angle:" + angel.ToString("0.00") + ",current lap counts:" + checkTime);
+            float angel = Vector3.Angle(EgoVehicle.Instance.transform.forward, dicForward);
+            PanelOther.Instance.SetTipText("Reach check point");
+            TestManager.Instance.DataManager.WriteTestData("Pass check point，ego vehicle angle:" + angel.ToString("0.00") + ",current lap counts:" + checkTime);
         }
     }
 }
+

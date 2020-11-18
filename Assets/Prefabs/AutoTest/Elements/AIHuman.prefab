@@ -2393,7 +2393,8 @@ GameObject:
   - component: {fileID: 6374393174586976702}
   - component: {fileID: 6374393174575516633}
   - component: {fileID: 2138770610}
-  - component: {fileID: 3633137678746331798}
+  - component: {fileID: 1569676408}
+  - component: {fileID: 8800869357939238924}
   m_Layer: 9
   m_Name: AIHuman
   m_TagString: Human
@@ -2409,7 +2410,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6374393174586976673}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 195.3, y: 341.806, z: -220.05}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6374393174586651525}
@@ -2481,7 +2482,29 @@ CapsuleCollider:
   m_Height: 0
   m_Direction: 1
   m_Center: {x: 0, y: 0.4, z: 0}
---- !u!114 &3633137678746331798
+--- !u!195 &1569676408
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6374393174586976673}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.4
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 300
+  m_StoppingDistance: 0.12
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 0
+  m_AutoRepath: 1
+  m_Height: 1.6
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+--- !u!114 &8800869357939238924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2490,30 +2513,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 6374393174586976673}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 488dd06fdc20c6b4dad469f3ab67d5a0, type: 3}
+  m_Script: {fileID: 11500000, guid: 1499e99f15fc89149b3da2abc39cce9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   elementButton: {fileID: 0}
-  logicObject: {fileID: 7728961867109590167, guid: f5dcd881bace73246a821a4c06d58948,
-    type: 3}
-  CanDelete: 1
-  CanDrag: 0
-  IsDraging: 0
-  CanScale: 0
+  logicObject: {fileID: 0}
   offsetLogic: {x: 0, y: 1.6, z: 0}
   v3Scale: {x: 0, y: 0, z: 0}
-  offsetPos: {x: 0, y: 0, z: 0}
-  humanCurrentMode: 0
-  PosList: []
-  walkSpeed: 1
-  stopTime: 2
+  model: 0
+  speedObjTarget: 5
   isHumanRepeat: 1
-  isRun: 0
-  isviolateTL: 0
   currentSpeed: 0
-  currentIndex: 0
-  isWaitTL: 0
-  pass: 0
+  PedIndex: 0
 --- !u!1 &6374393174586978223
 GameObject:
   m_ObjectHideFlags: 0

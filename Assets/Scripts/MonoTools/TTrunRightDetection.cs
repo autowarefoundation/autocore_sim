@@ -20,7 +20,7 @@
 #endregion
 
 
-using Assets.Scripts.Element;
+using Assets.Scripts.simai;
 using Assets.Scripts;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,3 +46,4 @@ public class TTrunRightDetection : MonoBehaviour
         //}
     }
 }
+
