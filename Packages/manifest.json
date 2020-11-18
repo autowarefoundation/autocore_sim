@@ -1,9 +1,12 @@
 {
   "dependencies": {
     "com.arkhaminteractive.bezier-curve-editor": "https://github.com/UnityPackages/BezierCurveEditor.git#0.1.0",
-    "com.autocore.sim-autoware-io": "https://github.com/autocore-ai/sim-autoware-io.git#0.1.1",
+    "com.autocore.sim-ai": "https://github.com/autocore-packages/sim-ai.git#1.0.17",
+    "com.autocore.sim-autoware-io": "https://github.com/autocore-ai/sim-autoware-io.git#0.1.0",
+    "com.autocore.sim-controller": "https://github.com/autocore-packages/sim-controller.git#1.0.5",
     "com.autocore.sim-scene": "https://github.com/autocore-ai/sim-scene.git#0.1.0",
     "com.autocore.sim-sensor": "https://github.com/autocore-ai/sim-sensor.git#0.1.0",
+    "com.autocore.sim-ui": "https://github.com/autocore-packages/sim-ui.git#1.0.23",
     "com.autocore.sim-vehicle-control": "https://github.com/autocore-ai/sim-vehicle-control.git#0.1.0",
     "com.autocore.sim-vehicle-model": "https://github.com/autocore-ai/sim-vehicle-model.git#0.1.0",
     "com.unity.editorcoroutines": "1.0.0",
@@ -45,6 +48,18 @@
       "revision": "0.1.0",
       "hash": "e0590e36095c36ef64bcad9a3e086932ba6cbf77"
     },
+    "com.autocore.sim-ai": {
+      "revision": "1.0.17",
+      "hash": "9217692d1046d0bafdb6c89ab4af92dc0d181022"
+    },
+    "com.autocore.sim-autoware-io": {
+      "revision": "0.1.0",
+      "hash": "9db279fac1898b0a566d596bb2399fb7c07016f7"
+    },
+    "com.autocore.sim-controller": {
+      "revision": "1.0.5",
+      "hash": "5ed1067b21c56aa30de58720b9c9d714436d0924"
+    },
     "com.autocore.sim-scene": {
       "revision": "0.1.0",
       "hash": "d7e80acb04d22c754fa36cef8ad97dda5aaacb64"
@@ -52,6 +67,10 @@
     "com.autocore.sim-sensor": {
       "revision": "0.1.0",
       "hash": "da9cff85c592a60252d5ffd178e92ee2e0a5afc6"
+    },
+    "com.autocore.sim-ui": {
+      "revision": "1.0.23",
+      "hash": "413038a0e063d362df40616d747b5ef185e295b3"
     },
     "com.autocore.sim-vehicle-control": {
       "revision": "0.1.0",

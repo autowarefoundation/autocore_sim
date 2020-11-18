@@ -20,19 +20,21 @@
 #endregion
 
 
+using Assets.Scripts.simai;
 using UnityEngine;
 
-namespace Assets.Scripts.Element
+namespace Assets.Scripts
 {
 
     public class StopLine : MonoBehaviour
     {
         private void OnTriggerExit(Collider other)
         {
-            var testCar = other.GetComponentInParent<ObjTestCar>();
+            var testCar = other.GetComponentInParent<EgoVehicleObj>();
             if (testCar != null) testCar.CurrentTL = null;
-            var objAICar = other.GetComponentInParent<ObjAICar>();
+            var objAICar = other.GetComponentInParent<NPCObj>();
             if (objAICar != null) objAICar.currentTL = null;
         }
     }
 }
+

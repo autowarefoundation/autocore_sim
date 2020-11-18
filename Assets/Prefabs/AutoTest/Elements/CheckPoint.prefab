@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 559819320177381483}
   - component: {fileID: 559819320177381482}
   - component: {fileID: 559819320177381397}
-  - component: {fileID: 1318416003815700171}
+  - component: {fileID: 3936771923416112551}
   m_Layer: 0
   m_Name: CheckPoint
   m_TagString: CheckPoint
@@ -109,7 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frame: 
   hz: 0
---- !u!114 &1318416003815700171
+--- !u!114 &3936771923416112551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,17 +118,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 559819320177381399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09d5c3581c2c596428231a6baad08e9a, type: 3}
+  m_Script: {fileID: 11500000, guid: 0885ae5f5c840a44dbbd55079f9b3c90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   elementButton: {fileID: 0}
-  logicObject: {fileID: 3538623350119579185, guid: f0fdb0adc4697124db0fd356880086f8,
-    type: 3}
-  CanDelete: 1
-  CanDrag: 1
-  IsDraging: 1
-  CanScale: 0
-  offsetLogic: {x: 0, y: 2.27, z: 0}
+  logicObject: {fileID: 0}
+  offsetLogic: {x: 0, y: 0, z: 0}
   v3Scale: {x: 0, y: 0, z: 0}
-  offsetPos: {x: 0, y: 0, z: 0}
+  model: 0
   speedObjTarget: 0

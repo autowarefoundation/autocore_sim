@@ -429,8 +429,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5653153560233940922}
-  - component: {fileID: 7387535972872453460}
   - component: {fileID: 4892773979027901468}
+  - component: {fileID: 5860686151637328382}
   m_Layer: 9
   m_Name: AutoDriveCar
   m_TagString: Car
@@ -454,45 +454,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7387535972872453460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5785612523820667257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a136f2fed734964448fa0f73b994b3e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  elementButton: {fileID: 0}
-  logicObject: {fileID: 764107876471850851, guid: 3964d8f59ae8dfc47ae112b4c15cce9c,
-    type: 3}
-  CanDelete: 1
-  CanDrag: 1
-  IsDraging: 0
-  CanScale: 0
-  offsetLogic: {x: 0, y: 1.7, z: 0}
-  v3Scale: {x: 0, y: 0, z: 0}
-  offsetPos: {x: 0, y: 0, z: 0}
-  speedObjTarget: 0
-  posInit: {x: 0, y: 0, z: 0}
-  posStart: {x: 0, y: 0, z: 0}
-  posAim: {x: 0, y: 0, z: 0}
-  speed1: 5
-  speed2: 0
-  timeEvent: 0
-  disEvent: 0
-  isCarDrive: 0
-  car_Width: 2.2
-  car_extent: 4.3
-  laneFirst: {fileID: 0}
-  laneCurrent: {fileID: 0}
-  speedCurrent: 0
-  distanceBrake: 0
-  currentTL: {fileID: 0}
-  ListLane2Target: []
 --- !u!54 &4892773979027901468
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -509,6 +470,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &5860686151637328382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5785612523820667257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc4c0507cb532484ba03bc2489163e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementButton: {fileID: 0}
+  logicObject: {fileID: 0}
+  offsetLogic: {x: 0, y: 1.6, z: 0}
+  v3Scale: {x: 0, y: 0, z: 0}
+  model: 0
+  speedObjTarget: 0
+  posInit: {x: 0, y: 0, z: 0}
+  posStart: {x: 0, y: 0, z: 0}
+  posAim: {x: 0, y: 0, z: 0}
+  posAimTemp: {x: 0, y: 0, z: 0}
+  isCarDrive: 0
+  distanceBrake: 0
+  speedAim: 0
+  currentSpeed: 0
+  acceleration_break: 5
+  acceleration_forward: 3
 --- !u!1 &6231479553520601118
 GameObject:
   m_ObjectHideFlags: 0

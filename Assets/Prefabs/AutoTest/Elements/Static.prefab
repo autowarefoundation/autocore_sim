@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2623750116490399247}
   - component: {fileID: 2623750116490399246}
   - component: {fileID: 2623750116490399241}
-  - component: {fileID: 4771423445008497279}
   - component: {fileID: -372590517415668282}
+  - component: {fileID: 3146187914210005902}
   m_Layer: 9
   m_Name: Static
   m_TagString: Untagged
@@ -95,28 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4771423445008497279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2623750116490399240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f0cd53353aadd64993315900cdc212f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  elementButton: {fileID: 0}
-  logicObject: {fileID: 3538623350119579185, guid: ae97322451cf2234abd06db56487237c,
-    type: 3}
-  CanDelete: 1
-  CanDrag: 1
-  IsDraging: 0
-  scale: 1
-  CanScale: 0
-  offsetLogic: {x: 0, y: 0, z: 0}
-  v3Scale: {x: 0, y: 0, z: 0}
 --- !u!54 &-372590517415668282
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -133,3 +111,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &3146187914210005902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2623750116490399240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340480f4d12fc104b9cc12c6499934ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  elementButton: {fileID: 0}
+  logicObject: {fileID: 0}
+  offsetLogic: {x: 0, y: 0, z: 0}
+  v3Scale: {x: 0, y: 0, z: 0}
+  model: 0
+  speedObjTarget: 0

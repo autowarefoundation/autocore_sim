@@ -20,26 +20,22 @@
 #endregion
 
 
-using Assets.Scripts;
-using Assets.Scripts.Element;
-using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.simai;
 using UnityEngine;
 
 public class TStraightDetection : MonoBehaviour
 {
-    public TrafficLight tlc;
+    public ITrafficLight tlc;
     private void Start()
     {
         if (tlc == null)
-            tlc = GetComponentInParent<TrafficLight>();
+            tlc = GetComponentInParent<ITrafficLight>();
     }
     private void OnTriggerEnter(Collider other)
     {
-        var objAICar = other.GetComponentInParent<ObjAICar>();
+        var objAICar = other.GetComponentInParent<NPCObj>();
         if (objAICar != null)
         {
-            ObjTestCar.TestCar.CurrentTL = tlc;
             objAICar.currentTL = tlc;
         }
     }
